@@ -183,7 +183,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get aboutBioFallback =>
-      'Criador de The Universe Decides — um app de decisões movido a aleatoriedade real.';
+      'Criador do The Universe Decides, que usa o RANDOM.ORG quando disponível e um gerador local seguro offline.';
 
   @override
   String get aboutShortcutsTitle => 'Atalhos rápidos';
@@ -247,11 +247,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Clássico (verso vermelho)';
 
   @override
-  String get aboutRandomnessCardTitle => 'Como funciona o acaso real?';
+  String get aboutRandomnessCardTitle =>
+      'Como funciona a aleatoriedade';
 
   @override
   String get aboutRandomnessCardSubtitle =>
-      'Por que o app não usa números pseudoaleatórios';
+      'Diferenças entre PRNGs e geradores seguros';
 
   @override
   String get aboutHistoryCardTitle => 'Resultados recentes';
@@ -309,34 +310,41 @@ class AppLocalizationsPt extends AppLocalizations {
   String get randomnessSheetEyebrow => 'O que há por trás do acaso';
 
   @override
-  String get randomnessSheetTitle => 'Acaso real vs. pseudoaleatório';
+  String get randomnessSheetTitle =>
+      'PRNG, geradores seguros e entropia física';
 
   @override
-  String get randomnessCard1Title => 'Computadores não geram acaso de verdade';
+  String get randomnessCard1Title =>
+      'Três conceitos relacionados, mas distintos';
 
   @override
   String get randomnessCard1Body =>
-      'A maioria dos apps usa PRNGs (geradores pseudoaleatórios): fórmulas matemáticas determinísticas que partem de uma \"semente\" (seed). Dado o mesmo seed, o resultado é sempre o mesmo — parece aleatório, mas é 100% previsível se você souber o algoritmo e o estado interno.';
+      'Um PRNG produz sequências determinísticas a partir de uma semente e de um estado interno. É útil para jogos e simulações, mas não foi projetado para resistir a previsões. Um CSPRNG (muitas vezes um DRBG) busca tornar as saídas difíceis de prever e normalmente usa entropia do sistema operacional. Uma fonte física mede um processo físico. São conceitos relacionados, mas diferentes.';
 
   @override
   String get randomnessCard2Title =>
-      'Quando disponível, este app usa entropia física';
+      'O que este app usa';
 
   @override
   String get randomnessCard2Body =>
-      'Quando o Random.org está disponível, cada lançamento consome ruído atmosférico real, coletado a partir de rádio-estática — um fenômeno físico caótico, não um cálculo. Não há semente nem fórmula: o resultado não existe até o instante em que é medido.';
+      'Quando disponível, o app solicita números ao RANDOM.ORG, que documenta ruído de rádio atmosférico como fonte de entropia. A saída pode ser processada e armazenada em buffer antes da solicitação; não verificamos esse processo. Offline, o app usa Dart Random.secure() se houver uma fonte segura do sistema. Se a aleatoriedade segura não for compatível, usa um PRNG comum e o identifica como não seguro criptograficamente.';
 
   @override
-  String get randomnessCard3Title => 'Por que isso importa na prática';
+  String get randomnessCard3Title =>
+      'Entropia não é prova';
 
   @override
   String get randomnessCard3Body =>
-      'Em decisões que você quer que sejam justas e incontestáveis — sorteios, desempates, apostas amistosas — a entropia física fornece um resultado de fonte independente. Se o Random.org estiver indisponível, o app usa aleatoriedade pseudoaleatória local e mostra um aviso de fallback.';
+      'Entropia descreve incerteza, mas não prova que um resultado seja imparcial ou verificável de forma independente. O condicionamento pode reduzir viés, mas não criar entropia ausente. Testes estatísticos detectam alguns problemas, mas não provam aleatoriedade. Um gerador seguro não precisa de novo ruído físico para cada valor. APIs de inteiros limitados evitam viés de módulo. O resto pode favorecer algumas faces quando o intervalo não se divide igualmente; APIs limitadas evitam esse viés de módulo.';
 
   @override
   String get randomnessSheetButton => 'Entendi';
 
   @override
   String get randomOrgFallbackNotice =>
-      'Random.org indisponivel. Usando aleatoriedade local.';
+      'RANDOM.ORG indisponível. Usando gerador seguro local (CSPRNG).';
+
+  @override
+  String get secureRandomUnavailableNotice =>
+      'RANDOM.ORG indisponível e RNG seguro não suportado. Usando PRNG local (não seguro criptograficamente).';
 }

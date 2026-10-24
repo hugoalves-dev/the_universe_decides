@@ -430,10 +430,7 @@ abstract class AppLocalizations {
   /// **'About me'**
   String get aboutTitle;
 
-  /// No description provided for @aboutBioFallback.
-  ///
-  /// In en, this message translates to:
-  /// **'Creator of The Universe Decides — a decision app powered by real randomness.'**
+  /// Localized content for @aboutBioFallback.
   String get aboutBioFallback;
 
   /// No description provided for @aboutShortcutsTitle.
@@ -536,16 +533,10 @@ abstract class AppLocalizations {
   /// **'Classic (red back)'**
   String get cardDeckPublicDomainRed;
 
-  /// No description provided for @aboutRandomnessCardTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'How does real randomness work?'**
+  /// Localized content for @aboutRandomnessCardTitle.
   String get aboutRandomnessCardTitle;
 
-  /// No description provided for @aboutRandomnessCardSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Why the app avoids pseudo-random numbers'**
+  /// Localized content for @aboutRandomnessCardSubtitle.
   String get aboutRandomnessCardSubtitle;
 
   /// No description provided for @aboutHistoryCardTitle.
@@ -650,46 +641,25 @@ abstract class AppLocalizations {
   /// **'What lies behind chance'**
   String get randomnessSheetEyebrow;
 
-  /// No description provided for @randomnessSheetTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Real chance vs. pseudo-random'**
+  /// Localized content for @randomnessSheetTitle.
   String get randomnessSheetTitle;
 
-  /// No description provided for @randomnessCard1Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Computers don\'t create true randomness'**
+  /// Localized content for @randomnessCard1Title.
   String get randomnessCard1Title;
 
-  /// No description provided for @randomnessCard1Body.
-  ///
-  /// In en, this message translates to:
-  /// **'Most apps use PRNGs (pseudo-random generators): deterministic math formulas that start from a \"seed\". Given the same seed, the result is always the same — it looks random, but it is 100% predictable if you know the algorithm and its internal state.'**
+  /// Localized content for @randomnessCard1Body.
   String get randomnessCard1Body;
 
-  /// No description provided for @randomnessCard2Title.
-  ///
-  /// In en, this message translates to:
-  /// **'When available, this app uses physical entropy'**
+  /// Localized content for @randomnessCard2Title.
   String get randomnessCard2Title;
 
-  /// No description provided for @randomnessCard2Body.
-  ///
-  /// In en, this message translates to:
-  /// **'When Random.org is available, a draw consumes real atmospheric noise collected from radio static — a chaotic physical phenomenon, not a calculation. There is no seed or formula: the result does not exist until the instant it is measured.'**
+  /// Localized content for @randomnessCard2Body.
   String get randomnessCard2Body;
 
-  /// No description provided for @randomnessCard3Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Why it matters in practice'**
+  /// Localized content for @randomnessCard3Title.
   String get randomnessCard3Title;
 
-  /// No description provided for @randomnessCard3Body.
-  ///
-  /// In en, this message translates to:
-  /// **'For decisions you want to be fair and indisputable — draws, tie-breaks, friendly bets — physical entropy provides an independently sourced result. If Random.org is unavailable, the app uses local pseudo-randomness instead and shows a fallback notice.'**
+  /// Localized content for @randomnessCard3Body.
   String get randomnessCard3Body;
 
   /// No description provided for @randomnessSheetButton.
@@ -698,11 +668,11 @@ abstract class AppLocalizations {
   /// **'Got it'**
   String get randomnessSheetButton;
 
-  /// No description provided for @randomOrgFallbackNotice.
-  ///
-  /// In en, this message translates to:
-  /// **'Random.org is unavailable. Using local randomness.'**
+  /// Localized content for @randomOrgFallbackNotice.
   String get randomOrgFallbackNotice;
+
+  /// Shown when RANDOM.ORG and the secure local source are unavailable.
+  String get secureRandomUnavailableNotice;
 }
 
 class _AppLocalizationsDelegate

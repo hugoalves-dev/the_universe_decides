@@ -88,6 +88,8 @@ class _HowRandomnessSheet extends StatelessWidget {
               title: l10n.randomnessCard3Title,
               body: l10n.randomnessCard3Body,
             ),
+            const SizedBox(height: 14),
+            const _ExamplesCard(),
             const SizedBox(height: 18),
             SizedBox(
               width: double.infinity,
@@ -122,6 +124,58 @@ class _HowRandomnessSheet extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ExamplesCard extends StatelessWidget {
+  const _ExamplesCard();
+
+  static const _examples = '''Dart   PRNG: Random().nextInt(6) + 1
+       CSPRNG: Random.secure().nextInt(6) + 1
+Java   PRNG: new Random().nextInt(6) + 1
+       CSPRNG: new SecureRandom().nextInt(6) + 1
+C#     PRNG: Random.Shared.Next(1, 7)
+       CSPRNG: RandomNumberGenerator.GetInt32(1, 7)
+Python PRNG: random.randrange(1, 7)
+       CSPRNG: secrets.randbelow(6) + 1
+Node   PRNG: Math.floor(Math.random() * 6) + 1
+       CSPRNG: randomInt(1, 7)
+PowerShell: Get-SecureRandom -Minimum 1 -Maximum 7''';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: const Color(0x08FFFFFF),
+        border: Border.all(color: const Color(0x14FFFFFF)),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Six-sided die examples (1–6)',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: AppColors.gold1,
+            ),
+          ),
+          SizedBox(height: 8),
+          SelectableText(
+            _examples,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              height: 1.55,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

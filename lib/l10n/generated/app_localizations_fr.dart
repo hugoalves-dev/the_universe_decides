@@ -187,7 +187,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aboutBioFallback =>
-      'Créateur de The Universe Decides — une appli de décision propulsée par le hasard réel.';
+      'Créateur de The Universe Decides, qui utilise RANDOM.ORG si disponible et un générateur local sûr hors ligne.';
 
   @override
   String get aboutShortcutsTitle => 'Raccourcis rapides';
@@ -251,11 +251,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Classique (dos rouge)';
 
   @override
-  String get aboutRandomnessCardTitle => 'Comment fonctionne le vrai hasard ?';
+  String get aboutRandomnessCardTitle =>
+      'Comment fonctionne le hasard';
 
   @override
   String get aboutRandomnessCardSubtitle =>
-      'Pourquoi l\'appli évite les nombres pseudo-aléatoires';
+      'Différences entre PRNG et générateurs sûrs';
 
   @override
   String get aboutHistoryCardTitle => 'Résultats récents';
@@ -314,35 +315,41 @@ class AppLocalizationsFr extends AppLocalizations {
   String get randomnessSheetEyebrow => 'Ce qui se cache derrière le hasard';
 
   @override
-  String get randomnessSheetTitle => 'Vrai hasard vs pseudo-aléatoire';
+  String get randomnessSheetTitle =>
+      'PRNG, générateurs sûrs et entropie physique';
 
   @override
   String get randomnessCard1Title =>
-      'Les ordinateurs ne créent pas de vrai hasard';
+      'Trois notions liées, mais distinctes';
 
   @override
   String get randomnessCard1Body =>
-      'La plupart des applis utilisent des PRNG (générateurs pseudo-aléatoires) : des formules mathématiques déterministes qui partent d\'une « graine » (seed). Avec la même graine, le résultat est toujours identique — cela paraît aléatoire, mais c\'est prévisible à 100 % si l\'on connaît l\'algorithme et son état interne.';
+      'Un PRNG produit une suite déterministe à partir d\'une graine et d\'un état interne. Il convient aux jeux et simulations, mais n\'est pas conçu pour résister à la prédiction. Un CSPRNG (souvent un DRBG) vise des sorties difficiles à prévoir et utilise généralement l\'entropie du système. Une source physique mesure un phénomène physique. Ces notions sont liées, mais différentes.';
 
   @override
   String get randomnessCard2Title =>
-      'Quand elle est disponible, cette appli utilise l\'entropie physique';
+      'Ce que cette app utilise';
 
   @override
   String get randomnessCard2Body =>
-      'Quand Random.org est disponible, un tirage consomme du vrai bruit atmosphérique collecté à partir de parasites radio — un phénomène physique chaotique, pas un calcul. Il n\'y a ni graine ni formule : le résultat n\'existe qu\'à l\'instant où il est mesuré.';
+      'Quand le service est disponible, l\'app demande des nombres à RANDOM.ORG, qui décrit le bruit radio atmosphérique comme source d\'entropie. Les données peuvent être traitées et mises en tampon avant la requête ; nous ne vérifions pas ce processus. Hors ligne, l\'app utilise Dart Random.secure() si une source système sûre existe. Si le hasard sûr n’est pas pris en charge, un PRNG ordinaire est utilisé et signalé comme non cryptographiquement sûr.';
 
   @override
-  String get randomnessCard3Title => 'Pourquoi cela compte en pratique';
+  String get randomnessCard3Title =>
+      'L\'entropie n\'est pas une preuve';
 
   @override
   String get randomnessCard3Body =>
-      'Pour les décisions que tu veux justes et incontestables — tirages au sort, départages, paris amicaux — l\'entropie physique fournit un résultat issu d\'une source indépendante. Si Random.org est indisponible, l\'appli utilise le hasard pseudo-aléatoire local et affiche un avis de repli.';
+      'L\'entropie décrit l\'incertitude, sans prouver qu\'un résultat est impartial ou vérifiable indépendamment. Le conditionnement peut réduire un biais, mais pas créer l\'entropie manquante. Les tests statistiques détectent certains problèmes sans prouver le hasard. Un générateur sûr n\'a pas besoin de bruit physique neuf pour chaque valeur. Les API d\'entiers bornés évitent le biais modulo. Un simple reste peut favoriser certaines faces si la plage ne se divise pas exactement ; les API bornées évitent ce biais modulo.';
 
   @override
   String get randomnessSheetButton => 'Compris';
 
   @override
   String get randomOrgFallbackNotice =>
-      'Random.org est indisponible. Utilisation du hasard local.';
+      'RANDOM.ORG indisponible. Utilisation du générateur sûr local (CSPRNG).';
+
+  @override
+  String get secureRandomUnavailableNotice =>
+      'RANDOM.ORG indisponible et générateur sûr non pris en charge. Utilisation d’un PRNG local (non cryptographiquement sûr).';
 }

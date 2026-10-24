@@ -185,7 +185,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aboutBioFallback =>
-      'The Universe Decides\'ın yaratıcısı — gerçek rastgelelikle çalışan bir karar uygulaması.';
+      'RANDOM.ORG mevcutken ve çevrimdışıyken yerel güvenli üreteç kullanan The Universe Decides uygulamasının geliştiricisi.';
 
   @override
   String get aboutShortcutsTitle => 'Hızlı kısayollar';
@@ -249,11 +249,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Klasik (kırmızı arka yüz)';
 
   @override
-  String get aboutRandomnessCardTitle => 'Gerçek rastgelelik nasıl çalışır?';
+  String get aboutRandomnessCardTitle =>
+      'Rastgelelik nasıl çalışır';
 
   @override
   String get aboutRandomnessCardSubtitle =>
-      'Uygulama neden sözde rastgele sayılardan kaçınır';
+      'PRNG ve güvenli üreteçler arasındaki farklar';
 
   @override
   String get aboutHistoryCardTitle => 'Son sonuçlar';
@@ -309,34 +310,41 @@ class AppLocalizationsTr extends AppLocalizations {
   String get randomnessSheetEyebrow => 'Şansın arkasında ne var';
 
   @override
-  String get randomnessSheetTitle => 'Gerçek şans ile sözde rastgelelik';
+  String get randomnessSheetTitle =>
+      'PRNG, güvenli üreteçler ve fiziksel entropi';
 
   @override
-  String get randomnessCard1Title => 'Bilgisayarlar gerçek rastgelelik üretmez';
+  String get randomnessCard1Title =>
+      'İlişkili ama farklı üç kavram';
 
   @override
   String get randomnessCard1Body =>
-      'Çoğu uygulama PRNG (sözde rastgele üreteçler) kullanır: bir \"seed\"den başlayan deterministik matematiksel formüller. Aynı seed verildiğinde sonuç her zaman aynıdır — rastgele görünür ama algoritmayı ve iç durumunu bilirseniz %100 tahmin edilebilir.';
+      'PRNG, bir başlangıç değeri ve iç durumdan belirleyici diziler üretir. Oyunlar ve benzetimler için kullanışlıdır ancak tahmine karşı koruma amacı taşımaz. CSPRNG (çoğunlukla DRBG olarak kurulur), çıktıları tahmin etmeyi zorlaştırır ve genellikle işletim sistemi entropisini kullanır. Fiziksel kaynak bir fiziksel süreci ölçer. Bunlar ilişkili ama farklı kavramlardır.';
 
   @override
   String get randomnessCard2Title =>
-      'Mevcut olduğunda bu uygulama fiziksel entropi kullanır';
+      'Bu uygulamanın kullandıkları';
 
   @override
   String get randomnessCard2Body =>
-      'Random.org mevcut olduğunda, bir çekiliş radyo parazitinden toplanan gerçek atmosferik gürültüyü kullanır — kaotik bir fiziksel olgu, bir hesaplama değil. Seed veya formül yoktur: sonuç ölçüldüğü ana kadar var olmaz.';
+      'Kullanılabilir olduğunda uygulama, atmosferik radyo gürültüsünü entropi kaynağı olarak belgeleyen RANDOM.ORG\'dan sayı ister. Veriler istek öncesinde işlenip tamponlanabilir; bu süreci biz doğrulamıyoruz. Çevrimdışıyken uygulama, sistem güvenli kaynak sağlıyorsa Dart Random.secure() kullanır. Güvenli rastgelelik desteklenmiyorsa sıradan bir PRNG kullanır ve bunu kriptografik olarak güvenli değil diye belirtir.';
 
   @override
-  String get randomnessCard3Title => 'Bu pratikte neden önemli';
+  String get randomnessCard3Title =>
+      'Entropi kanıt değildir';
 
   @override
   String get randomnessCard3Body =>
-      'Adil ve tartışılmaz olmasını istediğiniz kararlar için — çekilişler, beraberlik bozma, dostane bahisler — fiziksel entropi bağımsız kaynaklı bir sonuç sağlar. Random.org kullanılamıyorsa uygulama yerel sözde rastgeleliği kullanır ve bir yedek bildirimi gösterir.';
+      'Entropi belirsizliği anlatır; tek bir sonucun tarafsız veya bağımsız doğrulanabilir olduğunu kanıtlamaz. İşleme yanlılığı azaltabilir, eksik entropiyi yaratamaz. İstatistik testleri bazı sorunları bulabilir ama rastgeleliği kanıtlayamaz. Güvenli üreteç her değer için yeni fiziksel gürültü gerektirmez. Sınırlandırılmış tamsayı API\'leri modül yanlılığını önler. Aralık eşit bölünmüyorsa kalan işlemi bazı yüzleri daha olası kılabilir; sınırlandırılmış API’ler bu modulo yanlılığını önler.';
 
   @override
   String get randomnessSheetButton => 'Anladım';
 
   @override
   String get randomOrgFallbackNotice =>
-      'Random.org kullanılamıyor. Yerel rastgelelik kullanılıyor.';
+      'RANDOM.ORG kullanılamıyor. Yerel güvenli üreteç (CSPRNG) kullanılıyor.';
+
+  @override
+  String get secureRandomUnavailableNotice =>
+      'RANDOM.ORG kullanılamıyor ve güvenli RNG desteklenmiyor. Yerel PRNG kullanılıyor (kriptografik olarak güvenli değil).';
 }

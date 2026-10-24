@@ -249,3 +249,80 @@ The repository includes branded launcher icons. To regenerate them later, use th
 
 - [App Icon Forge](https://www.appicon.co/)
 - [`flutter_launcher_icons`](https://pub.dev/packages/flutter_launcher_icons)
+
+## Random number sources
+
+A pseudo-random number generator (PRNG) deterministically expands a seed and
+internal state. It is useful for games, simulations, and repeatable tests, but
+is not designed to resist prediction. A cryptographically secure RNG (CSPRNG),
+often built from a deterministic random bit generator (DRBG), is designed to
+make outputs hard to predict and commonly draws on operating-system entropy. A
+physical entropy source measures a physical process; its output may be
+conditioned and buffered before use. These are related but distinct ideas.
+
+Entropy describes uncertainty; it does not prove that one result is unbiased
+or independently verifiable. Conditioning can reduce bias but cannot create
+missing entropy. Statistical tests can detect some defects, but cannot prove
+randomness. A CSPRNG does not need fresh physical noise for every output. A direct remainder operation can favor some outcomes when the output range does not divide evenly; bounded integer APIs avoid that modulo bias.
+
+For a fair six-sided die, use bounded integer APIs, which avoid modulo bias:
+
+```dart
+import 'dart:math';
+final ordinaryRoll = Random().nextInt(6) + 1;       // PRNG
+final secureRoll = Random.secure().nextInt(6) + 1;  // CSPRNG, if supported
+```
+
+```java
+import java.security.SecureRandom;
+import java.util.Random;
+int ordinaryRoll = new Random().nextInt(6) + 1;       // PRNG
+int secureRoll = new SecureRandom().nextInt(6) + 1;  // CSPRNG
+```
+
+```csharp
+using System;
+using System.Security.Cryptography;
+int ordinaryRoll = Random.Shared.Next(1, 7);                 // PRNG
+int secureRoll = RandomNumberGenerator.GetInt32(1, 7);       // CSPRNG
+```
+
+```python
+import random, secrets
+ordinary_roll = random.randrange(1, 7)  # PRNG
+secure_roll = secrets.randbelow(6) + 1  # CSPRNG
+```
+
+```javascript
+import { randomInt } from 'node:crypto';
+const ordinaryRoll = Math.floor(Math.random() * 6) + 1; // PRNG
+const secureRoll = randomInt(1, 7);                    // CSPRNG
+```
+
+```powershell
+$ordinaryRoll = Get-Random -Minimum 1 -Maximum 7
+$secureRoll = Get-SecureRandom -Minimum 1 -Maximum 7
+```
+
+On Windows, system cryptography uses CNG (`BCryptGenRandom`); on Linux, the
+kernel RNG is available through `getrandom(2)`. Other Unix-like systems expose
+OS-backed cryptographic randomness through their own interfaces. A kernel RNG
+can use collected entropy without measuring new physical noise for every read.
+This app asks RANDOM.ORG for numbers when available; its documented radio-noise
+source and buffering are provider claims that this app does not independently
+verify. Offline it uses Dart `Random.secure()`. If secure randomness is unsupported, the app falls back to an ordinary PRNG
+and clearly labels it as non-cryptographic.
+
+Primary references: [Dart Random](https://api.dart.dev/dart-math/Random-class.html),
+[Java SecureRandom](https://docs.oracle.com/en/java/javase/26/docs/api/java.base/java/security/SecureRandom.html),
+[.NET GetInt32](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator.getint32),
+[Python secrets](https://docs.python.org/3/library/secrets.html),
+[Node crypto.randomInt](https://nodejs.org/api/crypto.html#cryptorandomintmin-max-callback),
+[PowerShell Get-SecureRandom](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-securerandom),
+[Windows BCryptGenRandom](https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/nf-bcrypt-bcryptgenrandom),
+[Linux getrandom(2)](https://man7.org/linux/man-pages/man2/getrandom.2.html),
+[NIST SP 800-90B](https://csrc.nist.gov/pubs/sp/800/90/b/final),
+[NIST conditioning guidance](https://csrc.nist.gov/Projects/random-bit-generation/sp-800-90-updates),
+[RANDOM.ORG entropy limitations](https://www.random.org/statistics/information-entropy/),
+[RANDOM.ORG buffer statistics](https://www.random.org/statistics/buffer-level/), and
+[RANDOM.ORG API claims and external testing](https://api.random.org/features).

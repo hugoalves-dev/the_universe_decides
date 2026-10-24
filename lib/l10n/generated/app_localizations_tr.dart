@@ -204,6 +204,21 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bir karar tamamlandığında hafif bir ses çal.';
 
   @override
+  String get aboutCardDeckTitle => 'Kart destesi';
+
+  @override
+  String get aboutCardDeckSubtitle => 'Çekilen kartların tasarımını seçin.';
+
+  @override
+  String get cardDeckUniverse => 'Evren stili';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Klasik (mavi arka yüz)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Klasik (kırmızı arka yüz)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Gerçek rastgelelik nasıl çalışır?';
 
   @override

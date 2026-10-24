@@ -210,6 +210,21 @@ class AppLocalizationsDe extends AppLocalizations {
       'Einen dezenten Ton abspielen, wenn eine Entscheidung abgeschlossen ist.';
 
   @override
+  String get aboutCardDeckTitle => 'Kartendeck';
+
+  @override
+  String get aboutCardDeckSubtitle => 'Wähle das Design für Kartenziehungen.';
+
+  @override
+  String get cardDeckUniverse => 'Universum-Stil';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Klassisch (blaue Rückseite)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Klassisch (rote Rückseite)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Wie funktioniert echter Zufall?';
 
   @override

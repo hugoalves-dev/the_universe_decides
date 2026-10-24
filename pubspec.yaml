@@ -3,7 +3,7 @@ description: "A mystical Flutter decision app powered by Random.org with local f
 
 publish_to: 'none'
 
-version: 2.7.0+100217
+version: 2.8.0+100217
 
 environment:
   sdk: ^3.10.0
@@ -37,6 +37,8 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
+    - assets/cards/public_domain/
+    - assets/cards/public_domain/faces/
     - assets/dice/
     - assets/dice/libs/
     - assets/sounds/

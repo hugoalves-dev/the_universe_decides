@@ -202,6 +202,21 @@ class AppLocalizationsEn extends AppLocalizations {
       'Play a subtle sound when a decision is complete.';
 
   @override
+  String get aboutCardDeckTitle => 'Card deck';
+
+  @override
+  String get aboutCardDeckSubtitle => 'Choose the artwork for card draws.';
+
+  @override
+  String get cardDeckUniverse => 'Universe style';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Classic (blue back)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Classic (red back)';
+
+  @override
   String get aboutRandomnessCardTitle => 'How does real randomness work?';
 
   @override

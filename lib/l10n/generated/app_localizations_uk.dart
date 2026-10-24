@@ -208,6 +208,22 @@ class AppLocalizationsUk extends AppLocalizations {
       'Відтворювати тихий звук, коли рішення прийнято.';
 
   @override
+  String get aboutCardDeckTitle => 'Колода карт';
+
+  @override
+  String get aboutCardDeckSubtitle =>
+      'Виберіть вигляд карт під час витягування.';
+
+  @override
+  String get cardDeckUniverse => 'Стиль «Всесвіт»';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Класичний (синя сорочка)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Класичний (червона сорочка)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Як працює справжня випадковість?';
 
   @override

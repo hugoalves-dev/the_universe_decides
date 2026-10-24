@@ -204,6 +204,22 @@ class AppLocalizationsIt extends AppLocalizations {
       'Riproduci un suono discreto al termine di una decisione.';
 
   @override
+  String get aboutCardDeckTitle => 'Mazzo di carte';
+
+  @override
+  String get aboutCardDeckSubtitle =>
+      'Scegli lo stile grafico delle carte estratte.';
+
+  @override
+  String get cardDeckUniverse => 'Stile Universo';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Classico (retro blu)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Classico (retro rosso)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Come funziona la casualità reale?';
 
   @override

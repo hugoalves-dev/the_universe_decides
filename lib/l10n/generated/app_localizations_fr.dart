@@ -206,6 +206,21 @@ class AppLocalizationsFr extends AppLocalizations {
       'Jouer un son discret lorsqu\'une décision est prise.';
 
   @override
+  String get aboutCardDeckTitle => 'Jeu de cartes';
+
+  @override
+  String get aboutCardDeckSubtitle => 'Choisissez le visuel des cartes tirées.';
+
+  @override
+  String get cardDeckUniverse => 'Style Univers';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Classique (dos bleu)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Classique (dos rouge)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Comment fonctionne le vrai hasard ?';
 
   @override

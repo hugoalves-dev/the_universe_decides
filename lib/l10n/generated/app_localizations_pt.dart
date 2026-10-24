@@ -202,6 +202,21 @@ class AppLocalizationsPt extends AppLocalizations {
       'Reproduzir um som sutil quando uma decisão terminar.';
 
   @override
+  String get aboutCardDeckTitle => 'Baralho de cartas';
+
+  @override
+  String get aboutCardDeckSubtitle => 'Escolha o visual das cartas sorteadas.';
+
+  @override
+  String get cardDeckUniverse => 'Estilo Universo';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'Clássico (verso azul)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'Clássico (verso vermelho)';
+
+  @override
   String get aboutRandomnessCardTitle => 'Como funciona o acaso real?';
 
   @override

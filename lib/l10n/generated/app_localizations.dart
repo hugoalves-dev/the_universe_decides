@@ -466,6 +466,36 @@ abstract class AppLocalizations {
   /// **'Play a subtle sound when a decision is complete.'**
   String get aboutSoundEffectsSubtitle;
 
+  /// No description provided for @aboutCardDeckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Card deck'**
+  String get aboutCardDeckTitle;
+
+  /// No description provided for @aboutCardDeckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the artwork for card draws.'**
+  String get aboutCardDeckSubtitle;
+
+  /// No description provided for @cardDeckUniverse.
+  ///
+  /// In en, this message translates to:
+  /// **'Universe style'**
+  String get cardDeckUniverse;
+
+  /// No description provided for @cardDeckPublicDomainBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic (blue back)'**
+  String get cardDeckPublicDomainBlue;
+
+  /// No description provided for @cardDeckPublicDomainRed.
+  ///
+  /// In en, this message translates to:
+  /// **'Classic (red back)'**
+  String get cardDeckPublicDomainRed;
+
   /// No description provided for @aboutRandomnessCardTitle.
   ///
   /// In en, this message translates to:

@@ -42,9 +42,9 @@
 **Interfaces:**
 - Produces: Normalized lowercase asset paths using `hearts`, `diamonds`, `clubs`, or `spades` and rank names `ace`, `2`–`10`, `jack`, `queen`, or `king`.
 
-- [ ] Copy the 52 standard-card PNG faces and the blue and red back PNGs from the linked repository into the normalized asset paths; omit its jokers.
-- [ ] Add the source repository URL and its stated CC0/public-domain license to `assets/cards/ATTRIBUTION.md`.
-- [ ] Declare both `assets/cards/public_domain/` and `assets/cards/public_domain/faces/` in `pubspec.yaml` so the back and face images are bundled on all supported platforms.
+- [x] Copy the 52 standard-card PNG faces and the blue and red back PNGs from the linked repository into the normalized asset paths; resize them to 630×882 pixels for the 210×296 logical card stage at up to 3× density, preserve transparency, and omit its jokers.
+- [x] Add the source repository URL and its stated CC0/public-domain license to `assets/cards/ATTRIBUTION.md`.
+- [x] Declare both `assets/cards/public_domain/` and `assets/cards/public_domain/faces/` in `pubspec.yaml` so the back and face images are bundled on all supported platforms.
 
 ### Task 2: Add the persistent deck preference and settings selector
 
@@ -59,11 +59,11 @@
 - Produces: `cardDeckStyleProvider`, a `NotifierProvider<CardDeckNotifier, CardDeckStyle>`.
 - Produces: `CardDeckNotifier.setStyle(CardDeckStyle style)` and a stable SharedPreferences key `card_deck_style` whose values are the enum names.
 
-- [ ] Add the enum and notifier in `lib/services/card_deck_service.dart`; default to `universe`, load the stored enum name, and fall back to `universe` for an absent or invalid value.
-- [ ] Implement `setStyle` to update provider state and save `style.name` to SharedPreferences.
-- [ ] Add localized labels for the setting and its three choices to all nine ARB files, keeping the existing English ARB as the localization template.
-- [ ] Regenerate the localization Dart files with the repository's configured Flutter localization generator.
-- [ ] Add a selector directly below the Sound effects control in `AboutMeScreen`, bound to `cardDeckStyleProvider` and `setStyle`.
+- [x] Add the enum and notifier in `lib/services/card_deck_service.dart`; default to `universe`, load the stored enum name, and fall back to `universe` for an absent or invalid value.
+- [x] Implement `setStyle` to update provider state and save `style.name` to SharedPreferences.
+- [x] Add localized labels for the setting and its three choices to all nine ARB files, keeping the existing English ARB as the localization template.
+- [x] Generate the localization Dart files with the configured generator when available; if the Flutter/Dart SDK is unavailable, keep the generated interface and locale implementations synchronized with the ARB files.
+- [x] Add a selector directly below the Sound effects control in `AboutMeScreen`, bound to `cardDeckStyleProvider` and `setStyle`.
 
 ### Task 3: Render the selected deck in the card draw screen
 
@@ -74,10 +74,10 @@
 - Consumes: `CardDeckStyle` and `cardDeckStyleProvider` from `card_deck_service.dart`; `PlayingCard` and `CardSuit` from `card_draw_controller.dart`.
 - Produces: `_publicDomainFaceAssetPath(PlayingCard card) -> String`, mapping each standard card to `assets/cards/public_domain/faces/{suit}_{rank}.png`; the rank names are `ace`, `2`–`10`, `jack`, `queen`, and `king`.
 
-- [ ] Watch `cardDeckStyleProvider` in `CardDrawScreen` and pass the selected style into `_CardFace`.
-- [ ] Preserve the existing custom Universe front and back for `CardDeckStyle.universe`.
-- [ ] For CC0 styles, display the mapped face PNG and select `back_blue.png` or `back_red.png` for the card back.
-- [ ] Keep card rank/suit, result history, animation timing, haptics, and random draw logic unchanged when the selected style changes.
+- [x] Watch `cardDeckStyleProvider` in `CardDrawScreen` and pass the selected style into `_CardFace`.
+- [x] Preserve the existing custom Universe front and back for `CardDeckStyle.universe`.
+- [x] For CC0 styles, display the mapped face PNG and select `back_blue.png` or `back_red.png` for the card back.
+- [x] Keep card rank/suit, result history, animation timing, haptics, and random draw logic unchanged when the selected style changes.
 
 ### Task 4: Apply the feature release metadata
 
@@ -85,6 +85,6 @@
 - Modify: `pubspec.yaml`
 - Modify: `CHANGELOG.xml`
 
-- [ ] Set the semantic version to `2.8.0+100217`; preserve the build number exactly.
-- [ ] Replace all previous changelog notes with one concise card-deck selection note for each supported locale, using the existing required locale tags and order in `.claude/CLAUDE.md`.
+- [x] Set the semantic version to `2.8.0+100217`; preserve the build number exactly.
+- [x] Replace all previous changelog notes with one concise card-deck selection note for each supported locale, using the existing required locale tags and order in `.claude/CLAUDE.md`.
 

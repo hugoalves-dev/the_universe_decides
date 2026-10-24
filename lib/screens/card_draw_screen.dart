@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:theuniversedecides/controllers/card_draw_controller.dart';
+import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/layout/ritual_screen_frame.dart';
+import 'package:theuniversedecides/services/card_deck_service.dart';
 import 'package:theuniversedecides/services/results_history_service.dart';
 import 'package:theuniversedecides/services/sound_effects_service.dart';
-import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
 import 'package:theuniversedecides/widgets/ritual_header.dart';
@@ -66,6 +67,7 @@ class _CardDrawScreenState extends ConsumerState<CardDrawScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(cardDrawProvider);
+    final deckStyle = ref.watch(cardDeckStyleProvider);
     final cardKey = ValueKey<int>(_flipCount);
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
@@ -115,7 +117,11 @@ class _CardDrawScreenState extends ConsumerState<CardDrawScreen> {
               },
             );
           },
-          child: _CardFace(key: cardKey, card: state.card),
+          child: _CardFace(
+            key: cardKey,
+            card: state.card,
+            deckStyle: deckStyle,
+          ),
         ),
       ),
       body: RitualButton(
@@ -129,9 +135,14 @@ class _CardDrawScreenState extends ConsumerState<CardDrawScreen> {
 
 /// A single flipping card: the mystic back before a draw, a playing card after.
 class _CardFace extends StatelessWidget {
-  const _CardFace({super.key, required this.card});
+  const _CardFace({
+    super.key,
+    required this.card,
+    required this.deckStyle,
+  });
 
   final PlayingCard? card;
+  final CardDeckStyle deckStyle;
 
   static const _cardRed = Color(0xFFD63A56);
   static const _cardDark = Color(0xFF171A20);
@@ -141,10 +152,27 @@ class _CardFace extends StatelessWidget {
     if (card == null) {
       return _buildBack();
     }
+    if (deckStyle != CardDeckStyle.universe) {
+      return _buildAssetCard(
+        _publicDomainFaceAssetPath(card!),
+        semanticLabel: card!.shortLabel,
+      );
+    }
     return _buildFront(context, card!);
   }
 
   Widget _buildBack() {
+    final assetPath = switch (deckStyle) {
+      CardDeckStyle.universe => null,
+      CardDeckStyle.publicDomainBlue =>
+        'assets/cards/public_domain/back_blue.png',
+      CardDeckStyle.publicDomainRed =>
+        'assets/cards/public_domain/back_red.png',
+    };
+    if (assetPath != null) {
+      return _buildAssetCard(assetPath);
+    }
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22),
@@ -183,6 +211,42 @@ class _CardFace extends StatelessWidget {
               size: 24,
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  String _publicDomainFaceAssetPath(PlayingCard card) {
+    final rank = switch (card.rank) {
+      'A' => 'ace',
+      'J' => 'jack',
+      'Q' => 'queen',
+      'K' => 'king',
+      _ => card.rank,
+    };
+    return 'assets/cards/public_domain/faces/${card.suit.name}_$rank.png';
+  }
+
+  Widget _buildAssetCard(String assetPath, {String? semanticLabel}) {
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(22)),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x40000000),
+            blurRadius: 34,
+            offset: Offset(0, 20),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: Image.asset(
+          assetPath,
+          width: 210,
+          height: 296,
+          fit: BoxFit.cover,
+          semanticLabel: semanticLabel,
         ),
       ),
     );

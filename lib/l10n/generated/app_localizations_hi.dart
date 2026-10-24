@@ -203,6 +203,21 @@ class AppLocalizationsHi extends AppLocalizations {
       'निर्णय पूरा होने पर एक हल्की ध्वनि बजाएं।';
 
   @override
+  String get aboutCardDeckTitle => 'ताश का डेक';
+
+  @override
+  String get aboutCardDeckSubtitle => 'खींचे गए कार्डों का डिज़ाइन चुनें।';
+
+  @override
+  String get cardDeckUniverse => 'यूनिवर्स शैली';
+
+  @override
+  String get cardDeckPublicDomainBlue => 'क्लासिक (नीली पीठ)';
+
+  @override
+  String get cardDeckPublicDomainRed => 'क्लासिक (लाल पीठ)';
+
+  @override
   String get aboutRandomnessCardTitle =>
       'वास्तविक यादृच्छिकता कैसे काम करती है?';
 

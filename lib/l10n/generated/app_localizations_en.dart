@@ -202,6 +202,36 @@ class AppLocalizationsEn extends AppLocalizations {
       'Play a subtle sound when a decision is complete.';
 
   @override
+  String get aboutTarotDeckTitle => 'Tarot deck';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Choose the artwork for tarot draws.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Upright';
+
+  @override
+  String get tarotReversed => 'Reversed';
+
+  @override
+  String get tarotMeaningTitle => 'Meaning';
+
+  @override
   String get aboutCardDeckTitle => 'Card deck';
 
   @override

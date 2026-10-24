@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Why it matters in practice",
   "randomnessCard3Body": "For decisions you want to be fair and indisputable — draws, tie-breaks, friendly bets — physical entropy provides an independently sourced result. If Random.org is unavailable, the app uses local pseudo-randomness instead and shows a fallback notice.",
   "randomnessSheetButton": "Got it",
-  "randomOrgFallbackNotice": "Random.org is unavailable. Using local randomness."
+  "randomOrgFallbackNotice": "Random.org is unavailable. Using local randomness.",
+  "aboutTarotDeckTitle": "Tarot deck",
+  "aboutTarotDeckSubtitle": "Choose the artwork for tarot draws.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Upright",
+  "tarotReversed": "Reversed",
+  "tarotMeaningTitle": "Meaning"
 }

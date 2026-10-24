@@ -112,5 +112,15 @@
   "randomnessCard3Title": "व्यवहार में यह क्यों मायने रखता है",
   "randomnessCard3Body": "उन निर्णयों के लिए जिन्हें आप निष्पक्ष और निर्विवाद चाहते हैं — ड्रॉ, टाई-ब्रेक, दोस्ताना दांव — भौतिक एन्ट्रॉपी एक स्वतंत्र स्रोत से प्राप्त परिणाम प्रदान करती है। यदि Random.org अनुपलब्ध है, तो ऐप स्थानीय छद्म-यादृच्छिकता का उपयोग करता है और एक फ़ॉलबैक सूचना दिखाता है।",
   "randomnessSheetButton": "समझ गया",
-  "randomOrgFallbackNotice": "Random.org उपलब्ध नहीं है। स्थानीय यादृच्छिकता का उपयोग किया जा रहा है।"
+  "randomOrgFallbackNotice": "Random.org उपलब्ध नहीं है। स्थानीय यादृच्छिकता का उपयोग किया जा रहा है।",
+  "aboutTarotDeckTitle": "टैरो डेक",
+  "aboutTarotDeckSubtitle": "टैरो कार्ड की कलाकृति चुनें।",
+  "tarotDeckRiderWaite": "राइडर–वेट",
+  "tarotDeckJeanDodal": "जीन डोडल",
+  "tarotDeckVieville": "विएविल",
+  "tarotDeckSolaBusca": "सोला–बुस्का",
+  "tarotDeckEtteilla": "एटेय्या I",
+  "tarotUpright": "सीधा",
+  "tarotReversed": "उल्टा",
+  "tarotMeaningTitle": "अर्थ"
 }

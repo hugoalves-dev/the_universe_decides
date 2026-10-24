@@ -14,6 +14,7 @@ import 'package:theuniversedecides/widgets/card_deck_selector.dart';
 import 'package:theuniversedecides/widgets/how_randomness_sheet.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
 import 'package:theuniversedecides/widgets/ritual_header.dart';
+import 'package:theuniversedecides/widgets/tarot_deck_selector.dart';
 
 class AboutMeScreen extends ConsumerStatefulWidget {
   const AboutMeScreen({super.key});
@@ -112,6 +113,10 @@ class _AboutMeScreenState extends ConsumerState<AboutMeScreen> {
           const Padding(
             padding: EdgeInsets.only(top: 8),
             child: CardDeckSelector(),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 8),
+            child: TarotDeckSelector(),
           ),
           // Quick Settings tiles are an Android surface; the browser has
           // nowhere to pin them, so the whole section is dropped rather than

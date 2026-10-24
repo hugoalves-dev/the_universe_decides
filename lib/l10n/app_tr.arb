@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Bu pratikte neden önemli",
   "randomnessCard3Body": "Adil ve tartışılmaz olmasını istediğiniz kararlar için — çekilişler, beraberlik bozma, dostane bahisler — fiziksel entropi bağımsız kaynaklı bir sonuç sağlar. Random.org kullanılamıyorsa uygulama yerel sözde rastgeleliği kullanır ve bir yedek bildirimi gösterir.",
   "randomnessSheetButton": "Anladım",
-  "randomOrgFallbackNotice": "Random.org kullanılamıyor. Yerel rastgelelik kullanılıyor."
+  "randomOrgFallbackNotice": "Random.org kullanılamıyor. Yerel rastgelelik kullanılıyor.",
+  "aboutTarotDeckTitle": "Tarot destesi",
+  "aboutTarotDeckSubtitle": "Tarot açılımları için görsel stili seçin.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Düz",
+  "tarotReversed": "Ters",
+  "tarotMeaningTitle": "Anlam"
 }

@@ -209,7 +209,7 @@ void main() {
     expect(service.requests, [(1, 0, 1)]);
   });
 
-  testWidgets('tarot screen requests one card from the 78-card deck', (
+  testWidgets('tarot draw requests a card and orientation from 156 outcomes', (
     WidgetTester tester,
   ) async {
     final service = _FakeRandomOrgService([
@@ -242,7 +242,7 @@ void main() {
 
     expect(find.text('Ace of Wands'), findsWidgets);
     expect(find.text('Minor Arcana'), findsWidgets);
-    expect(service.requests, [(1, 1, 78)]);
+    expect(service.requests, [(1, 1, 156)]);
   });
 
   testWidgets('about tab loads profile and main screen has no top bar', (

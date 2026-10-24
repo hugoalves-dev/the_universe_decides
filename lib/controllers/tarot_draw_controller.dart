@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:theuniversedecides/data/tarot_card_meanings.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
 
 const _unset = Object();
@@ -46,19 +47,21 @@ class TarotDrawController extends Notifier<TarotDrawState> {
     final values = await _randomOrgService.fetchIntegers(
       count: 1,
       min: 1,
-      max: 78,
+      max: 156,
     );
-    final rawDeckNumber = values.isEmpty ? 1 : values.first;
-    final deckNumber = rawDeckNumber < 1
+    final rawReadingNumber = values.isEmpty ? 1 : values.first;
+    final readingNumber = rawReadingNumber < 1
         ? 1
-        : rawDeckNumber > 78
-        ? 78
-        : rawDeckNumber;
+        : rawReadingNumber > 156
+        ? 156
+        : rawReadingNumber;
+    final deckNumber = ((readingNumber - 1) % 78) + 1;
+    final isReversed = readingNumber > 78;
 
     state = state.copyWith(
       isLoading: false,
       drawCount: state.drawCount + 1,
-      card: TarotCard.fromDeckNumber(deckNumber),
+      card: TarotCard.fromDeckNumber(deckNumber, isReversed: isReversed),
     );
   }
 }
@@ -70,11 +73,13 @@ class TarotCard {
     required this.deckNumber,
     required this.title,
     required this.isMajorArcana,
+    required this.isReversed,
+    required this.meaning,
     this.suit,
     this.rank,
   });
 
-  factory TarotCard.fromDeckNumber(int deckNumber) {
+  factory TarotCard.fromDeckNumber(int deckNumber, {bool isReversed = false}) {
     final normalizedDeckNumber = deckNumber < 1
         ? 1
         : deckNumber > 78
@@ -89,6 +94,8 @@ class TarotCard {
         deckNumber: normalizedDeckNumber,
         title: _majorArcana[normalizedDeckNumber - 1],
         isMajorArcana: true,
+        isReversed: isReversed,
+        meaning: tarotCardMeanings[normalizedDeckNumber]!,
       );
     }
 
@@ -104,6 +111,8 @@ class TarotCard {
       deckNumber: normalizedDeckNumber,
       title: '$rank of ${_suitLabels[suit]!}',
       isMajorArcana: false,
+      isReversed: isReversed,
+      meaning: tarotCardMeanings[normalizedDeckNumber]!,
       suit: suit,
       rank: rank,
     );
@@ -112,8 +121,13 @@ class TarotCard {
   final int deckNumber;
   final String title;
   final bool isMajorArcana;
+  final bool isReversed;
+  final TarotCardMeaning meaning;
   final TarotSuit? suit;
   final String? rank;
+
+  String get meaningForOrientation =>
+      isReversed ? meaning.reversed : meaning.upright;
 
   static const _majorArcana = [
     'The Fool',

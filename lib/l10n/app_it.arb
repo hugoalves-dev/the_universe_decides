@@ -113,5 +113,15 @@
   "randomnessCard3Body": "L'entropia descrive l'incertezza, ma non prova che un risultato sia imparziale o verificabile in modo indipendente. Il condizionamento può ridurre distorsioni, non creare entropia mancante. I test statistici trovano alcuni problemi, ma non dimostrano la casualità. Un generatore sicuro non richiede nuovo rumore fisico per ogni valore. Le API per interi limitati evitano il bias modulo. Il resto può favorire alcune facce se l’intervallo non si divide esattamente; le API con limiti evitano questo bias modulo.",
   "randomnessSheetButton": "Capito",
   "randomOrgFallbackNotice": "RANDOM.ORG non disponibile. Uso del generatore sicuro locale (CSPRNG).",
+  "aboutTarotDeckTitle": "Mazzo di tarocchi",
+  "aboutTarotDeckSubtitle": "Scegli le illustrazioni per le letture dei tarocchi.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Dritta",
+  "tarotReversed": "Rovesciata",
+  "tarotMeaningTitle": "Significato",
   "secureRandomUnavailableNotice": "RANDOM.ORG non disponibile e RNG sicuro non supportato. Uso di un PRNG locale (non sicuro a livello crittografico)."
 }

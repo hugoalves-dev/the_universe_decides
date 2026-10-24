@@ -113,5 +113,15 @@
   "randomnessCard3Body": "एंट्रॉपी अनिश्चितता बताती है, किसी परिणाम के निष्पक्ष या स्वतंत्र रूप से सत्यापित होने का प्रमाण नहीं। प्रसंस्करण पक्षपात घटा सकता है, अनुपस्थित एंट्रॉपी बना नहीं सकता। सांख्यिकीय परीक्षण कुछ समस्याएँ पकड़ते हैं, यादृच्छिकता सिद्ध नहीं करते। सुरक्षित जनरेटर को हर मान के लिए नया भौतिक शोर नहीं चाहिए। सीमाबद्ध पूर्णांक API modulo पक्षपात से बचते हैं। सीधे शेषफल से कुछ अंक अधिक आ सकते हैं, यदि सीमा समान रूप से विभाजित न हो; bounded API इस modulo पक्षपात से बचती हैं।",
   "randomnessSheetButton": "समझ गया",
   "randomOrgFallbackNotice": "RANDOM.ORG उपलब्ध नहीं है। स्थानीय सुरक्षित RNG (CSPRNG) का उपयोग हो रहा है।",
+  "aboutTarotDeckTitle": "टैरो डेक",
+  "aboutTarotDeckSubtitle": "टैरो कार्ड की कलाकृति चुनें।",
+  "tarotDeckRiderWaite": "राइडर–वेट",
+  "tarotDeckJeanDodal": "जीन डोडल",
+  "tarotDeckVieville": "विएविल",
+  "tarotDeckSolaBusca": "सोला–बुस्का",
+  "tarotDeckEtteilla": "एटेय्या I",
+  "tarotUpright": "सीधा",
+  "tarotReversed": "उल्टा",
+  "tarotMeaningTitle": "अर्थ",
   "secureRandomUnavailableNotice": "RANDOM.ORG उपलब्ध नहीं है और सुरक्षित RNG समर्थित नहीं है। स्थानीय PRNG उपयोग हो रहा है (क्रिप्टोग्राफ़िक रूप से सुरक्षित नहीं)।"
 }

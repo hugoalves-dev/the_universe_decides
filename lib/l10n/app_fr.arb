@@ -113,5 +113,15 @@
   "randomnessCard3Body": "L'entropie décrit l'incertitude, sans prouver qu'un résultat est impartial ou vérifiable indépendamment. Le conditionnement peut réduire un biais, mais pas créer l'entropie manquante. Les tests statistiques détectent certains problèmes sans prouver le hasard. Un générateur sûr n'a pas besoin de bruit physique neuf pour chaque valeur. Les API d'entiers bornés évitent le biais modulo. Un simple reste peut favoriser certaines faces si la plage ne se divise pas exactement ; les API bornées évitent ce biais modulo.",
   "randomnessSheetButton": "Compris",
   "randomOrgFallbackNotice": "RANDOM.ORG indisponible. Utilisation du générateur sûr local (CSPRNG).",
+  "aboutTarotDeckTitle": "Jeu de tarot",
+  "aboutTarotDeckSubtitle": "Choisissez les illustrations des tirages de tarot.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "À l’endroit",
+  "tarotReversed": "À l’envers",
+  "tarotMeaningTitle": "Signification",
   "secureRandomUnavailableNotice": "RANDOM.ORG indisponible et générateur sûr non pris en charge. Utilisation d’un PRNG local (non cryptographiquement sûr)."
 }

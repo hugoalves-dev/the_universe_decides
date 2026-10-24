@@ -113,5 +113,15 @@
   "randomnessCard3Body": "La entropía describe incertidumbre, no demuestra que un resultado concreto sea imparcial o verificable. El acondicionamiento puede reducir sesgos, pero no crear entropía faltante. Las pruebas estadísticas detectan algunos problemas, no prueban aleatoriedad. Un generador seguro no necesita ruido físico nuevo para cada valor. Las API de enteros acotados evitan el sesgo de módulo. Usar el resto puede favorecer algunos lados si el rango no divide exactamente; las API acotadas evitan ese sesgo de módulo.",
   "randomnessSheetButton": "Entendido",
   "randomOrgFallbackNotice": "RANDOM.ORG no disponible. Se usa un generador seguro local (CSPRNG).",
+  "aboutTarotDeckTitle": "Mazo de tarot",
+  "aboutTarotDeckSubtitle": "Elige las ilustraciones para las tiradas de tarot.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Al derecho",
+  "tarotReversed": "Invertida",
+  "tarotMeaningTitle": "Significado",
   "secureRandomUnavailableNotice": "RANDOM.ORG no disponible y RNG seguro no compatible. Se usa un PRNG local (no es criptográficamente seguro)."
 }

@@ -203,6 +203,36 @@ class AppLocalizationsHi extends AppLocalizations {
       'निर्णय पूरा होने पर एक हल्की ध्वनि बजाएं।';
 
   @override
+  String get aboutTarotDeckTitle => 'टैरो डेक';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'टैरो कार्ड की कलाकृति चुनें।';
+
+  @override
+  String get tarotDeckRiderWaite => 'राइडर–वेट';
+
+  @override
+  String get tarotDeckJeanDodal => 'जीन डोडल';
+
+  @override
+  String get tarotDeckVieville => 'विएविल';
+
+  @override
+  String get tarotDeckSolaBusca => 'सोला–बुस्का';
+
+  @override
+  String get tarotDeckEtteilla => 'एटेय्या I';
+
+  @override
+  String get tarotUpright => 'सीधा';
+
+  @override
+  String get tarotReversed => 'उल्टा';
+
+  @override
+  String get tarotMeaningTitle => 'अर्थ';
+
+  @override
   String get aboutCardDeckTitle => 'ताश का डेक';
 
   @override

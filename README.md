@@ -23,6 +23,14 @@ Whenever possible, the app obtains results from [RANDOM.ORG](https://www.random.
 - Review and clear recent results
 - Access selected actions from Android quick settings (Android only)
 
+Tarot draws support five selectable historic deck illustrations. Their bundled
+artwork sources and licenses are documented in
+[`assets/tarot/ATTRIBUTION.md`](assets/tarot/ATTRIBUTION.md); the shared upright
+and reversed card meanings are original short paraphrases of Waite's
+public-domain *Pictorial Key to the Tarot*. The linked Jean Dodal archive is
+incomplete, so cards without matching artwork keep the app's existing card
+face.
+
 Common uses include choosing what to eat or watch, settling friendly disagreements, selecting a player or activity, supporting tabletop RPG sessions, and running small transparent draws.
 
 ## How randomness works

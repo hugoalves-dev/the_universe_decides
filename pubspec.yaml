@@ -3,7 +3,7 @@ description: "A mystical Flutter decision app powered by Random.org with local f
 
 publish_to: 'none'
 
-version: 2.10.0+100223
+version: 2.10.0+100226
 
 environment:
   sdk: ^3.10.0
@@ -39,6 +39,11 @@ flutter:
   assets:
     - assets/cards/public_domain/
     - assets/cards/public_domain/faces/
+    - assets/tarot/rider_waite/
+    - assets/tarot/jean_dodal/
+    - assets/tarot/vieville/
+    - assets/tarot/sola_busca/
+    - assets/tarot/etteilla_i/
     - assets/dice/
     - assets/dice/libs/
     - assets/sounds/

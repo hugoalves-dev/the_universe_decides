@@ -113,5 +113,15 @@
   "randomnessCard3Body": "Entropi belirsizliği anlatır; tek bir sonucun tarafsız veya bağımsız doğrulanabilir olduğunu kanıtlamaz. İşleme yanlılığı azaltabilir, eksik entropiyi yaratamaz. İstatistik testleri bazı sorunları bulabilir ama rastgeleliği kanıtlayamaz. Güvenli üreteç her değer için yeni fiziksel gürültü gerektirmez. Sınırlandırılmış tamsayı API'leri modül yanlılığını önler. Aralık eşit bölünmüyorsa kalan işlemi bazı yüzleri daha olası kılabilir; sınırlandırılmış API’ler bu modulo yanlılığını önler.",
   "randomnessSheetButton": "Anladım",
   "randomOrgFallbackNotice": "RANDOM.ORG kullanılamıyor. Yerel güvenli üreteç (CSPRNG) kullanılıyor.",
+  "aboutTarotDeckTitle": "Tarot destesi",
+  "aboutTarotDeckSubtitle": "Tarot açılımları için görsel stili seçin.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Düz",
+  "tarotReversed": "Ters",
+  "tarotMeaningTitle": "Anlam",
   "secureRandomUnavailableNotice": "RANDOM.ORG kullanılamıyor ve güvenli RNG desteklenmiyor. Yerel PRNG kullanılıyor (kriptografik olarak güvenli değil)."
 }

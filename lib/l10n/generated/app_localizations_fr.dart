@@ -206,6 +206,36 @@ class AppLocalizationsFr extends AppLocalizations {
       'Jouer un son discret lorsqu\'une décision est prise.';
 
   @override
+  String get aboutTarotDeckTitle => 'Jeu de tarot';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Choisissez les illustrations des tirages de tarot.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'À l’endroit';
+
+  @override
+  String get tarotReversed => 'À l’envers';
+
+  @override
+  String get tarotMeaningTitle => 'Signification';
+
+  @override
   String get aboutCardDeckTitle => 'Jeu de cartes';
 
   @override

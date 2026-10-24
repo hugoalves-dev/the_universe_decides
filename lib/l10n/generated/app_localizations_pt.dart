@@ -202,6 +202,36 @@ class AppLocalizationsPt extends AppLocalizations {
       'Reproduzir um som sutil quando uma decisão terminar.';
 
   @override
+  String get aboutTarotDeckTitle => 'Baralho de tarô';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Escolha a arte para as tiragens de tarô.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Em pé';
+
+  @override
+  String get tarotReversed => 'Invertida';
+
+  @override
+  String get tarotMeaningTitle => 'Significado';
+
+  @override
   String get aboutCardDeckTitle => 'Baralho de cartas';
 
   @override

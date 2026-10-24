@@ -204,6 +204,36 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bir karar tamamlandığında hafif bir ses çal.';
 
   @override
+  String get aboutTarotDeckTitle => 'Tarot destesi';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Tarot açılımları için görsel stili seçin.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Düz';
+
+  @override
+  String get tarotReversed => 'Ters';
+
+  @override
+  String get tarotMeaningTitle => 'Anlam';
+
+  @override
   String get aboutCardDeckTitle => 'Kart destesi';
 
   @override

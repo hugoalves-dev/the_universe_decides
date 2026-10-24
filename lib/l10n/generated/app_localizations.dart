@@ -463,6 +463,46 @@ abstract class AppLocalizations {
   /// **'Play a subtle sound when a decision is complete.'**
   String get aboutSoundEffectsSubtitle;
 
+  /// In en, this message translates to:
+  /// **'Tarot deck'**
+  String get aboutTarotDeckTitle;
+
+  /// In en, this message translates to:
+  /// **'Choose the artwork for tarot draws.'**
+  String get aboutTarotDeckSubtitle;
+
+  /// In en, this message translates to:
+  /// **'Rider–Waite'**
+  String get tarotDeckRiderWaite;
+
+  /// In en, this message translates to:
+  /// **'Jean Dodal'**
+  String get tarotDeckJeanDodal;
+
+  /// In en, this message translates to:
+  /// **'Viéville'**
+  String get tarotDeckVieville;
+
+  /// In en, this message translates to:
+  /// **'Sola–Busca'**
+  String get tarotDeckSolaBusca;
+
+  /// In en, this message translates to:
+  /// **'Etteilla I'**
+  String get tarotDeckEtteilla;
+
+  /// In en, this message translates to:
+  /// **'Upright'**
+  String get tarotUpright;
+
+  /// In en, this message translates to:
+  /// **'Reversed'**
+  String get tarotReversed;
+
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get tarotMeaningTitle;
+
   /// No description provided for @aboutCardDeckTitle.
   ///
   /// In en, this message translates to:

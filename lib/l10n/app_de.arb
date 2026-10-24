@@ -113,5 +113,15 @@
   "randomnessCard3Body": "Entropie beschreibt Unsicherheit, beweist aber nicht, dass ein Ergebnis unverzerrt oder unabhängig überprüfbar ist. Verarbeitung kann Verzerrungen mindern, aber fehlende Entropie nicht erzeugen. Statistische Tests können manche Fehler finden, Zufälligkeit jedoch nicht beweisen. Sichere Generatoren benötigen nicht für jeden Wert frisches physisches Rauschen. Begrenzte Ganzzahl-APIs vermeiden Modulo-Verzerrung. Eine einfache Restwertbildung kann manche Seiten bevorzugen, wenn der Bereich nicht aufgeht; begrenzte APIs vermeiden diese Modulo-Verzerrung.",
   "randomnessSheetButton": "Verstanden",
   "randomOrgFallbackNotice": "RANDOM.ORG nicht verfügbar. Lokaler sicherer Zufallsgenerator (CSPRNG) wird verwendet.",
+  "aboutTarotDeckTitle": "Tarotdeck",
+  "aboutTarotDeckSubtitle": "Wähle die Tarotkartenillustrationen.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Aufrecht",
+  "tarotReversed": "Umgekehrt",
+  "tarotMeaningTitle": "Bedeutung",
   "secureRandomUnavailableNotice": "RANDOM.ORG nicht verfügbar und sicherer Generator nicht unterstützt. Lokaler PRNG wird verwendet (nicht kryptografisch sicher)."
 }

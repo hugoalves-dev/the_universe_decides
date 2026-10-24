@@ -1,5 +1,11 @@
 # The Universe Decides 🌌
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-Support_this_project-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=000000)](https://buymeacoffee.com/vitorhugo1207)
+
+Support for this independent project is entirely optional.
+
+---
+
 > **Can't decide? Let the universe choose.**
  
 The Universe Decides is a decision app for the moments when you want chance to make the final call. Flip a coin, roll RPG dice, draw cards, spin a wheel, or choose from your own list without turning a simple decision into a committee meeting.

@@ -183,7 +183,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutBioFallback =>
-      'Creator of The Universe Decides — a decision app powered by real randomness.';
+      'Creator of The Universe Decides, using RANDOM.ORG when available and a secure local generator offline.';
 
   @override
   String get aboutShortcutsTitle => 'Quick shortcuts';
@@ -217,11 +217,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Classic (red back)';
 
   @override
-  String get aboutRandomnessCardTitle => 'How does real randomness work?';
+  String get aboutRandomnessCardTitle =>
+      'How randomness works';
 
   @override
   String get aboutRandomnessCardSubtitle =>
-      'Why the app avoids pseudo-random numbers';
+      'How PRNGs and secure RNGs differ';
 
   @override
   String get aboutHistoryCardTitle => 'Recent results';
@@ -278,34 +279,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get randomnessSheetEyebrow => 'What lies behind chance';
 
   @override
-  String get randomnessSheetTitle => 'Real chance vs. pseudo-random';
+  String get randomnessSheetTitle =>
+      'PRNGs, secure RNGs & physical entropy';
 
   @override
-  String get randomnessCard1Title => 'Computers don\'t create true randomness';
+  String get randomnessCard1Title =>
+      'Three related but different sources';
 
   @override
   String get randomnessCard1Body =>
-      'Most apps use PRNGs (pseudo-random generators): deterministic math formulas that start from a \"seed\". Given the same seed, the result is always the same — it looks random, but it is 100% predictable if you know the algorithm and its internal state.';
+      'A PRNG deterministically expands a seed and internal state; it is useful for games and simulations but is not designed to resist prediction. A CSPRNG (often built as a DRBG) is designed to make outputs hard to predict, usually using operating-system entropy. A physical entropy source measures a physical process. These categories are related, not interchangeable.';
 
   @override
   String get randomnessCard2Title =>
-      'When available, this app uses physical entropy';
+      'What this app uses';
 
   @override
   String get randomnessCard2Body =>
-      'When Random.org is available, a draw consumes real atmospheric noise collected from radio static — a chaotic physical phenomenon, not a calculation. There is no seed or formula: the result does not exist until the instant it is measured.';
+      'When available, the app requests integers from RANDOM.ORG, which documents atmospheric radio noise as an entropy source. Its output can be conditioned and buffered before a request; we do not measure or verify the provider\'s process ourselves. Offline, the app uses Dart Random.secure(), an OS-backed CSPRNG when supported. If secure randomness is unsupported, the app falls back to an ordinary PRNG and labels it as non-cryptographic.';
 
   @override
-  String get randomnessCard3Title => 'Why it matters in practice';
+  String get randomnessCard3Title =>
+      'Entropy is not proof';
 
   @override
   String get randomnessCard3Body =>
-      'For decisions you want to be fair and indisputable — draws, tie-breaks, friendly bets — physical entropy provides an independently sourced result. If Random.org is unavailable, the app uses local pseudo-randomness instead and shows a fallback notice.';
+      'Entropy describes uncertainty, not a proof that a particular result is unbiased or independently verifiable. Conditioning and hashing can remove bias but cannot create missing entropy; statistical tests can find some problems but cannot prove randomness. Secure generators do not need fresh physical noise for every value. For a six-sided die, use a bounded integer API (such as nextInt(6) + 1) to avoid modulo bias. A plain remainder operation can favor some faces when the range does not divide evenly; bounded APIs avoid that modulo bias.';
 
   @override
   String get randomnessSheetButton => 'Got it';
 
   @override
   String get randomOrgFallbackNotice =>
-      'Random.org is unavailable. Using local randomness.';
+      'RANDOM.ORG unavailable. Using local secure RNG (CSPRNG).';
+
+  @override
+  String get secureRandomUnavailableNotice =>
+      'RANDOM.ORG unavailable and secure RNG unsupported. Using local PRNG (not cryptographically secure).';
 }

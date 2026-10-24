@@ -191,7 +191,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aboutBioFallback =>
-      'Schöpfer von The Universe Decides — einer Entscheidungs-App, die auf echtem Zufall basiert.';
+      'Entwickler von The Universe Decides mit RANDOM.ORG, sofern verfügbar, und einem sicheren lokalen Generator offline.';
 
   @override
   String get aboutShortcutsTitle => 'Schnellzugriffe';
@@ -225,11 +225,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Klassisch (rote Rückseite)';
 
   @override
-  String get aboutRandomnessCardTitle => 'Wie funktioniert echter Zufall?';
+  String get aboutRandomnessCardTitle =>
+      'So funktioniert Zufall';
 
   @override
   String get aboutRandomnessCardSubtitle =>
-      'Warum die App pseudozufällige Zahlen vermeidet';
+      'Unterschiede zwischen PRNGs und sicheren Generatoren';
 
   @override
   String get aboutHistoryCardTitle => 'Letzte Ergebnisse';
@@ -288,34 +289,41 @@ class AppLocalizationsDe extends AppLocalizations {
   String get randomnessSheetEyebrow => 'Was hinter dem Zufall steckt';
 
   @override
-  String get randomnessSheetTitle => 'Echter Zufall vs. Pseudozufall';
+  String get randomnessSheetTitle =>
+      'Zufall, PRNG und CSPRNG';
 
   @override
-  String get randomnessCard1Title => 'Computer erzeugen keinen echten Zufall';
+  String get randomnessCard1Title =>
+      'Drei verwandte, aber verschiedene Quellen';
 
   @override
   String get randomnessCard1Body =>
-      'Die meisten Apps verwenden PRNGs (Pseudozufallsgeneratoren): deterministische mathematische Formeln, die von einem \"Seed\" ausgehen. Bei gleichem Seed ist das Ergebnis immer dasselbe — es wirkt zufällig, ist aber zu 100 % vorhersagbar, wenn man den Algorithmus und seinen internen Zustand kennt.';
+      'Ein PRNG erzeugt aus Startwert und internem Zustand deterministische Folgen. Er eignet sich für Spiele und Simulationen, ist aber nicht gegen Vorhersage ausgelegt. Ein CSPRNG (oft als DRBG) soll Ausgaben schwer vorhersagbar machen und nutzt üblicherweise Betriebssystem-Entropie. Eine physische Entropiequelle misst einen physikalischen Prozess. Diese Begriffe sind verwandt, aber nicht austauschbar.';
 
   @override
   String get randomnessCard2Title =>
-      'Wenn verfügbar, nutzt diese App physikalische Entropie';
+      'Was diese App verwendet';
 
   @override
   String get randomnessCard2Body =>
-      'Wenn Random.org verfügbar ist, verbraucht ein Wurf echtes, aus Radiorauschen gesammeltes atmosphärisches Rauschen — ein chaotisches physikalisches Phänomen, keine Berechnung. Es gibt keinen Seed und keine Formel: Das Ergebnis existiert erst in dem Moment, in dem es gemessen wird.';
+      'Wenn verfügbar, fordert die App Zahlen bei RANDOM.ORG an. Der Dienst nennt atmosphärisches Funkrauschen als Entropiequelle; die Ausgabe kann vor der Anfrage verarbeitet und gepuffert werden. Wir prüfen diesen Prozess nicht selbst. Offline verwendet die App Dart Random.secure(), sofern eine sichere Betriebssystemquelle verfügbar ist. Wird sichere Zufälligkeit nicht unterstützt, nutzt die App einen gewöhnlichen PRNG und kennzeichnet ihn als nicht kryptografisch sicher.';
 
   @override
-  String get randomnessCard3Title => 'Warum das in der Praxis wichtig ist';
+  String get randomnessCard3Title =>
+      'Entropie ist kein Beweis';
 
   @override
   String get randomnessCard3Body =>
-      'Für Entscheidungen, die fair und unbestreitbar sein sollen — Auslosungen, Stichentscheide, freundschaftliche Wetten — liefert physikalische Entropie ein unabhängig ermitteltes Ergebnis. Ist Random.org nicht verfügbar, nutzt die App stattdessen lokale Pseudozufälligkeit und zeigt einen Fallback-Hinweis.';
+      'Entropie beschreibt Unsicherheit, beweist aber nicht, dass ein Ergebnis unverzerrt oder unabhängig überprüfbar ist. Verarbeitung kann Verzerrungen mindern, aber fehlende Entropie nicht erzeugen. Statistische Tests können manche Fehler finden, Zufälligkeit jedoch nicht beweisen. Sichere Generatoren benötigen nicht für jeden Wert frisches physisches Rauschen. Begrenzte Ganzzahl-APIs vermeiden Modulo-Verzerrung. Eine einfache Restwertbildung kann manche Seiten bevorzugen, wenn der Bereich nicht aufgeht; begrenzte APIs vermeiden diese Modulo-Verzerrung.';
 
   @override
   String get randomnessSheetButton => 'Verstanden';
 
   @override
   String get randomOrgFallbackNotice =>
-      'Random.org ist nicht verfügbar. Lokaler Zufall wird verwendet.';
+      'RANDOM.ORG nicht verfügbar. Lokaler sicherer Zufallsgenerator (CSPRNG) wird verwendet.';
+
+  @override
+  String get secureRandomUnavailableNotice =>
+      'RANDOM.ORG nicht verfügbar und sicherer Generator nicht unterstützt. Lokaler PRNG wird verwendet (nicht kryptografisch sicher).';
 }

@@ -53,14 +53,16 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       _handleQuickAccessAction,
     );
     _randomOrgFallbackSubscription = randomOrgService.fallbackEvents.listen((
-      _,
+      event,
     ) {
       if (!mounted) {
         return;
       }
 
       SnackBarCustom.buildErrorMessage(
-        AppLocalizations.of(context)!.randomOrgFallbackNotice,
+        event.secureSourceAvailable
+            ? AppLocalizations.of(context)!.randomOrgFallbackNotice
+            : AppLocalizations.of(context)!.secureRandomUnavailableNotice,
         context: context,
       );
     });

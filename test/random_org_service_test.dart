@@ -49,4 +49,52 @@ void main() {
 
     await expectLater(fallbackEvent, completion(isA<RandomOrgFallbackEvent>()));
   });
+
+  test('rejects Random.org values outside the requested bounds', () async {
+    final service = RandomOrgService(
+      client: MockClient((_) async => http.Response('0\n7\n', 200)),
+      random: math.Random(7),
+    );
+    addTearDown(service.dispose);
+
+    final values = await service.fetchIntegers(count: 2, min: 1, max: 6);
+
+    expect(values, hasLength(2));
+    expect(values.every((value) => value >= 1 && value <= 6), isTrue);
+  });
+
+  test('the default local fallback is bounded', () async {
+    final service = RandomOrgService(
+      client: MockClient((_) async => http.Response('unavailable', 503)),
+    );
+    addTearDown(service.dispose);
+
+    final values = await service.fetchIntegers(count: 100, min: 1, max: 6);
+
+    expect(values, hasLength(100));
+    expect(values.every((value) => value >= 1 && value <= 6), isTrue);
+  });
+
+  test('labels its non-cryptographic fallback when secure randomness is unsupported', () async {
+    final service = RandomOrgService(
+      client: MockClient((_) async => http.Response('unavailable', 503)),
+      secureRandomFactory: () => throw UnsupportedError('No secure source'),
+    );
+    addTearDown(service.dispose);
+    final event = service.fallbackEvents.first;
+
+    final values = await service.fetchIntegers(count: 20, min: 1, max: 6);
+    expect(values, hasLength(20));
+    expect(values.every((value) => value >= 1 && value <= 6), isTrue);
+    await expectLater(
+      event,
+      completion(
+        isA<RandomOrgFallbackEvent>().having(
+          (value) => value.secureSourceAvailable,
+          'secureSourceAvailable',
+          isFalse,
+        ),
+      ),
+    );
+  });
 }

@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Чому це важливо на практиці",
   "randomnessCard3Body": "Для рішень, які мають бути чесними й незаперечними — жеребкування, визначення переможця за нічиєї, дружні парі — фізична ентропія дає результат із незалежного джерела. Якщо Random.org недоступний, застосунок використовує локальну псевдовипадковість і показує повідомлення про резервний режим.",
   "randomnessSheetButton": "Зрозуміло",
-  "randomOrgFallbackNotice": "Random.org недоступний. Використовується локальна випадковість."
+  "randomOrgFallbackNotice": "Random.org недоступний. Використовується локальна випадковість.",
+  "aboutTarotDeckTitle": "Колода Таро",
+  "aboutTarotDeckSubtitle": "Оберіть зображення для розкладів Таро.",
+  "tarotDeckRiderWaite": "Райдер—Вейт",
+  "tarotDeckJeanDodal": "Жан Додаль",
+  "tarotDeckVieville": "В’євіль",
+  "tarotDeckSolaBusca": "Сола—Буска",
+  "tarotDeckEtteilla": "Етейлла I",
+  "tarotUpright": "Пряма",
+  "tarotReversed": "Перевернута",
+  "tarotMeaningTitle": "Значення"
 }

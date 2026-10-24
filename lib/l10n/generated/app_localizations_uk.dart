@@ -208,6 +208,36 @@ class AppLocalizationsUk extends AppLocalizations {
       'Відтворювати тихий звук, коли рішення прийнято.';
 
   @override
+  String get aboutTarotDeckTitle => 'Колода Таро';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Оберіть зображення для розкладів Таро.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Райдер—Вейт';
+
+  @override
+  String get tarotDeckJeanDodal => 'Жан Додаль';
+
+  @override
+  String get tarotDeckVieville => 'В’євіль';
+
+  @override
+  String get tarotDeckSolaBusca => 'Сола—Буска';
+
+  @override
+  String get tarotDeckEtteilla => 'Етейлла I';
+
+  @override
+  String get tarotUpright => 'Пряма';
+
+  @override
+  String get tarotReversed => 'Перевернута';
+
+  @override
+  String get tarotMeaningTitle => 'Значення';
+
+  @override
   String get aboutCardDeckTitle => 'Колода карт';
 
   @override

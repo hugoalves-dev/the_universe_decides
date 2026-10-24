@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Pourquoi cela compte en pratique",
   "randomnessCard3Body": "Pour les décisions que tu veux justes et incontestables — tirages au sort, départages, paris amicaux — l'entropie physique fournit un résultat issu d'une source indépendante. Si Random.org est indisponible, l'appli utilise le hasard pseudo-aléatoire local et affiche un avis de repli.",
   "randomnessSheetButton": "Compris",
-  "randomOrgFallbackNotice": "Random.org est indisponible. Utilisation du hasard local."
+  "randomOrgFallbackNotice": "Random.org est indisponible. Utilisation du hasard local.",
+  "aboutTarotDeckTitle": "Jeu de tarot",
+  "aboutTarotDeckSubtitle": "Choisissez les illustrations des tirages de tarot.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "À l’endroit",
+  "tarotReversed": "À l’envers",
+  "tarotMeaningTitle": "Signification"
 }

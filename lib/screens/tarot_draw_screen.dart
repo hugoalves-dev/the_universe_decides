@@ -10,6 +10,8 @@ import 'package:theuniversedecides/layout/ritual_breakpoint.dart';
 import 'package:theuniversedecides/layout/ritual_screen_frame.dart';
 import 'package:theuniversedecides/services/results_history_service.dart';
 import 'package:theuniversedecides/services/sound_effects_service.dart';
+import 'package:theuniversedecides/services/tarot_artwork_service.dart';
+import 'package:theuniversedecides/services/tarot_deck_service.dart';
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
@@ -24,6 +26,8 @@ class TarotDrawScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tarotDrawProvider);
     final controller = ref.read(tarotDrawProvider.notifier);
+    final deckStyle = ref.watch(tarotDeckStyleProvider);
+    final artworkService = ref.read(tarotArtworkServiceProvider);
     final cardKey = ValueKey<int>(state.drawCount);
     final animationDuration = MediaQuery.disableAnimationsOf(context)
         ? Duration.zero
@@ -80,7 +84,16 @@ class TarotDrawScreen extends ConsumerWidget {
                 },
               );
             },
-            child: _TarotCardFace(key: cardKey, card: state.card),
+            child: _TarotCardFace(
+              key: cardKey,
+              card: state.card,
+              artworkPath: state.card == null
+                  ? null
+                  : artworkService.assetPathFor(
+                      deckStyle,
+                      state.card!.deckNumber,
+                    ),
+            ),
           ),
         ),
       ),
@@ -116,6 +129,36 @@ class TarotDrawScreen extends ConsumerWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      if (state.card != null) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          state.card!.isReversed
+                              ? l10n.tarotReversed
+                              : l10n.tarotUpright,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: const Color(0xFFF6D98B),
+                            fontWeight: FontWeight.w800,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          l10n.tarotMeaningTitle,
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            color: AppColors.whiteMuted,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          state.card!.meaningForOrientation,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: AppColors.whiteMuted,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ],
                   ),
           ),
@@ -156,189 +199,234 @@ class TarotDrawScreen extends ConsumerWidget {
 }
 
 class _TarotCardFace extends StatelessWidget {
-  const _TarotCardFace({super.key, required this.card});
+  const _TarotCardFace({
+    super.key,
+    required this.card,
+    this.artworkPath,
+    this.rotationAlreadyApplied = false,
+  });
 
   final TarotCard? card;
+  final String? artworkPath;
+  final bool rotationAlreadyApplied;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final isRevealed = card != null;
+    final cardRotation =
+        !rotationAlreadyApplied && card?.isReversed == true ? math.pi : 0.0;
 
-    return AspectRatio(
-      aspectRatio: 2 / 3,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          // The band, not a private height threshold: a wide window gives the
-          // card a tall pane, and two disagreeing notions of "compact" would
-          // shrink the type while the card grows.
-          final isCompact =
-              ritualBandOf(context).isCompact && constraints.maxHeight < 400;
-          final cardPadding = isCompact ? 16.0 : 22.0;
-          final iconSize = isCompact ? 42.0 : 54.0;
-          final mainGap = isCompact ? 10.0 : 20.0;
-          final secondaryGap = isCompact ? 8.0 : 14.0;
-          final contentWidth = constraints.maxWidth.isFinite
-              ? math.max(120.0, constraints.maxWidth - (cardPadding * 2))
-              : 220.0;
-
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: LinearGradient(
-                colors: isRevealed
-                    ? const [
-                        Color(0xFF1D1234),
-                        Color(0xFF3E216E),
-                        Color(0xFF8E6B2B),
-                      ]
-                    : const [
-                        Color(0xFF0F091A),
-                        Color(0xFF281443),
-                        Color(0xFF5E3A12),
-                      ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              border: Border.all(
-                color: const Color(0xFFE6C26A).withValues(alpha: 0.72),
-                width: 1.6,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x99000000),
-                  blurRadius: 34,
-                  offset: Offset(0, 22),
-                ),
-              ],
+    if (artworkPath != null && card != null) {
+      return AspectRatio(
+        aspectRatio: 2 / 3,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: const Color(0xFF0F091A),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFFE6C26A).withValues(alpha: 0.72),
+              width: 1.6,
             ),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: RadialGradient(
-                        colors: [const Color(0x66F8D26D), Colors.transparent],
-                        radius: isRevealed ? 0.95 : 0.75,
-                        center: Alignment.topCenter,
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x99000000),
+                blurRadius: 34,
+                offset: Offset(0, 22),
+              ),
+            ],
+          ),
+          child: Transform.rotate(
+            angle: cardRotation,
+            child: Image.asset(
+              artworkPath!,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) =>
+                  _TarotCardFace(card: card, rotationAlreadyApplied: true),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Transform.rotate(
+      angle: cardRotation,
+      child: AspectRatio(
+        aspectRatio: 2 / 3,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // The band, not a private height threshold: a wide window gives the
+            // card a tall pane, and two disagreeing notions of "compact" would
+            // shrink the type while the card grows.
+            final isCompact =
+                ritualBandOf(context).isCompact && constraints.maxHeight < 400;
+            final cardPadding = isCompact ? 16.0 : 22.0;
+            final iconSize = isCompact ? 42.0 : 54.0;
+            final mainGap = isCompact ? 10.0 : 20.0;
+            final secondaryGap = isCompact ? 8.0 : 14.0;
+            final contentWidth = constraints.maxWidth.isFinite
+                ? math.max(120.0, constraints.maxWidth - (cardPadding * 2))
+                : 220.0;
+
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                gradient: LinearGradient(
+                  colors: isRevealed
+                      ? const [
+                          Color(0xFF1D1234),
+                          Color(0xFF3E216E),
+                          Color(0xFF8E6B2B),
+                        ]
+                      : const [
+                          Color(0xFF0F091A),
+                          Color(0xFF281443),
+                          Color(0xFF5E3A12),
+                        ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                border: Border.all(
+                  color: const Color(0xFFE6C26A).withValues(alpha: 0.72),
+                  width: 1.6,
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x99000000),
+                    blurRadius: 34,
+                    offset: Offset(0, 22),
+                  ),
+                ],
+              ),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: RadialGradient(
+                          colors: [const Color(0x66F8D26D), Colors.transparent],
+                          radius: isRevealed ? 0.95 : 0.75,
+                          center: Alignment.topCenter,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(cardPadding),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Flexible(
-                            child: _TarotBadge(
-                              icon: isRevealed
-                                  ? Icons.visibility_rounded
-                                  : Icons.auto_awesome,
-                              label: isRevealed
-                                  ? (card!.isMajorArcana
-                                        ? l10n.tarotMajorArcana
-                                        : l10n.tarotMinorArcana)
-                                  : l10n.navTarot,
+                  Padding(
+                    padding: EdgeInsets.all(cardPadding),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Flexible(
+                              child: _TarotBadge(
+                                icon: isRevealed
+                                    ? Icons.visibility_rounded
+                                    : Icons.auto_awesome,
+                                label: isRevealed
+                                    ? (card!.isMajorArcana
+                                          ? l10n.tarotMajorArcana
+                                          : l10n.tarotMinorArcana)
+                                    : l10n.navTarot,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          _TarotBadge(
-                            icon: Icons.stars_rounded,
-                            label: '#${card?.deckNumber ?? '--'}',
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: SizedBox(
-                              width: contentWidth,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    isRevealed
-                                        ? Icons.brightness_3
-                                        : Icons.auto_awesome,
-                                    size: iconSize,
-                                    color: const Color(0xFFF6D98B),
-                                  ),
-                                  SizedBox(height: mainGap),
-                                  Text(
-                                    isRevealed
-                                        ? card!.title
-                                        : l10n.tarotWaiting,
-                                    style:
-                                        (isCompact
-                                                ? theme.textTheme.titleLarge
-                                                : theme.textTheme.headlineSmall)
-                                            ?.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w900,
-                                              height: 1.15,
-                                            ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: secondaryGap),
-                                  Text(
-                                    isRevealed
-                                        ? l10n.tarotDeckPosition(
-                                            card!.deckNumber,
-                                          )
-                                        : l10n.tarotTapReveal,
-                                    style:
-                                        (isCompact
-                                                ? theme.textTheme.bodyMedium
-                                                : theme.textTheme.bodyLarge)
-                                            ?.copyWith(
-                                              color: const Color(0xE6F4E7FF),
-                                              height: 1.35,
-                                            ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                            const SizedBox(width: 8),
+                            _TarotBadge(
+                              icon: Icons.stars_rounded,
+                              label: '#${card?.deckNumber ?? '--'}',
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: SizedBox(
+                                width: contentWidth,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      isRevealed
+                                          ? Icons.brightness_3
+                                          : Icons.auto_awesome,
+                                      size: iconSize,
+                                      color: const Color(0xFFF6D98B),
+                                    ),
+                                    SizedBox(height: mainGap),
+                                    Text(
+                                      isRevealed
+                                          ? card!.title
+                                          : l10n.tarotWaiting,
+                                      style:
+                                          (isCompact
+                                                  ? theme.textTheme.titleLarge
+                                                  : theme.textTheme.headlineSmall)
+                                              ?.copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w900,
+                                                height: 1.15,
+                                              ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: secondaryGap),
+                                    Text(
+                                      isRevealed
+                                          ? l10n.tarotDeckPosition(
+                                              card!.deckNumber,
+                                            )
+                                          : l10n.tarotTapReveal,
+                                      style:
+                                          (isCompact
+                                                  ? theme.textTheme.bodyMedium
+                                                  : theme.textTheme.bodyLarge)
+                                              ?.copyWith(
+                                                color: const Color(0xE6F4E7FF),
+                                                height: 1.35,
+                                              ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isCompact ? 12 : 16,
-                          vertical: isCompact ? 10 : 14,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.18),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.08),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isCompact ? 12 : 16,
+                            vertical: isCompact ? 10 : 14,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.18),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.08),
+                            ),
+                          ),
+                          child: Text(
+                            isRevealed
+                                ? (card!.isMajorArcana
+                                      ? l10n.tarotMajorArcana
+                                      : l10n.tarotMinorArcana)
+                                : l10n.tarotTapReveal,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.86),
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        child: Text(
-                          isRevealed
-                              ? (card!.isMajorArcana
-                                    ? l10n.tarotMajorArcana
-                                    : l10n.tarotMinorArcana)
-                              : l10n.tarotTapReveal,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white.withValues(alpha: 0.86),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

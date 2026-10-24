@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Por qué esto importa en la práctica",
   "randomnessCard3Body": "Para decisiones que quieres que sean justas e indiscutibles — sorteos, desempates, apuestas amistosas — la entropía física ofrece un resultado de origen independiente. Si Random.org no está disponible, la app usa aleatoriedad pseudoaleatoria local y muestra un aviso de respaldo.",
   "randomnessSheetButton": "Entendido",
-  "randomOrgFallbackNotice": "Random.org no está disponible. Usando aleatoriedad local."
+  "randomOrgFallbackNotice": "Random.org no está disponible. Usando aleatoriedad local.",
+  "aboutTarotDeckTitle": "Mazo de tarot",
+  "aboutTarotDeckSubtitle": "Elige las ilustraciones para las tiradas de tarot.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Al derecho",
+  "tarotReversed": "Invertida",
+  "tarotMeaningTitle": "Significado"
 }

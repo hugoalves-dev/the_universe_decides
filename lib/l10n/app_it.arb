@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Perché questo conta nella pratica",
   "randomnessCard3Body": "Per le decisioni che vuoi siano eque e incontestabili — estrazioni, spareggi, scommesse amichevoli — l'entropia fisica fornisce un risultato da fonte indipendente. Se Random.org non è disponibile, l'app usa la casualità pseudocasuale locale e mostra un avviso di fallback.",
   "randomnessSheetButton": "Capito",
-  "randomOrgFallbackNotice": "Random.org non è disponibile. Uso della casualità locale."
+  "randomOrgFallbackNotice": "Random.org non è disponibile. Uso della casualità locale.",
+  "aboutTarotDeckTitle": "Mazzo di tarocchi",
+  "aboutTarotDeckSubtitle": "Scegli le illustrazioni per le letture dei tarocchi.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Dritta",
+  "tarotReversed": "Rovesciata",
+  "tarotMeaningTitle": "Significato"
 }

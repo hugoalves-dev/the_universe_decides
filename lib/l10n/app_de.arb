@@ -112,5 +112,15 @@
   "randomnessCard3Title": "Warum das in der Praxis wichtig ist",
   "randomnessCard3Body": "Für Entscheidungen, die fair und unbestreitbar sein sollen — Auslosungen, Stichentscheide, freundschaftliche Wetten — liefert physikalische Entropie ein unabhängig ermitteltes Ergebnis. Ist Random.org nicht verfügbar, nutzt die App stattdessen lokale Pseudozufälligkeit und zeigt einen Fallback-Hinweis.",
   "randomnessSheetButton": "Verstanden",
-  "randomOrgFallbackNotice": "Random.org ist nicht verfügbar. Lokaler Zufall wird verwendet."
+  "randomOrgFallbackNotice": "Random.org ist nicht verfügbar. Lokaler Zufall wird verwendet.",
+  "aboutTarotDeckTitle": "Tarotdeck",
+  "aboutTarotDeckSubtitle": "Wähle die Tarotkartenillustrationen.",
+  "tarotDeckRiderWaite": "Rider–Waite",
+  "tarotDeckJeanDodal": "Jean Dodal",
+  "tarotDeckVieville": "Viéville",
+  "tarotDeckSolaBusca": "Sola–Busca",
+  "tarotDeckEtteilla": "Etteilla I",
+  "tarotUpright": "Aufrecht",
+  "tarotReversed": "Umgekehrt",
+  "tarotMeaningTitle": "Bedeutung"
 }

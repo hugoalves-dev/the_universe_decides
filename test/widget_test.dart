@@ -475,7 +475,9 @@ void main() {
       await tester.pump(const Duration(milliseconds: 250));
 
       expect(
-        find.text('Random.org is unavailable. Using local randomness.'),
+        find.text(
+          'RANDOM.ORG unavailable. Using local secure RNG (CSPRNG).',
+        ),
         findsOneWidget,
       );
     },

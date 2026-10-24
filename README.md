@@ -60,6 +60,25 @@ lists, wheel, recent history and the RANDOM.ORG fallback warning — works the
 same way. Recent results are stored in the browser, so they survive a reload
 but do not sync with the installed app.
 
+## iOS / App Store collaboration welcome 🍎
+
+I'd love to bring **The Universe Decides** to iPhone and iPad, but I currently
+don't have a Mac or an iPhone to build and test an iOS release myself.
+
+I'm **open to partnering with an iOS developer, contributor, or sponsor** who
+can help prepare the Flutter iOS build, test it on Apple devices, and navigate
+code signing, TestFlight, and App Store submission.
+
+If you're interested, please
+[open a GitHub issue](https://github.com/vitorhugo-dotnet/the_universe_decides/issues/new)
+to discuss how we could collaborate. Contributions via pull requests are
+welcome, too.
+
+We'll agree on App Store account ownership, publishing responsibilities,
+signing, maintenance, and release arrangements **before** any submission.
+Please don't share certificates, private keys, or account credentials in
+public issues.
+
 ## Android release signing
 
 1. Generate a keystore and keep it somewhere safe.

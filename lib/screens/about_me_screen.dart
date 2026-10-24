@@ -6,11 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/layout/ritual_screen_frame.dart';
 import 'package:theuniversedecides/screens/results_history_screen.dart';
-import 'package:theuniversedecides/services/card_deck_service.dart';
 import 'package:theuniversedecides/services/github_profile_service.dart';
 import 'package:theuniversedecides/services/quick_access_service.dart';
 import 'package:theuniversedecides/services/sound_effects_service.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
+import 'package:theuniversedecides/widgets/card_deck_selector.dart';
 import 'package:theuniversedecides/widgets/how_randomness_sheet.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
 import 'package:theuniversedecides/widgets/ritual_header.dart';
@@ -75,7 +75,6 @@ class _AboutMeScreenState extends ConsumerState<AboutMeScreen> {
       githubProfileProvider(AboutMeScreen._githubUsername),
     );
     final soundEffectsEnabled = ref.watch(soundEffectsProvider);
-    final cardDeckStyle = ref.watch(cardDeckStyleProvider);
 
     return RitualScreenFrame(
       header: RitualHeader(eyebrow: l10n.aboutEyebrow, title: l10n.aboutTitle),
@@ -110,30 +109,9 @@ class _AboutMeScreenState extends ConsumerState<AboutMeScreen> {
             value: soundEffectsEnabled,
             onChanged: ref.read(soundEffectsProvider.notifier).setEnabled,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: DropdownButtonFormField<CardDeckStyle>(
-              key: ValueKey(cardDeckStyle),
-              initialValue: cardDeckStyle,
-              isExpanded: true,
-              decoration: InputDecoration(
-                labelText: l10n.aboutCardDeckTitle,
-                helperText: l10n.aboutCardDeckSubtitle,
-              ),
-              items: CardDeckStyle.values
-                  .map(
-                    (style) => DropdownMenuItem<CardDeckStyle>(
-                      value: style,
-                      child: Text(_cardDeckStyleLabel(style, l10n)),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (style) {
-                if (style != null) {
-                  ref.read(cardDeckStyleProvider.notifier).setStyle(style);
-                }
-              },
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 8),
+            child: CardDeckSelector(),
           ),
           // Quick Settings tiles are an Android surface; the browser has
           // nowhere to pin them, so the whole section is dropped rather than
@@ -199,12 +177,6 @@ class _AboutMeScreenState extends ConsumerState<AboutMeScreen> {
     );
   }
 
-  String _cardDeckStyleLabel(CardDeckStyle style, AppLocalizations l10n) =>
-      switch (style) {
-        CardDeckStyle.universe => l10n.cardDeckUniverse,
-        CardDeckStyle.publicDomainBlue => l10n.cardDeckPublicDomainBlue,
-        CardDeckStyle.publicDomainRed => l10n.cardDeckPublicDomainRed,
-      };
 }
 
 class _DonationButton extends StatelessWidget {

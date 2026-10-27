@@ -46,7 +46,7 @@ class _FakeGitHubProfileService extends GitHubProfileService {
   @override
   Future<GitHubProfile> fetchProfile({required String username}) async {
     return const GitHubProfile(
-      login: 'vitorhugo-dotnet',
+      login: 'hugoalves-dev',
       avatarUrl: '',
       name: 'Vitor Hugo',
       bio: 'Developer',

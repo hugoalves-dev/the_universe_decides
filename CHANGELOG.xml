@@ -1,62 +1,35 @@
 <en-US>
-- Learn how PRNGs, secure random generators, and physical entropy differ.
-- Use a local cryptographically secure generator when RANDOM.ORG is unavailable.
-- Choose and save your playing card deck: Universe style or classic blue- or red-backed cards.
-- Choose among five historic tarot decks and reveal upright or reversed cards with a short description for each.
+- Fixed the developer's GitHub profile link.
 </en-US>
 
 <pt-BR>
-- Entenda as diferenças entre PRNGs, geradores seguros e entropia física.
-- Use um gerador criptograficamente seguro quando o RANDOM.ORG estiver indisponível.
-- Escolha e salve seu baralho de cartas: estilo Universo ou clássico com verso azul ou vermelho.
-- Escolha entre cinco baralhos históricos de tarô e revele cartas normais ou invertidas com uma breve descrição para cada uma.
+- Corrigido o link para o perfil do desenvolvedor no GitHub.
 </pt-BR>
 
 <es-ES>
-- Aprende las diferencias entre PRNG, generadores seguros y entropía física.
-- Usa un generador criptográficamente seguro cuando RANDOM.ORG no está disponible.
-- Elige y guarda tu baraja: estilo Universo o clásica con reverso azul o rojo.
-- Elige entre cinco mazos históricos de tarot y revela cartas al derecho o invertidas con una breve descripción de cada una.
+- Se corrigió el enlace al perfil de GitHub del desarrollador.
 </es-ES>
 
 <de>
-- Erfahre, wie sich PRNGs, sichere Zufallsgeneratoren und physische Entropie unterscheiden.
-- Nutze bei Ausfall von RANDOM.ORG einen lokal kryptografisch sicheren Generator.
-- Wähle und speichere dein Kartendeck: Universum-Stil oder klassisch mit blauer oder roter Rückseite.
-- Wähle aus fünf historischen Tarotdecks und entdecke aufrechte oder umgekehrte Karten mit einer kurzen Beschreibung jeder Karte.
+- Der Link zum GitHub-Profil des Entwicklers wurde korrigiert.
 </de>
 
 <fr-FR>
-- Découvrez les différences entre PRNG, générateurs sûrs et entropie physique.
-- Utilisez un générateur cryptographiquement sûr lorsque RANDOM.ORG est indisponible.
-- Choisissez et mémorisez votre jeu de cartes : style Univers ou jeu classique à dos bleu ou rouge.
-- Choisissez parmi cinq jeux de tarot historiques et découvrez les cartes à l’endroit ou à l’envers avec une brève description de chacune.
+- Correction du lien vers le profil GitHub du développeur.
 </fr-FR>
 
 <hi>
-- PRNG, सुरक्षित जनरेटर और भौतिक एंट्रॉपी के अंतर जानें।
-- RANDOM.ORG उपलब्ध न होने पर स्थानीय क्रिप्टोग्राफ़िक रूप से सुरक्षित जनरेटर उपयोग करें।
-- अपना ताश का डेक चुनें और सहेजें: यूनिवर्स शैली या नीली अथवा लाल पीठ वाला क्लासिक डेक।
-- पाँच ऐतिहासिक टैरो डेक में से चुनें और सीधे या उल्टे कार्डों का संक्षिप्त विवरण जानें।
+- डेवलपर की GitHub प्रोफ़ाइल का लिंक ठीक किया गया।
 </hi>
 
 <it>
-- Scopri le differenze tra PRNG, generatori sicuri ed entropia fisica.
-- Usa un generatore crittograficamente sicuro quando RANDOM.ORG non è disponibile.
-- Scegli e salva il tuo mazzo di carte: stile Universo o classico con retro blu o rosso.
-- Scegli tra cinque mazzi storici di tarocchi e scopri carte dritte o rovesciate con una breve descrizione per ciascuna.
+- Corretto il link al profilo GitHub dello sviluppatore.
 </it>
 
 <tr>
-- PRNG, güvenli üreteçler ve fiziksel entropi arasındaki farkları öğrenin.
-- RANDOM.ORG kullanılamadığında yerel kriptografik güvenli üreteci kullanın.
-- Kart destenizi seçip kaydedin: Evren stili veya mavi ya da kırmızı arka yüzlü klasik deste.
-- Beş tarihî tarot destesinden birini seçin; düz veya ters kartları kısa açıklamalarıyla keşfedin.
+- Geliştiricinin GitHub profil bağlantısı düzeltildi.
 </tr>
 
 <uk>
-- Дізнайтеся про відмінності між PRNG, захищеними генераторами та фізичною ентропією.
-- Використовуйте локальний криптографічно захищений генератор, коли RANDOM.ORG недоступний.
-- Виберіть і збережіть колоду гральних карт: стиль «Всесвіт» або класичну колоду із синьою чи червоною сорочкою.
-- Оберіть одну з п’яти історичних колод Таро та відкривайте прямі й перевернуті карти з коротким описом кожної.
+- Виправлено посилання на профіль розробника в GitHub.
 </uk>

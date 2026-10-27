@@ -31,7 +31,7 @@ Future<void> _pump(WidgetTester tester, List<List<int>> responses) async {
         githubProfileServiceProvider.overrideWith(
           (ref) => _FakeGitHubProfileService(
             const GitHubProfile(
-              login: 'vitorhugo-dotnet',
+              login: 'hugoalves-dev',
               avatarUrl: '',
               name: 'Vitor Hugo',
               bio: 'Creator of The Universe Decides.',

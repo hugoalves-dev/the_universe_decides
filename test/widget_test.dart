@@ -66,7 +66,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -107,7 +107,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -145,7 +145,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -181,7 +181,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -223,7 +223,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -251,7 +251,7 @@ void main() {
     final randomService = _FakeRandomOrgService(const []);
     final githubService = _FakeGitHubProfileService(
       const GitHubProfile(
-        login: 'vitorhugo-dotnet',
+        login: 'hugoalves-dev',
         avatarUrl: '',
         name: 'Vitor Hugo',
         bio: 'Developer',
@@ -275,11 +275,11 @@ void main() {
 
     expect(find.byType(AppBar), findsNothing);
     expect(find.text('Vitor Hugo'), findsOneWidget);
-    expect(find.text('@vitorhugo-dotnet'), findsOneWidget);
+    expect(find.text('@hugoalves-dev'), findsOneWidget);
     expect(find.text('Add coin'), findsOneWidget);
     expect(find.text('Buy me a coffee'), findsOneWidget);
     expect(find.byIcon(Icons.monetization_on), findsOneWidget);
-    expect(githubService.usernames, ['vitorhugo-dotnet']);
+    expect(githubService.usernames, ['hugoalves-dev']);
   });
 
   testWidgets('app shows portuguese labels for pt-BR locale', (
@@ -297,7 +297,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -333,7 +333,7 @@ void main() {
           githubProfileServiceProvider.overrideWith(
             (ref) => _FakeGitHubProfileService(
               const GitHubProfile(
-                login: 'vitorhugo-dotnet',
+                login: 'hugoalves-dev',
                 avatarUrl: '',
                 name: 'Vitor Hugo',
               ),
@@ -454,7 +454,7 @@ void main() {
             githubProfileServiceProvider.overrideWith(
               (ref) => _FakeGitHubProfileService(
                 const GitHubProfile(
-                  login: 'vitorhugo-dotnet',
+                  login: 'hugoalves-dev',
                   avatarUrl: '',
                   name: 'Vitor Hugo',
                 ),
@@ -504,7 +504,7 @@ Future<void> _pumpLocalizedApp(WidgetTester tester, Locale locale) async {
         githubProfileServiceProvider.overrideWith(
           (ref) => _FakeGitHubProfileService(
             const GitHubProfile(
-              login: 'vitorhugo-dotnet',
+              login: 'hugoalves-dev',
               avatarUrl: '',
               name: 'Vitor Hugo',
             ),

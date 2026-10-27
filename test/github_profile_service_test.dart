@@ -8,20 +8,20 @@ void main() {
     final service = GitHubProfileService(
       client: MockClient(
         (_) async => http.Response('''
-{"login":"vitorhugo-dotnet","avatar_url":"https://avatars.githubusercontent.com/u/1?v=4","name":"Vitor Hugo","bio":"Developer","html_url":"https://github.com/vitorhugo-dotnet"}
+{"login":"hugoalves-dev","avatar_url":"https://avatars.githubusercontent.com/u/1?v=4","name":"Vitor Hugo","bio":"Developer","html_url":"https://github.com/hugoalves-dev"}
 ''', 200),
       ),
     );
 
     addTearDown(service.dispose);
 
-    final profile = await service.fetchProfile(username: 'vitorhugo-dotnet');
+    final profile = await service.fetchProfile(username: 'hugoalves-dev');
 
-    expect(profile.login, 'vitorhugo-dotnet');
+    expect(profile.login, 'hugoalves-dev');
     expect(profile.avatarUrl, 'https://avatars.githubusercontent.com/u/1?v=4');
     expect(profile.name, 'Vitor Hugo');
     expect(profile.bio, 'Developer');
-    expect(profile.profileUrl, 'https://github.com/vitorhugo-dotnet');
+    expect(profile.profileUrl, 'https://github.com/hugoalves-dev');
   });
 
   test('fetchProfile throws on not found users', () async {

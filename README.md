@@ -78,7 +78,7 @@ can help prepare the Flutter iOS build, test it on Apple devices, and navigate
 code signing, TestFlight, and App Store submission.
 
 If you're interested, please join the discussion in
-[**Issue #81: iOS / App Store publication collaboration 🍎**](https://github.com/vitorhugo-dotnet/the_universe_decides/issues/81)
+[**Issue #81: iOS / App Store publication collaboration 🍎**](https://github.com/hugoalves-dev/the_universe_decides/issues/81)
 and tell us how you'd like to help. Contributions via pull requests are
 welcome, too.
 

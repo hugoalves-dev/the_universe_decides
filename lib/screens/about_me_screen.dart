@@ -19,7 +19,7 @@ import 'package:theuniversedecides/widgets/tarot_deck_selector.dart';
 class AboutMeScreen extends ConsumerStatefulWidget {
   const AboutMeScreen({super.key});
 
-  static const _githubUsername = 'vitorhugo-dotnet';
+  static const _githubUsername = 'hugoalves-dev';
 
   @override
   ConsumerState<AboutMeScreen> createState() => _AboutMeScreenState();

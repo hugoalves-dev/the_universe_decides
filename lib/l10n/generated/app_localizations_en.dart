@@ -202,36 +202,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Play a subtle sound when a decision is complete.';
 
   @override
-  String get aboutTarotDeckTitle => 'Tarot deck';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Choose the artwork for tarot draws.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Rider–Waite';
-
-  @override
-  String get tarotDeckJeanDodal => 'Jean Dodal';
-
-  @override
-  String get tarotDeckVieville => 'Viéville';
-
-  @override
-  String get tarotDeckSolaBusca => 'Sola–Busca';
-
-  @override
-  String get tarotDeckEtteilla => 'Etteilla I';
-
-  @override
-  String get tarotUpright => 'Upright';
-
-  @override
-  String get tarotReversed => 'Reversed';
-
-  @override
-  String get tarotMeaningTitle => 'Meaning';
-
-  @override
   String get aboutCardDeckTitle => 'Card deck';
 
   @override
@@ -247,12 +217,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Classic (red back)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'How randomness works';
+  String get aboutRandomnessCardTitle => 'How randomness works';
 
   @override
-  String get aboutRandomnessCardSubtitle =>
-      'How PRNGs and secure RNGs differ';
+  String get aboutRandomnessCardSubtitle => 'How PRNGs and secure RNGs differ';
 
   @override
   String get aboutHistoryCardTitle => 'Recent results';
@@ -309,28 +277,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get randomnessSheetEyebrow => 'What lies behind chance';
 
   @override
-  String get randomnessSheetTitle =>
-      'PRNGs, secure RNGs & physical entropy';
+  String get randomnessSheetTitle => 'PRNGs, secure RNGs & physical entropy';
 
   @override
-  String get randomnessCard1Title =>
-      'Three related but different sources';
+  String get randomnessCard1Title => 'Three related but different sources';
 
   @override
   String get randomnessCard1Body =>
       'A PRNG deterministically expands a seed and internal state; it is useful for games and simulations but is not designed to resist prediction. A CSPRNG (often built as a DRBG) is designed to make outputs hard to predict, usually using operating-system entropy. A physical entropy source measures a physical process. These categories are related, not interchangeable.';
 
   @override
-  String get randomnessCard2Title =>
-      'What this app uses';
+  String get randomnessCard2Title => 'What this app uses';
 
   @override
   String get randomnessCard2Body =>
       'When available, the app requests integers from RANDOM.ORG, which documents atmospheric radio noise as an entropy source. Its output can be conditioned and buffered before a request; we do not measure or verify the provider\'s process ourselves. Offline, the app uses Dart Random.secure(), an OS-backed CSPRNG when supported. If secure randomness is unsupported, the app falls back to an ordinary PRNG and labels it as non-cryptographic.';
 
   @override
-  String get randomnessCard3Title =>
-      'Entropy is not proof';
+  String get randomnessCard3Title => 'Entropy is not proof';
 
   @override
   String get randomnessCard3Body =>
@@ -344,6 +308,42 @@ class AppLocalizationsEn extends AppLocalizations {
       'RANDOM.ORG unavailable. Using local secure RNG (CSPRNG).';
 
   @override
+  String get aboutTarotDeckTitle => 'Tarot deck';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Choose the artwork for tarot draws.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Upright';
+
+  @override
+  String get tarotReversed => 'Reversed';
+
+  @override
+  String get tarotMeaningTitle => 'Meaning';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG unavailable and secure RNG unsupported. Using local PRNG (not cryptographically secure).';
+
+  @override
+  String get tarotAllowReversed => 'Allow reversed cards';
+
+  @override
+  String get tarotShowMeaning => 'Show card meaning';
 }

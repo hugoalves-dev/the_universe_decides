@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/services/tarot_deck_service.dart';
+import 'package:theuniversedecides/services/tarot_preferences_service.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
 
 class TarotDeckSelector extends ConsumerWidget {
@@ -90,6 +91,7 @@ class _TarotDeckPickerSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final bottomInset = MediaQuery.of(context).viewPadding.bottom;
+    final preferences = ref.watch(tarotPreferencesProvider);
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.7,
@@ -137,6 +139,23 @@ class _TarotDeckPickerSheet extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
+            SwitchListTile.adaptive(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.tarotAllowReversed),
+              value: preferences.allowReversed,
+              onChanged: ref
+                  .read(tarotPreferencesProvider.notifier)
+                  .setAllowReversed,
+            ),
+            SwitchListTile.adaptive(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.tarotShowMeaning),
+              value: preferences.showMeaning,
+              onChanged: ref
+                  .read(tarotPreferencesProvider.notifier)
+                  .setShowMeaning,
+            ),
+            const SizedBox(height: 16),
             for (final style in TarotDeckStyle.values) ...[
               _TarotDeckOption(
                 label: _tarotDeckLabel(style, l10n),
@@ -146,7 +165,8 @@ class _TarotDeckPickerSheet extends ConsumerWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              if (style != TarotDeckStyle.values.last) const SizedBox(height: 10),
+              if (style != TarotDeckStyle.values.last)
+                const SizedBox(height: 10),
             ],
           ],
         ),
@@ -177,16 +197,16 @@ class _TarotDeckOption extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: selected ? const Color(0x1A7A4FFF) : const Color(0x08FFFFFF),
-          border: Border.all(color: selected ? const Color(0x597A4FFF) : const Color(0x14FFFFFF)),
+          border: Border.all(
+            color: selected ? const Color(0x597A4FFF) : const Color(0x14FFFFFF),
+          ),
         ),
         child: Row(
           children: [
             Icon(
               selected ? Icons.radio_button_checked : Icons.radio_button_off,
               size: 20,
-              color: selected
-                  ? const Color(0xFFD9CFFF)
-                  : AppColors.textDim,
+              color: selected ? const Color(0xFFD9CFFF) : AppColors.textDim,
             ),
             const SizedBox(width: 12),
             Expanded(

@@ -206,36 +206,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Jouer un son discret lorsqu\'une décision est prise.';
 
   @override
-  String get aboutTarotDeckTitle => 'Jeu de tarot';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Choisissez les illustrations des tirages de tarot.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Rider–Waite';
-
-  @override
-  String get tarotDeckJeanDodal => 'Jean Dodal';
-
-  @override
-  String get tarotDeckVieville => 'Viéville';
-
-  @override
-  String get tarotDeckSolaBusca => 'Sola–Busca';
-
-  @override
-  String get tarotDeckEtteilla => 'Etteilla I';
-
-  @override
-  String get tarotUpright => 'À l’endroit';
-
-  @override
-  String get tarotReversed => 'À l’envers';
-
-  @override
-  String get tarotMeaningTitle => 'Signification';
-
-  @override
   String get aboutCardDeckTitle => 'Jeu de cartes';
 
   @override
@@ -251,8 +221,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Classique (dos rouge)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'Comment fonctionne le hasard';
+  String get aboutRandomnessCardTitle => 'Comment fonctionne le hasard';
 
   @override
   String get aboutRandomnessCardSubtitle =>
@@ -319,24 +288,21 @@ class AppLocalizationsFr extends AppLocalizations {
       'PRNG, générateurs sûrs et entropie physique';
 
   @override
-  String get randomnessCard1Title =>
-      'Trois notions liées, mais distinctes';
+  String get randomnessCard1Title => 'Trois notions liées, mais distinctes';
 
   @override
   String get randomnessCard1Body =>
       'Un PRNG produit une suite déterministe à partir d\'une graine et d\'un état interne. Il convient aux jeux et simulations, mais n\'est pas conçu pour résister à la prédiction. Un CSPRNG (souvent un DRBG) vise des sorties difficiles à prévoir et utilise généralement l\'entropie du système. Une source physique mesure un phénomène physique. Ces notions sont liées, mais différentes.';
 
   @override
-  String get randomnessCard2Title =>
-      'Ce que cette app utilise';
+  String get randomnessCard2Title => 'Ce que cette app utilise';
 
   @override
   String get randomnessCard2Body =>
       'Quand le service est disponible, l\'app demande des nombres à RANDOM.ORG, qui décrit le bruit radio atmosphérique comme source d\'entropie. Les données peuvent être traitées et mises en tampon avant la requête ; nous ne vérifions pas ce processus. Hors ligne, l\'app utilise Dart Random.secure() si une source système sûre existe. Si le hasard sûr n’est pas pris en charge, un PRNG ordinaire est utilisé et signalé comme non cryptographiquement sûr.';
 
   @override
-  String get randomnessCard3Title =>
-      'L\'entropie n\'est pas une preuve';
+  String get randomnessCard3Title => 'L\'entropie n\'est pas une preuve';
 
   @override
   String get randomnessCard3Body =>
@@ -350,6 +316,43 @@ class AppLocalizationsFr extends AppLocalizations {
       'RANDOM.ORG indisponible. Utilisation du générateur sûr local (CSPRNG).';
 
   @override
+  String get aboutTarotDeckTitle => 'Jeu de tarot';
+
+  @override
+  String get aboutTarotDeckSubtitle =>
+      'Choisissez les illustrations des tirages de tarot.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'À l’endroit';
+
+  @override
+  String get tarotReversed => 'À l’envers';
+
+  @override
+  String get tarotMeaningTitle => 'Signification';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG indisponible et générateur sûr non pris en charge. Utilisation d’un PRNG local (non cryptographiquement sûr).';
+
+  @override
+  String get tarotAllowReversed => 'Autoriser les cartes inversées';
+
+  @override
+  String get tarotShowMeaning => 'Afficher la signification de la carte';
 }

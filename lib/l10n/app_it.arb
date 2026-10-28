@@ -123,5 +123,7 @@
   "tarotUpright": "Dritta",
   "tarotReversed": "Rovesciata",
   "tarotMeaningTitle": "Significato",
-  "secureRandomUnavailableNotice": "RANDOM.ORG non disponibile e RNG sicuro non supportato. Uso di un PRNG locale (non sicuro a livello crittografico)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG non disponibile e RNG sicuro non supportato. Uso di un PRNG locale (non sicuro a livello crittografico).",
+  "tarotAllowReversed": "Consenti carte rovesciate",
+  "tarotShowMeaning": "Mostra il significato della carta"
 }

@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math' as math;
@@ -20,6 +21,7 @@ void main() {
   // The rebuilt dice screen embeds a real WebView; register an in-memory
   // platform fake so app-level tests can build it without a native surface.
   setUp(FakeWebViewPlatform.register);
+  setUp(() => SharedPreferences.setMockInitialValues({}));
 
   // The redesigned shell has always-on rune-ring animations; disabling
   // animations keeps pumpAndSettle finite and exercises the reduced-motion

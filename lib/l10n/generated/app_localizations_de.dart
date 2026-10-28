@@ -210,36 +210,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Einen dezenten Ton abspielen, wenn eine Entscheidung abgeschlossen ist.';
 
   @override
-  String get aboutTarotDeckTitle => 'Tarotdeck';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Wähle die Tarotkartenillustrationen.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Rider–Waite';
-
-  @override
-  String get tarotDeckJeanDodal => 'Jean Dodal';
-
-  @override
-  String get tarotDeckVieville => 'Viéville';
-
-  @override
-  String get tarotDeckSolaBusca => 'Sola–Busca';
-
-  @override
-  String get tarotDeckEtteilla => 'Etteilla I';
-
-  @override
-  String get tarotUpright => 'Aufrecht';
-
-  @override
-  String get tarotReversed => 'Umgekehrt';
-
-  @override
-  String get tarotMeaningTitle => 'Bedeutung';
-
-  @override
   String get aboutCardDeckTitle => 'Kartendeck';
 
   @override
@@ -255,8 +225,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Klassisch (rote Rückseite)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'So funktioniert Zufall';
+  String get aboutRandomnessCardTitle => 'So funktioniert Zufall';
 
   @override
   String get aboutRandomnessCardSubtitle =>
@@ -319,8 +288,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get randomnessSheetEyebrow => 'Was hinter dem Zufall steckt';
 
   @override
-  String get randomnessSheetTitle =>
-      'Zufall, PRNG und CSPRNG';
+  String get randomnessSheetTitle => 'Zufall, PRNG und CSPRNG';
 
   @override
   String get randomnessCard1Title =>
@@ -331,16 +299,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'Ein PRNG erzeugt aus Startwert und internem Zustand deterministische Folgen. Er eignet sich für Spiele und Simulationen, ist aber nicht gegen Vorhersage ausgelegt. Ein CSPRNG (oft als DRBG) soll Ausgaben schwer vorhersagbar machen und nutzt üblicherweise Betriebssystem-Entropie. Eine physische Entropiequelle misst einen physikalischen Prozess. Diese Begriffe sind verwandt, aber nicht austauschbar.';
 
   @override
-  String get randomnessCard2Title =>
-      'Was diese App verwendet';
+  String get randomnessCard2Title => 'Was diese App verwendet';
 
   @override
   String get randomnessCard2Body =>
       'Wenn verfügbar, fordert die App Zahlen bei RANDOM.ORG an. Der Dienst nennt atmosphärisches Funkrauschen als Entropiequelle; die Ausgabe kann vor der Anfrage verarbeitet und gepuffert werden. Wir prüfen diesen Prozess nicht selbst. Offline verwendet die App Dart Random.secure(), sofern eine sichere Betriebssystemquelle verfügbar ist. Wird sichere Zufälligkeit nicht unterstützt, nutzt die App einen gewöhnlichen PRNG und kennzeichnet ihn als nicht kryptografisch sicher.';
 
   @override
-  String get randomnessCard3Title =>
-      'Entropie ist kein Beweis';
+  String get randomnessCard3Title => 'Entropie ist kein Beweis';
 
   @override
   String get randomnessCard3Body =>
@@ -354,6 +320,42 @@ class AppLocalizationsDe extends AppLocalizations {
       'RANDOM.ORG nicht verfügbar. Lokaler sicherer Zufallsgenerator (CSPRNG) wird verwendet.';
 
   @override
+  String get aboutTarotDeckTitle => 'Tarotdeck';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Wähle die Tarotkartenillustrationen.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Aufrecht';
+
+  @override
+  String get tarotReversed => 'Umgekehrt';
+
+  @override
+  String get tarotMeaningTitle => 'Bedeutung';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG nicht verfügbar und sicherer Generator nicht unterstützt. Lokaler PRNG wird verwendet (nicht kryptografisch sicher).';
+
+  @override
+  String get tarotAllowReversed => 'Umgekehrte Karten erlauben';
+
+  @override
+  String get tarotShowMeaning => 'Kartenbedeutung anzeigen';
 }

@@ -123,5 +123,7 @@
   "tarotUpright": "Düz",
   "tarotReversed": "Ters",
   "tarotMeaningTitle": "Anlam",
-  "secureRandomUnavailableNotice": "RANDOM.ORG kullanılamıyor ve güvenli RNG desteklenmiyor. Yerel PRNG kullanılıyor (kriptografik olarak güvenli değil)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG kullanılamıyor ve güvenli RNG desteklenmiyor. Yerel PRNG kullanılıyor (kriptografik olarak güvenli değil).",
+  "tarotAllowReversed": "Ters kartlara izin ver",
+  "tarotShowMeaning": "Kart anlamını göster"
 }

@@ -12,6 +12,7 @@ import 'package:theuniversedecides/services/results_history_service.dart';
 import 'package:theuniversedecides/services/sound_effects_service.dart';
 import 'package:theuniversedecides/services/tarot_artwork_service.dart';
 import 'package:theuniversedecides/services/tarot_deck_service.dart';
+import 'package:theuniversedecides/services/tarot_preferences_service.dart';
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
@@ -27,6 +28,7 @@ class TarotDrawScreen extends ConsumerWidget {
     final state = ref.watch(tarotDrawProvider);
     final controller = ref.read(tarotDrawProvider.notifier);
     final deckStyle = ref.watch(tarotDeckStyleProvider);
+    final showMeaning = ref.watch(tarotPreferencesProvider).showMeaning;
     final artworkService = ref.read(tarotArtworkServiceProvider);
     final cardKey = ValueKey<int>(state.drawCount);
     final animationDuration = MediaQuery.disableAnimationsOf(context)
@@ -141,23 +143,25 @@ class TarotDrawScreen extends ConsumerWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          l10n.tarotMeaningTitle,
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: AppColors.whiteMuted,
-                            fontWeight: FontWeight.w700,
+                        if (showMeaning) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            l10n.tarotMeaningTitle,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: AppColors.whiteMuted,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 3),
-                        Text(
-                          state.card!.meaningForOrientation,
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            color: AppColors.whiteMuted,
+                          const SizedBox(height: 3),
+                          Text(
+                            state.card!.meaningForOrientation,
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: AppColors.whiteMuted,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
+                        ],
                       ],
                     ],
                   ),
@@ -215,8 +219,9 @@ class _TarotCardFace extends StatelessWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final isRevealed = card != null;
-    final cardRotation =
-        !rotationAlreadyApplied && card?.isReversed == true ? math.pi : 0.0;
+    final cardRotation = !rotationAlreadyApplied && card?.isReversed == true
+        ? math.pi
+        : 0.0;
 
     if (artworkPath != null && card != null) {
       return AspectRatio(
@@ -363,7 +368,9 @@ class _TarotCardFace extends StatelessWidget {
                                       style:
                                           (isCompact
                                                   ? theme.textTheme.titleLarge
-                                                  : theme.textTheme.headlineSmall)
+                                                  : theme
+                                                        .textTheme
+                                                        .headlineSmall)
                                               ?.copyWith(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w900,

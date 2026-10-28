@@ -123,5 +123,7 @@
   "tarotUpright": "Пряма",
   "tarotReversed": "Перевернута",
   "tarotMeaningTitle": "Значення",
-  "secureRandomUnavailableNotice": "RANDOM.ORG недоступний, захищений RNG не підтримується. Використовується локальний PRNG (не криптографічно захищений)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG недоступний, захищений RNG не підтримується. Використовується локальний PRNG (не криптографічно захищений).",
+  "tarotAllowReversed": "Дозволити перевернуті карти",
+  "tarotShowMeaning": "Показувати значення карти"
 }

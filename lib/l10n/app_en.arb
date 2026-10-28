@@ -123,5 +123,7 @@
   "tarotUpright": "Upright",
   "tarotReversed": "Reversed",
   "tarotMeaningTitle": "Meaning",
-  "secureRandomUnavailableNotice": "RANDOM.ORG unavailable and secure RNG unsupported. Using local PRNG (not cryptographically secure)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG unavailable and secure RNG unsupported. Using local PRNG (not cryptographically secure).",
+  "tarotAllowReversed": "Allow reversed cards",
+  "tarotShowMeaning": "Show card meaning"
 }

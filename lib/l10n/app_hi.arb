@@ -123,5 +123,7 @@
   "tarotUpright": "सीधा",
   "tarotReversed": "उल्टा",
   "tarotMeaningTitle": "अर्थ",
-  "secureRandomUnavailableNotice": "RANDOM.ORG उपलब्ध नहीं है और सुरक्षित RNG समर्थित नहीं है। स्थानीय PRNG उपयोग हो रहा है (क्रिप्टोग्राफ़िक रूप से सुरक्षित नहीं)।"
+  "secureRandomUnavailableNotice": "RANDOM.ORG उपलब्ध नहीं है और सुरक्षित RNG समर्थित नहीं है। स्थानीय PRNG उपयोग हो रहा है (क्रिप्टोग्राफ़िक रूप से सुरक्षित नहीं)।",
+  "tarotAllowReversed": "उल्टे कार्ड की अनुमति दें",
+  "tarotShowMeaning": "कार्ड का अर्थ दिखाएँ"
 }

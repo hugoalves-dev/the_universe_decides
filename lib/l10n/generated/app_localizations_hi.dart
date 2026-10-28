@@ -203,36 +203,6 @@ class AppLocalizationsHi extends AppLocalizations {
       'निर्णय पूरा होने पर एक हल्की ध्वनि बजाएं।';
 
   @override
-  String get aboutTarotDeckTitle => 'टैरो डेक';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'टैरो कार्ड की कलाकृति चुनें।';
-
-  @override
-  String get tarotDeckRiderWaite => 'राइडर–वेट';
-
-  @override
-  String get tarotDeckJeanDodal => 'जीन डोडल';
-
-  @override
-  String get tarotDeckVieville => 'विएविल';
-
-  @override
-  String get tarotDeckSolaBusca => 'सोला–बुस्का';
-
-  @override
-  String get tarotDeckEtteilla => 'एटेय्या I';
-
-  @override
-  String get tarotUpright => 'सीधा';
-
-  @override
-  String get tarotReversed => 'उल्टा';
-
-  @override
-  String get tarotMeaningTitle => 'अर्थ';
-
-  @override
   String get aboutCardDeckTitle => 'ताश का डेक';
 
   @override
@@ -248,12 +218,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'क्लासिक (लाल पीठ)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'यादृच्छिकता कैसे काम करती है';
+  String get aboutRandomnessCardTitle => 'यादृच्छिकता कैसे काम करती है';
 
   @override
-  String get aboutRandomnessCardSubtitle =>
-      'PRNG और सुरक्षित RNG के बीच अंतर';
+  String get aboutRandomnessCardSubtitle => 'PRNG और सुरक्षित RNG के बीच अंतर';
 
   @override
   String get aboutHistoryCardTitle => 'हाल के परिणाम';
@@ -311,28 +279,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get randomnessSheetEyebrow => 'संयोग के पीछे क्या है';
 
   @override
-  String get randomnessSheetTitle =>
-      'PRNG, सुरक्षित RNG और भौतिक एंट्रॉपी';
+  String get randomnessSheetTitle => 'PRNG, सुरक्षित RNG और भौतिक एंट्रॉपी';
 
   @override
-  String get randomnessCard1Title =>
-      'तीन संबंधित, लेकिन अलग अवधारणाएँ';
+  String get randomnessCard1Title => 'तीन संबंधित, लेकिन अलग अवधारणाएँ';
 
   @override
   String get randomnessCard1Body =>
       'PRNG बीज और आंतरिक स्थिति से नियतात्मक क्रम बनाता है। यह गेम और सिमुलेशन के लिए उपयोगी है, लेकिन अनुमान से बचाव के लिए नहीं बनाया गया। CSPRNG (अक्सर DRBG के रूप में) आउटपुट का अनुमान कठिन बनाता है और आम तौर पर ऑपरेटिंग सिस्टम की एंट्रॉपी लेता है। भौतिक स्रोत किसी भौतिक प्रक्रिया को मापता है। ये संबंधित, पर अलग अवधारणाएँ हैं।';
 
   @override
-  String get randomnessCard2Title =>
-      'यह ऐप क्या उपयोग करता है';
+  String get randomnessCard2Title => 'यह ऐप क्या उपयोग करता है';
 
   @override
   String get randomnessCard2Body =>
       'उपलब्ध होने पर ऐप RANDOM.ORG से संख्याएँ माँगता है, जो वायुमंडलीय रेडियो शोर को एंट्रॉपी स्रोत बताता है। अनुरोध से पहले आउटपुट संसाधित और बफ़र हो सकता है; हम इस प्रक्रिया की पुष्टि नहीं करते। ऑफ़लाइन ऐप Dart Random.secure() का उपयोग करता है, यदि सिस्टम सुरक्षित स्रोत देता है। यदि सुरक्षित यादृच्छिकता समर्थित नहीं है, तो यह सामान्य PRNG का उपयोग करता है और इसे क्रिप्टोग्राफ़िक रूप से असुरक्षित बताता है।';
 
   @override
-  String get randomnessCard3Title =>
-      'एंट्रॉपी प्रमाण नहीं है';
+  String get randomnessCard3Title => 'एंट्रॉपी प्रमाण नहीं है';
 
   @override
   String get randomnessCard3Body =>
@@ -346,6 +310,42 @@ class AppLocalizationsHi extends AppLocalizations {
       'RANDOM.ORG उपलब्ध नहीं है। स्थानीय सुरक्षित RNG (CSPRNG) का उपयोग हो रहा है।';
 
   @override
+  String get aboutTarotDeckTitle => 'टैरो डेक';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'टैरो कार्ड की कलाकृति चुनें।';
+
+  @override
+  String get tarotDeckRiderWaite => 'राइडर–वेट';
+
+  @override
+  String get tarotDeckJeanDodal => 'जीन डोडल';
+
+  @override
+  String get tarotDeckVieville => 'विएविल';
+
+  @override
+  String get tarotDeckSolaBusca => 'सोला–बुस्का';
+
+  @override
+  String get tarotDeckEtteilla => 'एटेय्या I';
+
+  @override
+  String get tarotUpright => 'सीधा';
+
+  @override
+  String get tarotReversed => 'उल्टा';
+
+  @override
+  String get tarotMeaningTitle => 'अर्थ';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG उपलब्ध नहीं है और सुरक्षित RNG समर्थित नहीं है। स्थानीय PRNG उपयोग हो रहा है (क्रिप्टोग्राफ़िक रूप से सुरक्षित नहीं)।';
+
+  @override
+  String get tarotAllowReversed => 'उल्टे कार्ड की अनुमति दें';
+
+  @override
+  String get tarotShowMeaning => 'कार्ड का अर्थ दिखाएँ';
 }

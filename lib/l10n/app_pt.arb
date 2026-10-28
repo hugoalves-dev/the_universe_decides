@@ -123,5 +123,7 @@
   "tarotUpright": "Em pé",
   "tarotReversed": "Invertida",
   "tarotMeaningTitle": "Significado",
-  "secureRandomUnavailableNotice": "RANDOM.ORG indisponível e RNG seguro não suportado. Usando PRNG local (não seguro criptograficamente)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG indisponível e RNG seguro não suportado. Usando PRNG local (não seguro criptograficamente).",
+  "tarotAllowReversed": "Permitir cartas invertidas",
+  "tarotShowMeaning": "Mostrar significado da carta"
 }

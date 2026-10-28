@@ -208,36 +208,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Відтворювати тихий звук, коли рішення прийнято.';
 
   @override
-  String get aboutTarotDeckTitle => 'Колода Таро';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Оберіть зображення для розкладів Таро.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Райдер—Вейт';
-
-  @override
-  String get tarotDeckJeanDodal => 'Жан Додаль';
-
-  @override
-  String get tarotDeckVieville => 'В’євіль';
-
-  @override
-  String get tarotDeckSolaBusca => 'Сола—Буска';
-
-  @override
-  String get tarotDeckEtteilla => 'Етейлла I';
-
-  @override
-  String get tarotUpright => 'Пряма';
-
-  @override
-  String get tarotReversed => 'Перевернута';
-
-  @override
-  String get tarotMeaningTitle => 'Значення';
-
-  @override
   String get aboutCardDeckTitle => 'Колода карт';
 
   @override
@@ -254,8 +224,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Класичний (червона сорочка)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'Як працює випадковість';
+  String get aboutRandomnessCardTitle => 'Як працює випадковість';
 
   @override
   String get aboutRandomnessCardSubtitle =>
@@ -319,24 +288,21 @@ class AppLocalizationsUk extends AppLocalizations {
       'PRNG, захищені генератори й фізична ентропія';
 
   @override
-  String get randomnessCard1Title =>
-      'Три пов’язані, але різні поняття';
+  String get randomnessCard1Title => 'Три пов’язані, але різні поняття';
 
   @override
   String get randomnessCard1Body =>
       'PRNG створює детерміновану послідовність із початкового значення та внутрішнього стану. Він корисний для ігор і симуляцій, але не призначений для захисту від передбачення. CSPRNG (часто реалізований як DRBG) має ускладнювати передбачення й зазвичай використовує ентропію ОС. Фізичне джерело вимірює фізичний процес. Ці поняття пов\'язані, але не тотожні.';
 
   @override
-  String get randomnessCard2Title =>
-      'Що використовує застосунок';
+  String get randomnessCard2Title => 'Що використовує застосунок';
 
   @override
   String get randomnessCard2Body =>
       'Коли доступно, застосунок запитує числа в RANDOM.ORG, який описує атмосферний радіошум як джерело ентропії. Дані можуть оброблятися та буферизуватися до запиту; ми самі цей процес не перевіряємо. Офлайн застосунок використовує Dart Random.secure(), якщо ОС надає захищене джерело. Якщо захищена випадковість не підтримується, застосунок використовує звичайний PRNG і позначає його як незахищений криптографічно.';
 
   @override
-  String get randomnessCard3Title =>
-      'Ентропія — не доказ';
+  String get randomnessCard3Title => 'Ентропія — не доказ';
 
   @override
   String get randomnessCard3Body =>
@@ -350,6 +316,42 @@ class AppLocalizationsUk extends AppLocalizations {
       'RANDOM.ORG недоступний. Використовується локальний захищений генератор (CSPRNG).';
 
   @override
+  String get aboutTarotDeckTitle => 'Колода Таро';
+
+  @override
+  String get aboutTarotDeckSubtitle => 'Оберіть зображення для розкладів Таро.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Райдер—Вейт';
+
+  @override
+  String get tarotDeckJeanDodal => 'Жан Додаль';
+
+  @override
+  String get tarotDeckVieville => 'В’євіль';
+
+  @override
+  String get tarotDeckSolaBusca => 'Сола—Буска';
+
+  @override
+  String get tarotDeckEtteilla => 'Етейлла I';
+
+  @override
+  String get tarotUpright => 'Пряма';
+
+  @override
+  String get tarotReversed => 'Перевернута';
+
+  @override
+  String get tarotMeaningTitle => 'Значення';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG недоступний, захищений RNG не підтримується. Використовується локальний PRNG (не криптографічно захищений).';
+
+  @override
+  String get tarotAllowReversed => 'Дозволити перевернуті карти';
+
+  @override
+  String get tarotShowMeaning => 'Показувати значення карти';
 }

@@ -202,36 +202,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Reproduzir um som sutil quando uma decisão terminar.';
 
   @override
-  String get aboutTarotDeckTitle => 'Baralho de tarô';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Escolha a arte para as tiragens de tarô.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Rider–Waite';
-
-  @override
-  String get tarotDeckJeanDodal => 'Jean Dodal';
-
-  @override
-  String get tarotDeckVieville => 'Viéville';
-
-  @override
-  String get tarotDeckSolaBusca => 'Sola–Busca';
-
-  @override
-  String get tarotDeckEtteilla => 'Etteilla I';
-
-  @override
-  String get tarotUpright => 'Em pé';
-
-  @override
-  String get tarotReversed => 'Invertida';
-
-  @override
-  String get tarotMeaningTitle => 'Significado';
-
-  @override
   String get aboutCardDeckTitle => 'Baralho de cartas';
 
   @override
@@ -247,8 +217,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Clássico (verso vermelho)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'Como funciona a aleatoriedade';
+  String get aboutRandomnessCardTitle => 'Como funciona a aleatoriedade';
 
   @override
   String get aboutRandomnessCardSubtitle =>
@@ -322,16 +291,14 @@ class AppLocalizationsPt extends AppLocalizations {
       'Um PRNG produz sequências determinísticas a partir de uma semente e de um estado interno. É útil para jogos e simulações, mas não foi projetado para resistir a previsões. Um CSPRNG (muitas vezes um DRBG) busca tornar as saídas difíceis de prever e normalmente usa entropia do sistema operacional. Uma fonte física mede um processo físico. São conceitos relacionados, mas diferentes.';
 
   @override
-  String get randomnessCard2Title =>
-      'O que este app usa';
+  String get randomnessCard2Title => 'O que este app usa';
 
   @override
   String get randomnessCard2Body =>
       'Quando disponível, o app solicita números ao RANDOM.ORG, que documenta ruído de rádio atmosférico como fonte de entropia. A saída pode ser processada e armazenada em buffer antes da solicitação; não verificamos esse processo. Offline, o app usa Dart Random.secure() se houver uma fonte segura do sistema. Se a aleatoriedade segura não for compatível, usa um PRNG comum e o identifica como não seguro criptograficamente.';
 
   @override
-  String get randomnessCard3Title =>
-      'Entropia não é prova';
+  String get randomnessCard3Title => 'Entropia não é prova';
 
   @override
   String get randomnessCard3Body =>
@@ -345,6 +312,43 @@ class AppLocalizationsPt extends AppLocalizations {
       'RANDOM.ORG indisponível. Usando gerador seguro local (CSPRNG).';
 
   @override
+  String get aboutTarotDeckTitle => 'Baralho de tarô';
+
+  @override
+  String get aboutTarotDeckSubtitle =>
+      'Escolha a arte para as tiragens de tarô.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Em pé';
+
+  @override
+  String get tarotReversed => 'Invertida';
+
+  @override
+  String get tarotMeaningTitle => 'Significado';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG indisponível e RNG seguro não suportado. Usando PRNG local (não seguro criptograficamente).';
+
+  @override
+  String get tarotAllowReversed => 'Permitir cartas invertidas';
+
+  @override
+  String get tarotShowMeaning => 'Mostrar significado da carta';
 }

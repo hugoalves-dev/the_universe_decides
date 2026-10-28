@@ -123,5 +123,7 @@
   "tarotUpright": "À l’endroit",
   "tarotReversed": "À l’envers",
   "tarotMeaningTitle": "Signification",
-  "secureRandomUnavailableNotice": "RANDOM.ORG indisponible et générateur sûr non pris en charge. Utilisation d’un PRNG local (non cryptographiquement sûr)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG indisponible et générateur sûr non pris en charge. Utilisation d’un PRNG local (non cryptographiquement sûr).",
+  "tarotAllowReversed": "Autoriser les cartes inversées",
+  "tarotShowMeaning": "Afficher la signification de la carte"
 }

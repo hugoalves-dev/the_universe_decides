@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:theuniversedecides/data/tarot_card_meanings.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
+import 'package:theuniversedecides/services/tarot_preferences_service.dart';
 
 const _unset = Object();
 
@@ -44,6 +45,7 @@ class TarotDrawController extends Notifier<TarotDrawState> {
     }
 
     state = state.copyWith(isLoading: true);
+    await ref.read(tarotPreferencesProvider.notifier).ready;
     final values = await _randomOrgService.fetchIntegers(
       count: 1,
       min: 1,
@@ -56,7 +58,8 @@ class TarotDrawController extends Notifier<TarotDrawState> {
         ? 156
         : rawReadingNumber;
     final deckNumber = ((readingNumber - 1) % 78) + 1;
-    final isReversed = readingNumber > 78;
+    final isReversed =
+        ref.read(tarotPreferencesProvider).allowReversed && readingNumber > 78;
 
     state = state.copyWith(
       isLoading: false,

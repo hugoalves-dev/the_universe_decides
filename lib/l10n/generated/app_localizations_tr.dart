@@ -204,36 +204,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bir karar tamamlandığında hafif bir ses çal.';
 
   @override
-  String get aboutTarotDeckTitle => 'Tarot destesi';
-
-  @override
-  String get aboutTarotDeckSubtitle => 'Tarot açılımları için görsel stili seçin.';
-
-  @override
-  String get tarotDeckRiderWaite => 'Rider–Waite';
-
-  @override
-  String get tarotDeckJeanDodal => 'Jean Dodal';
-
-  @override
-  String get tarotDeckVieville => 'Viéville';
-
-  @override
-  String get tarotDeckSolaBusca => 'Sola–Busca';
-
-  @override
-  String get tarotDeckEtteilla => 'Etteilla I';
-
-  @override
-  String get tarotUpright => 'Düz';
-
-  @override
-  String get tarotReversed => 'Ters';
-
-  @override
-  String get tarotMeaningTitle => 'Anlam';
-
-  @override
   String get aboutCardDeckTitle => 'Kart destesi';
 
   @override
@@ -249,8 +219,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cardDeckPublicDomainRed => 'Klasik (kırmızı arka yüz)';
 
   @override
-  String get aboutRandomnessCardTitle =>
-      'Rastgelelik nasıl çalışır';
+  String get aboutRandomnessCardTitle => 'Rastgelelik nasıl çalışır';
 
   @override
   String get aboutRandomnessCardSubtitle =>
@@ -314,24 +283,21 @@ class AppLocalizationsTr extends AppLocalizations {
       'PRNG, güvenli üreteçler ve fiziksel entropi';
 
   @override
-  String get randomnessCard1Title =>
-      'İlişkili ama farklı üç kavram';
+  String get randomnessCard1Title => 'İlişkili ama farklı üç kavram';
 
   @override
   String get randomnessCard1Body =>
       'PRNG, bir başlangıç değeri ve iç durumdan belirleyici diziler üretir. Oyunlar ve benzetimler için kullanışlıdır ancak tahmine karşı koruma amacı taşımaz. CSPRNG (çoğunlukla DRBG olarak kurulur), çıktıları tahmin etmeyi zorlaştırır ve genellikle işletim sistemi entropisini kullanır. Fiziksel kaynak bir fiziksel süreci ölçer. Bunlar ilişkili ama farklı kavramlardır.';
 
   @override
-  String get randomnessCard2Title =>
-      'Bu uygulamanın kullandıkları';
+  String get randomnessCard2Title => 'Bu uygulamanın kullandıkları';
 
   @override
   String get randomnessCard2Body =>
       'Kullanılabilir olduğunda uygulama, atmosferik radyo gürültüsünü entropi kaynağı olarak belgeleyen RANDOM.ORG\'dan sayı ister. Veriler istek öncesinde işlenip tamponlanabilir; bu süreci biz doğrulamıyoruz. Çevrimdışıyken uygulama, sistem güvenli kaynak sağlıyorsa Dart Random.secure() kullanır. Güvenli rastgelelik desteklenmiyorsa sıradan bir PRNG kullanır ve bunu kriptografik olarak güvenli değil diye belirtir.';
 
   @override
-  String get randomnessCard3Title =>
-      'Entropi kanıt değildir';
+  String get randomnessCard3Title => 'Entropi kanıt değildir';
 
   @override
   String get randomnessCard3Body =>
@@ -345,6 +311,43 @@ class AppLocalizationsTr extends AppLocalizations {
       'RANDOM.ORG kullanılamıyor. Yerel güvenli üreteç (CSPRNG) kullanılıyor.';
 
   @override
+  String get aboutTarotDeckTitle => 'Tarot destesi';
+
+  @override
+  String get aboutTarotDeckSubtitle =>
+      'Tarot açılımları için görsel stili seçin.';
+
+  @override
+  String get tarotDeckRiderWaite => 'Rider–Waite';
+
+  @override
+  String get tarotDeckJeanDodal => 'Jean Dodal';
+
+  @override
+  String get tarotDeckVieville => 'Viéville';
+
+  @override
+  String get tarotDeckSolaBusca => 'Sola–Busca';
+
+  @override
+  String get tarotDeckEtteilla => 'Etteilla I';
+
+  @override
+  String get tarotUpright => 'Düz';
+
+  @override
+  String get tarotReversed => 'Ters';
+
+  @override
+  String get tarotMeaningTitle => 'Anlam';
+
+  @override
   String get secureRandomUnavailableNotice =>
       'RANDOM.ORG kullanılamıyor ve güvenli RNG desteklenmiyor. Yerel PRNG kullanılıyor (kriptografik olarak güvenli değil).';
+
+  @override
+  String get tarotAllowReversed => 'Ters kartlara izin ver';
+
+  @override
+  String get tarotShowMeaning => 'Kart anlamını göster';
 }

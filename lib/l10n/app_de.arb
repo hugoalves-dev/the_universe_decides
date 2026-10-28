@@ -123,5 +123,7 @@
   "tarotUpright": "Aufrecht",
   "tarotReversed": "Umgekehrt",
   "tarotMeaningTitle": "Bedeutung",
-  "secureRandomUnavailableNotice": "RANDOM.ORG nicht verfügbar und sicherer Generator nicht unterstützt. Lokaler PRNG wird verwendet (nicht kryptografisch sicher)."
+  "secureRandomUnavailableNotice": "RANDOM.ORG nicht verfügbar und sicherer Generator nicht unterstützt. Lokaler PRNG wird verwendet (nicht kryptografisch sicher).",
+  "tarotAllowReversed": "Umgekehrte Karten erlauben",
+  "tarotShowMeaning": "Kartenbedeutung anzeigen"
 }

@@ -430,7 +430,10 @@ abstract class AppLocalizations {
   /// **'About me'**
   String get aboutTitle;
 
-  /// Localized content for @aboutBioFallback.
+  /// No description provided for @aboutBioFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Creator of The Universe Decides, using RANDOM.ORG when available and a secure local generator offline.'**
   String get aboutBioFallback;
 
   /// No description provided for @aboutShortcutsTitle.
@@ -463,46 +466,6 @@ abstract class AppLocalizations {
   /// **'Play a subtle sound when a decision is complete.'**
   String get aboutSoundEffectsSubtitle;
 
-  /// In en, this message translates to:
-  /// **'Tarot deck'**
-  String get aboutTarotDeckTitle;
-
-  /// In en, this message translates to:
-  /// **'Choose the artwork for tarot draws.'**
-  String get aboutTarotDeckSubtitle;
-
-  /// In en, this message translates to:
-  /// **'Rider–Waite'**
-  String get tarotDeckRiderWaite;
-
-  /// In en, this message translates to:
-  /// **'Jean Dodal'**
-  String get tarotDeckJeanDodal;
-
-  /// In en, this message translates to:
-  /// **'Viéville'**
-  String get tarotDeckVieville;
-
-  /// In en, this message translates to:
-  /// **'Sola–Busca'**
-  String get tarotDeckSolaBusca;
-
-  /// In en, this message translates to:
-  /// **'Etteilla I'**
-  String get tarotDeckEtteilla;
-
-  /// In en, this message translates to:
-  /// **'Upright'**
-  String get tarotUpright;
-
-  /// In en, this message translates to:
-  /// **'Reversed'**
-  String get tarotReversed;
-
-  /// In en, this message translates to:
-  /// **'Meaning'**
-  String get tarotMeaningTitle;
-
   /// No description provided for @aboutCardDeckTitle.
   ///
   /// In en, this message translates to:
@@ -533,10 +496,16 @@ abstract class AppLocalizations {
   /// **'Classic (red back)'**
   String get cardDeckPublicDomainRed;
 
-  /// Localized content for @aboutRandomnessCardTitle.
+  /// No description provided for @aboutRandomnessCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How randomness works'**
   String get aboutRandomnessCardTitle;
 
-  /// Localized content for @aboutRandomnessCardSubtitle.
+  /// No description provided for @aboutRandomnessCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How PRNGs and secure RNGs differ'**
   String get aboutRandomnessCardSubtitle;
 
   /// No description provided for @aboutHistoryCardTitle.
@@ -641,25 +610,46 @@ abstract class AppLocalizations {
   /// **'What lies behind chance'**
   String get randomnessSheetEyebrow;
 
-  /// Localized content for @randomnessSheetTitle.
+  /// No description provided for @randomnessSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PRNGs, secure RNGs & physical entropy'**
   String get randomnessSheetTitle;
 
-  /// Localized content for @randomnessCard1Title.
+  /// No description provided for @randomnessCard1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Three related but different sources'**
   String get randomnessCard1Title;
 
-  /// Localized content for @randomnessCard1Body.
+  /// No description provided for @randomnessCard1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'A PRNG deterministically expands a seed and internal state; it is useful for games and simulations but is not designed to resist prediction. A CSPRNG (often built as a DRBG) is designed to make outputs hard to predict, usually using operating-system entropy. A physical entropy source measures a physical process. These categories are related, not interchangeable.'**
   String get randomnessCard1Body;
 
-  /// Localized content for @randomnessCard2Title.
+  /// No description provided for @randomnessCard2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'What this app uses'**
   String get randomnessCard2Title;
 
-  /// Localized content for @randomnessCard2Body.
+  /// No description provided for @randomnessCard2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'When available, the app requests integers from RANDOM.ORG, which documents atmospheric radio noise as an entropy source. Its output can be conditioned and buffered before a request; we do not measure or verify the provider\'s process ourselves. Offline, the app uses Dart Random.secure(), an OS-backed CSPRNG when supported. If secure randomness is unsupported, the app falls back to an ordinary PRNG and labels it as non-cryptographic.'**
   String get randomnessCard2Body;
 
-  /// Localized content for @randomnessCard3Title.
+  /// No description provided for @randomnessCard3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Entropy is not proof'**
   String get randomnessCard3Title;
 
-  /// Localized content for @randomnessCard3Body.
+  /// No description provided for @randomnessCard3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Entropy describes uncertainty, not a proof that a particular result is unbiased or independently verifiable. Conditioning and hashing can remove bias but cannot create missing entropy; statistical tests can find some problems but cannot prove randomness. Secure generators do not need fresh physical noise for every value. For a six-sided die, use a bounded integer API (such as nextInt(6) + 1) to avoid modulo bias. A plain remainder operation can favor some faces when the range does not divide evenly; bounded APIs avoid that modulo bias.'**
   String get randomnessCard3Body;
 
   /// No description provided for @randomnessSheetButton.
@@ -668,11 +658,89 @@ abstract class AppLocalizations {
   /// **'Got it'**
   String get randomnessSheetButton;
 
-  /// Localized content for @randomOrgFallbackNotice.
+  /// No description provided for @randomOrgFallbackNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'RANDOM.ORG unavailable. Using local secure RNG (CSPRNG).'**
   String get randomOrgFallbackNotice;
 
-  /// Shown when RANDOM.ORG and the secure local source are unavailable.
+  /// No description provided for @aboutTarotDeckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tarot deck'**
+  String get aboutTarotDeckTitle;
+
+  /// No description provided for @aboutTarotDeckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the artwork for tarot draws.'**
+  String get aboutTarotDeckSubtitle;
+
+  /// No description provided for @tarotDeckRiderWaite.
+  ///
+  /// In en, this message translates to:
+  /// **'Rider–Waite'**
+  String get tarotDeckRiderWaite;
+
+  /// No description provided for @tarotDeckJeanDodal.
+  ///
+  /// In en, this message translates to:
+  /// **'Jean Dodal'**
+  String get tarotDeckJeanDodal;
+
+  /// No description provided for @tarotDeckVieville.
+  ///
+  /// In en, this message translates to:
+  /// **'Viéville'**
+  String get tarotDeckVieville;
+
+  /// No description provided for @tarotDeckSolaBusca.
+  ///
+  /// In en, this message translates to:
+  /// **'Sola–Busca'**
+  String get tarotDeckSolaBusca;
+
+  /// No description provided for @tarotDeckEtteilla.
+  ///
+  /// In en, this message translates to:
+  /// **'Etteilla I'**
+  String get tarotDeckEtteilla;
+
+  /// No description provided for @tarotUpright.
+  ///
+  /// In en, this message translates to:
+  /// **'Upright'**
+  String get tarotUpright;
+
+  /// No description provided for @tarotReversed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversed'**
+  String get tarotReversed;
+
+  /// No description provided for @tarotMeaningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get tarotMeaningTitle;
+
+  /// No description provided for @secureRandomUnavailableNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'RANDOM.ORG unavailable and secure RNG unsupported. Using local PRNG (not cryptographically secure).'**
   String get secureRandomUnavailableNotice;
+
+  /// No description provided for @tarotAllowReversed.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow reversed cards'**
+  String get tarotAllowReversed;
+
+  /// No description provided for @tarotShowMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Show card meaning'**
+  String get tarotShowMeaning;
 }
 
 class _AppLocalizationsDelegate

@@ -1,35 +1,35 @@
 <en-US>
-- Choose whether tarot cards can be reversed and whether to show their meanings.
+- Fixed tarot result alignment when card meanings are hidden.
 </en-US>
 
 <pt-BR>
-- Escolha se as cartas de tarô podem ser invertidas e se seus significados são exibidos.
+- Corrigido o alinhamento do resultado do tarô quando o significado está oculto.
 </pt-BR>
 
 <es-ES>
-- Elige si las cartas del tarot pueden salir invertidas y si se muestran sus significados.
+- Se corrigió la alineación del resultado del tarot cuando se oculta el significado.
 </es-ES>
 
 <de>
-- Wähle, ob Tarotkarten umgekehrt erscheinen und ihre Bedeutungen angezeigt werden.
+- Die Ausrichtung des Tarot-Ergebnisses bei ausgeblendeter Bedeutung wurde korrigiert.
 </de>
 
 <fr-FR>
-- Choisissez si les cartes de tarot peuvent être inversées et si leur signification est affichée.
+- Correction de l’alignement du résultat du tarot lorsque la signification est masquée.
 </fr-FR>
 
 <hi>
-- चुनें कि टैरो कार्ड उल्टे आ सकते हैं या नहीं और उनका अर्थ दिखे या नहीं।
+- कार्ड का अर्थ छिपाने पर टैरो परिणाम का संरेखण ठीक किया गया।
 </hi>
 
 <it>
-- Scegli se le carte dei tarocchi possono essere rovesciate e se mostrarne il significato.
+- Corretto l’allineamento del risultato dei tarocchi quando il significato è nascosto.
 </it>
 
 <tr>
-- Tarot kartlarının ters gelip gelmeyeceğini ve anlamlarının gösterilip gösterilmeyeceğini seçin.
+- Kart anlamı gizlendiğinde tarot sonucunun hizalaması düzeltildi.
 </tr>
 
 <uk>
-- Вибирайте, чи можуть карти таро бути перевернутими та чи показувати їх значення.
+- Виправлено вирівнювання результату таро, коли значення карти приховано.
 </uk>

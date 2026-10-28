@@ -100,7 +100,7 @@ class TarotDrawScreen extends ConsumerWidget {
         ),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 250),

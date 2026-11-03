@@ -1,35 +1,35 @@
 <en-US>
-- Fixed tarot result alignment when card meanings are hidden.
+- Improved the dice rolling area and wait for the dice to settle before showing the result.
 </en-US>
 
 <pt-BR>
-- Corrigido o alinhamento do resultado do tarô quando o significado está oculto.
+- Melhorada a área de rolagem dos dados; o resultado aparece após os dados se estabilizarem.
 </pt-BR>
 
 <es-ES>
-- Se corrigió la alineación del resultado del tarot cuando se oculta el significado.
+- Se mejoró el área de lanzamiento y el resultado aparece cuando los dados se estabilizan.
 </es-ES>
 
 <de>
-- Die Ausrichtung des Tarot-Ergebnisses bei ausgeblendeter Bedeutung wurde korrigiert.
+- Die Würfelfläche wurde verbessert; das Ergebnis erscheint nach dem Stillstand der Würfel.
 </de>
 
 <fr-FR>
-- Correction de l’alignement du résultat du tarot lorsque la signification est masquée.
+- La zone de lancer a été améliorée et le résultat apparaît après l’arrêt des dés.
 </fr-FR>
 
 <hi>
-- कार्ड का अर्थ छिपाने पर टैरो परिणाम का संरेखण ठीक किया गया।
+- पासा फेंकने का क्षेत्र बेहतर किया गया है और परिणाम पासों के रुकने पर दिखता है।
 </hi>
 
 <it>
-- Corretto l’allineamento del risultato dei tarocchi quando il significato è nascosto.
+- Migliorata l’area di lancio: il risultato appare quando i dadi si fermano.
 </it>
 
 <tr>
-- Kart anlamı gizlendiğinde tarot sonucunun hizalaması düzeltildi.
+- Zar atma alanı iyileştirildi; sonuç zarlar durduğunda gösterilir.
 </tr>
 
 <uk>
-- Виправлено вирівнювання результату таро, коли значення карти приховано.
+- Покращено область кидання кубиків; результат з’являється після їх зупинки.
 </uk>

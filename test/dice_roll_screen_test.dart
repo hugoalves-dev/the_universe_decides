@@ -34,7 +34,27 @@ void main() {
     _expectControlsDisabled(tester);
   });
 
-  testWidgets('keeps fetched result visible when the dice animation fails', (
+  testWidgets('shows the result only after the animation finishes', (
+    tester,
+  ) async {
+    final client = _PendingClient();
+    final container = _containerFor(client);
+    addTearDown(container.dispose);
+    await _pumpDiceScreen(tester, container);
+    final controller = container.read(diceRollProvider.notifier);
+    final roll = controller.startRoll();
+    client.complete('3');
+    await roll;
+    await tester.pump();
+    expect(find.byKey(const Key('dice-total')), findsNothing);
+    controller.completeAnimation(
+      container.read(diceRollProvider).activeRequestId!,
+    );
+    await tester.pump();
+    expect(find.byKey(const Key('dice-total')), findsOneWidget);
+  });
+
+  testWidgets('hides fetched result when the dice animation fails', (
     tester,
   ) async {
     tester.view.devicePixelRatio = 1;
@@ -62,13 +82,11 @@ void main() {
     await tester.pump();
 
     expect(container.read(diceRollProvider).total, 3);
-    expect(find.byKey(const Key('dice-total')), findsOneWidget);
+    expect(find.byKey(const Key('dice-total')), findsNothing);
     expect(find.text('Renderer unavailable'), findsWidgets);
   });
 
-  testWidgets('timeout completes a roll normally and releases controls', (
-    tester,
-  ) async {
+  testWidgets('timeout reports an error and releases controls', (tester) async {
     final client = _PendingClient();
     final container = _containerFor(client);
     addTearDown(container.dispose);
@@ -83,9 +101,10 @@ void main() {
 
     final state = container.read(diceRollProvider);
     expect(state.isRolling, isFalse);
-    expect(state.animationError, isNull);
+    expect(state.animationError, 'Dice animation timed out.');
     expect(state.results, [3]);
-    expect(find.text('Dice animation timed out.'), findsNothing);
+    expect(find.text('Dice animation timed out.'), findsWidgets);
+    expect(find.byKey(const Key('dice-total')), findsNothing);
     expect(
       tester
           .widget<InkWell>(

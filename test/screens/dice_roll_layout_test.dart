@@ -22,10 +22,27 @@ void main() {
         height: 700,
       );
 
-      expect(find.byType(RitualScreenFrame), findsOneWidget,
-          reason: 'width $width');
+      expect(
+        find.byType(RitualScreenFrame),
+        findsOneWidget,
+        reason: 'width $width',
+      );
       expect(tester.takeException(), isNull, reason: 'width $width');
     }
+  });
+
+  testWidgets('the dice surface grows on a taller tablet', (tester) async {
+    final heights = <double>[];
+    for (final size in const [(400.0, 700.0), (800.0, 1200.0)]) {
+      await pumpAtWidth(
+        tester,
+        const ProviderScope(child: DiceRollScreen()),
+        width: size.$1,
+        height: size.$2,
+      );
+      heights.add(tester.getSize(find.byType(DiceWebView)).height);
+    }
+    expect(heights.last, greaterThan(heights.first));
   });
 
   testWidgets('the dice surface keeps one stable size across bands', (
@@ -90,7 +107,8 @@ void main() {
       expect(
         arena.left,
         greaterThan(paneContentLeft),
-        reason: 'sanity check: the arena must not be flush against the '
+        reason:
+            'sanity check: the arena must not be flush against the '
             "pane's left edge in expanded",
       );
     },

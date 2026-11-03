@@ -87,11 +87,8 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
       }
       _animationTimer?.cancel();
       _animationTimer = null;
+      ref.read(diceRollProvider.notifier).timeoutAnimation(request.requestId);
       await _diceWebViewController.finishRoll(request.requestId);
-      if (!mounted) {
-        return;
-      }
-      ref.read(diceRollProvider.notifier).completeAnimation(request.requestId);
     });
   }
 
@@ -138,11 +135,10 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
           next.animationError != previous?.animationError) {
         _showAnimationError(next.animationError!);
       }
-      // Covers both a normal animation finish and a forced timeout
-      // completion: either way, a real result was produced and belongs in
-      // the history.
+      // Record only rolls that the renderer reported as settled.
       if ((previous?.isRolling ?? false) &&
           !next.isRolling &&
+          next.animationError == null &&
           next.results.isNotEmpty) {
         _recordHistory(l10n, next);
       }
@@ -231,7 +227,9 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
               style: const TextStyle(fontSize: 13, color: Color(0xFFFFC9C9)),
             ),
           ],
-          if (state.results.isNotEmpty) ...[
+          if (!state.isRolling &&
+              state.animationError == null &&
+              state.results.isNotEmpty) ...[
             const SizedBox(height: 12),
             Text(
               state.results.length > 1
@@ -336,7 +334,7 @@ class _DiceAnimationRegion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320,
+      height: (MediaQuery.sizeOf(context).height * 0.45).clamp(320.0, 600.0),
       child: Stack(
         alignment: Alignment.center,
         children: [

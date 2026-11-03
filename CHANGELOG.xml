@@ -1,35 +1,44 @@
 <en-US>
 - Improved the dice rolling area and wait for the dice to settle before showing the result.
+- Improved and centered the dice result display.
 </en-US>
 
 <pt-BR>
 - Melhorada a área de rolagem dos dados; o resultado aparece após os dados se estabilizarem.
+- Melhorada e centralizada a exibição do resultado dos dados.
 </pt-BR>
 
 <es-ES>
 - Se mejoró el área de lanzamiento y el resultado aparece cuando los dados se estabilizan.
+- Se mejoró y centró la presentación del resultado de los dados.
 </es-ES>
 
 <de>
 - Die Würfelfläche wurde verbessert; das Ergebnis erscheint nach dem Stillstand der Würfel.
+- Die Anzeige des Würfelergebnisses wurde verbessert und zentriert.
 </de>
 
 <fr-FR>
 - La zone de lancer a été améliorée et le résultat apparaît après l’arrêt des dés.
+- Affichage du résultat des dés amélioré et centré.
 </fr-FR>
 
 <hi>
 - पासा फेंकने का क्षेत्र बेहतर किया गया है और परिणाम पासों के रुकने पर दिखता है।
+- पासों के परिणाम का प्रदर्शन बेहतर और केंद्रित किया गया।
 </hi>
 
 <it>
 - Migliorata l’area di lancio: il risultato appare quando i dadi si fermano.
+- Migliorata e centrata la visualizzazione del risultato dei dadi.
 </it>
 
 <tr>
 - Zar atma alanı iyileştirildi; sonuç zarlar durduğunda gösterilir.
+- Zar sonucu gösterimi iyileştirildi ve ortalandı.
 </tr>
 
 <uk>
 - Покращено область кидання кубиків; результат з’являється після їх зупинки.
+- Покращено та відцентровано відображення результату кубиків.
 </uk>

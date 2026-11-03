@@ -34,7 +34,67 @@ void main() {
     _expectControlsDisabled(tester);
   });
 
-  testWidgets('keeps fetched result visible when the dice animation fails', (
+  testWidgets('shows the result only after the animation finishes', (
+    tester,
+  ) async {
+    final client = _PendingClient();
+    final container = _containerFor(client);
+    addTearDown(container.dispose);
+    await _pumpDiceScreen(tester, container);
+    final controller = container.read(diceRollProvider.notifier);
+    final roll = controller.startRoll();
+    client.complete('3');
+    await roll;
+    await tester.pump();
+    expect(find.byKey(const Key('dice-total')), findsNothing);
+    controller.completeAnimation(
+      container.read(diceRollProvider).activeRequestId!,
+    );
+    await tester.pump();
+    expect(find.byKey(const Key('dice-total')), findsOneWidget);
+    final result = tester.getRect(find.byKey(const Key('dice-total')));
+    final arena = tester.getRect(find.byKey(const Key('dice-arena')));
+    expect(result.center.dx, closeTo(arena.center.dx, 1));
+  });
+
+  testWidgets('keeps the arena stable while the window changes during a roll', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(800, 900);
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+    final client = _PendingClient();
+    final container = _containerFor(client);
+    addTearDown(container.dispose);
+    await _pumpDiceScreen(tester, container);
+    final controller = container.read(diceRollProvider.notifier);
+    final roll = controller.startRoll();
+    client.complete('3');
+    await roll;
+    await tester.pump();
+    final initialSize = tester.getSize(find.byKey(const Key('dice-arena')));
+    final initialElement = tester.element(find.byKey(const Key('dice-arena')));
+    tester.view.physicalSize = const Size(800, 600);
+    await tester.pump();
+    expect(tester.getSize(find.byKey(const Key('dice-arena'))), initialSize);
+    expect(
+      tester.element(find.byKey(const Key('dice-arena'))),
+      same(initialElement),
+    );
+    controller.completeAnimation(
+      container.read(diceRollProvider).activeRequestId!,
+    );
+    await tester.pump();
+    expect(
+      tester.getSize(find.byKey(const Key('dice-arena'))),
+      isNot(initialSize),
+    );
+  });
+
+  testWidgets('hides fetched result when the dice animation fails', (
     tester,
   ) async {
     tester.view.devicePixelRatio = 1;
@@ -62,13 +122,11 @@ void main() {
     await tester.pump();
 
     expect(container.read(diceRollProvider).total, 3);
-    expect(find.byKey(const Key('dice-total')), findsOneWidget);
+    expect(find.byKey(const Key('dice-total')), findsNothing);
     expect(find.text('Renderer unavailable'), findsWidgets);
   });
 
-  testWidgets('timeout completes a roll normally and releases controls', (
-    tester,
-  ) async {
+  testWidgets('timeout reports an error and releases controls', (tester) async {
     final client = _PendingClient();
     final container = _containerFor(client);
     addTearDown(container.dispose);
@@ -83,9 +141,10 @@ void main() {
 
     final state = container.read(diceRollProvider);
     expect(state.isRolling, isFalse);
-    expect(state.animationError, isNull);
+    expect(state.animationError, 'Dice animation timed out.');
     expect(state.results, [3]);
-    expect(find.text('Dice animation timed out.'), findsNothing);
+    expect(find.text('Dice animation timed out.'), findsWidgets);
+    expect(find.byKey(const Key('dice-total')), findsNothing);
     expect(
       tester
           .widget<InkWell>(

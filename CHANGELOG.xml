@@ -1,35 +1,44 @@
 <en-US>
-- Fixed tarot result alignment when card meanings are hidden.
+- Improved the dice rolling area and wait for the dice to settle before showing the result.
+- Improved and centered the dice result display.
 </en-US>
 
 <pt-BR>
-- Corrigido o alinhamento do resultado do tarô quando o significado está oculto.
+- Melhorada a área de rolagem dos dados; o resultado aparece após os dados se estabilizarem.
+- Melhorada e centralizada a exibição do resultado dos dados.
 </pt-BR>
 
 <es-ES>
-- Se corrigió la alineación del resultado del tarot cuando se oculta el significado.
+- Se mejoró el área de lanzamiento y el resultado aparece cuando los dados se estabilizan.
+- Se mejoró y centró la presentación del resultado de los dados.
 </es-ES>
 
 <de>
-- Die Ausrichtung des Tarot-Ergebnisses bei ausgeblendeter Bedeutung wurde korrigiert.
+- Die Würfelfläche wurde verbessert; das Ergebnis erscheint nach dem Stillstand der Würfel.
+- Die Anzeige des Würfelergebnisses wurde verbessert und zentriert.
 </de>
 
 <fr-FR>
-- Correction de l’alignement du résultat du tarot lorsque la signification est masquée.
+- La zone de lancer a été améliorée et le résultat apparaît après l’arrêt des dés.
+- Affichage du résultat des dés amélioré et centré.
 </fr-FR>
 
 <hi>
-- कार्ड का अर्थ छिपाने पर टैरो परिणाम का संरेखण ठीक किया गया।
+- पासा फेंकने का क्षेत्र बेहतर किया गया है और परिणाम पासों के रुकने पर दिखता है।
+- पासों के परिणाम का प्रदर्शन बेहतर और केंद्रित किया गया।
 </hi>
 
 <it>
-- Corretto l’allineamento del risultato dei tarocchi quando il significato è nascosto.
+- Migliorata l’area di lancio: il risultato appare quando i dadi si fermano.
+- Migliorata e centrata la visualizzazione del risultato dei dadi.
 </it>
 
 <tr>
-- Kart anlamı gizlendiğinde tarot sonucunun hizalaması düzeltildi.
+- Zar atma alanı iyileştirildi; sonuç zarlar durduğunda gösterilir.
+- Zar sonucu gösterimi iyileştirildi ve ortalandı.
 </tr>
 
 <uk>
-- Виправлено вирівнювання результату таро, коли значення карти приховано.
+- Покращено область кидання кубиків; результат з’являється після їх зупинки.
+- Покращено та відцентровано відображення результату кубиків.
 </uk>

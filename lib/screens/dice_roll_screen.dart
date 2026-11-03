@@ -34,6 +34,8 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
 
   late final DiceWebViewController _diceWebViewController;
   Timer? _animationTimer;
+  Size? _lockedLayoutSize;
+  Size? _lockedMediaSize;
 
   @override
   void initState() {
@@ -87,11 +89,8 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
       }
       _animationTimer?.cancel();
       _animationTimer = null;
+      ref.read(diceRollProvider.notifier).timeoutAnimation(request.requestId);
       await _diceWebViewController.finishRoll(request.requestId);
-      if (!mounted) {
-        return;
-      }
-      ref.read(diceRollProvider.notifier).completeAnimation(request.requestId);
     });
   }
 
@@ -138,116 +137,168 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
           next.animationError != previous?.animationError) {
         _showAnimationError(next.animationError!);
       }
-      // Covers both a normal animation finish and a forced timeout
-      // completion: either way, a real result was produced and belongs in
-      // the history.
+      // Record only rolls that the renderer reported as settled.
       if ((previous?.isRolling ?? false) &&
           !next.isRolling &&
+          next.animationError == null &&
           next.results.isNotEmpty) {
         _recordHistory(l10n, next);
       }
     });
 
-    return RitualScreenFrame(
-      stageSpacing: 22,
-      stageSpacingAfter: 0,
-      header: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          RitualHeader(
-            eyebrow: l10n.diceEyebrow,
-            title: l10n.diceTitle,
-            titleSize: 22,
-          ),
-          const SizedBox(height: 16),
-          _SectionLabel(l10n.diceCountLabel),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              for (var n = 1; n <= 5; n++) ...[
-                if (n > 1) const SizedBox(width: 8),
-                Expanded(
-                  child: _PillButton(
-                    key: Key('dice-count-$n'),
-                    label: '$n',
-                    selected: state.diceCount == n,
-                    height: 40,
-                    onTap: isBusy ? null : () => controller.setDiceCount(n),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (isBusy) {
+          _lockedLayoutSize ??= constraints.biggest;
+          _lockedMediaSize ??= MediaQuery.sizeOf(context);
+        } else {
+          _lockedLayoutSize = null;
+          _lockedMediaSize = null;
+        }
+        final layoutSize = _lockedLayoutSize ?? constraints.biggest;
+        final media = MediaQuery.of(context);
+        final fillsHeight = layoutSize.height >= 650;
+        return OverflowBox(
+          alignment: Alignment.topLeft,
+          minWidth: layoutSize.width,
+          maxWidth: layoutSize.width,
+          minHeight: layoutSize.height,
+          maxHeight: layoutSize.height,
+          child: MediaQuery(
+            data: media.copyWith(size: _lockedMediaSize ?? media.size),
+            child: RitualScreenFrame(
+              stageFlexes: fillsHeight,
+              stageFillsPane: true,
+              stageSpacing: 22,
+              stageSpacingAfter: 0,
+              header: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RitualHeader(
+                    eyebrow: l10n.diceEyebrow,
+                    title: l10n.diceTitle,
+                    titleSize: 22,
                   ),
-                ),
-              ],
-            ],
-          ),
-          const SizedBox(height: 14),
-          _SectionLabel(l10n.diceSidesLabel),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final sides in _availableSides)
-                SizedBox(
-                  width: 64,
-                  child: _PillButton(
-                    key: Key('dice-side-$sides'),
-                    label: 'd$sides',
-                    selected: state.selectedSides == sides,
-                    height: 40,
-                    onTap: isBusy
-                        ? null
-                        : () => controller.setSelectedSides(sides),
+                  const SizedBox(height: 16),
+                  _SectionLabel(l10n.diceCountLabel),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      for (var n = 1; n <= 5; n++) ...[
+                        if (n > 1) const SizedBox(width: 8),
+                        Expanded(
+                          child: _PillButton(
+                            key: Key('dice-count-$n'),
+                            label: '$n',
+                            selected: state.diceCount == n,
+                            height: 40,
+                            onTap: isBusy
+                                ? null
+                                : () => controller.setDiceCount(n),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 18),
-          RitualButton(
-            key: const Key('dice-roll-button'),
-            label: l10n.diceRollButton,
-            onPressed: isBusy ? null : _startRoll,
-          ),
-        ],
-      ),
-      // The frame centers `stage` by default (matching cards/tarot, whose
-      // original arenas were centered too), but the dice arena was flush
-      // left in a `Column(crossAxisAlignment: start)` before this frame
-      // existed. `stageAlignment` only applies in the stacked (compact /
-      // medium) arrangement — the expanded two-pane band always centers the
-      // stage in its fixed-width pane, which is correct for dice too.
-      stageAlignment: Alignment.centerLeft,
-      stage: _DiceAnimationRegion(
-        child:
-            widget.diceWebViewBuilder?.call(_diceWebViewController) ??
-            DiceWebView(controller: _diceWebViewController),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (state.animationError != null) ...[
-            const SizedBox(height: 12),
-            Text(
-              state.animationError!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 13, color: Color(0xFFFFC9C9)),
-            ),
-          ],
-          if (state.results.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            Text(
-              state.results.length > 1
-                  ? '${state.results.join(' + ')} = ${state.total}'
-                  : l10n.diceTotal(state.total),
-              key: const Key('dice-total'),
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: AppColors.whiteMuted,
+                  const SizedBox(height: 14),
+                  _SectionLabel(l10n.diceSidesLabel),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final sides in _availableSides)
+                        SizedBox(
+                          width: 64,
+                          child: _PillButton(
+                            key: Key('dice-side-$sides'),
+                            label: 'd$sides',
+                            selected: state.selectedSides == sides,
+                            height: 40,
+                            onTap: isBusy
+                                ? null
+                                : () => controller.setSelectedSides(sides),
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 18),
+                  RitualButton(
+                    key: const Key('dice-roll-button'),
+                    label: l10n.diceRollButton,
+                    onPressed: isBusy ? null : _startRoll,
+                  ),
+                ],
+              ),
+              stage: Column(
+                mainAxisSize: fillsHeight ? MainAxisSize.max : MainAxisSize.min,
+                children: [
+                  if (fillsHeight)
+                    Expanded(
+                      child: _DiceAnimationRegion(
+                        child:
+                            widget.diceWebViewBuilder?.call(
+                              _diceWebViewController,
+                            ) ??
+                            DiceWebView(controller: _diceWebViewController),
+                      ),
+                    )
+                  else
+                    SizedBox(
+                      height: 320,
+                      child: _DiceAnimationRegion(
+                        child:
+                            widget.diceWebViewBuilder?.call(
+                              _diceWebViewController,
+                            ) ??
+                            DiceWebView(controller: _diceWebViewController),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 82,
+                    child: Center(
+                      child:
+                          !state.isRolling &&
+                              state.animationError == null &&
+                              state.results.isNotEmpty
+                          ? Text(
+                              state.results.length > 1
+                                  ? '${state.results.join(' + ')} = ${state.total}'
+                                  : l10n.diceTotal(state.total),
+                              key: const Key('dice-total'),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.4,
+                                color: AppColors.gold1,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  ),
+                ],
+              ),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (state.animationError != null) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      state.animationError!,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFFFFC9C9),
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
-          ],
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -335,8 +386,8 @@ class _DiceAnimationRegion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 320,
+    return SizedBox.expand(
+      key: const Key('dice-arena'),
       child: Stack(
         alignment: Alignment.center,
         children: [

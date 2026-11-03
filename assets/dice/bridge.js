@@ -65,7 +65,9 @@
       completionTimer = setTimeout(function () {
         if (activeRequestId !== roll.requestId) return;
         diceBox.finish_roll();
-        completeActiveRoll();
+        activeRequestId = null;
+        activeResults = null;
+        completionTimer = null;
       }, maximumRollDurationMs);
     },
     finish: function (requestId) {

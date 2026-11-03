@@ -143,7 +143,7 @@ const DICE = (function() {
         this.w = this.cw;
         this.h = this.ch;
         this.aspect = Math.min(this.cw / this.w, this.ch / this.h);
-        vars.scale = Math.sqrt(this.w * this.w + this.h * this.h) / 3;
+        vars.scale = Math.min(this.w, this.h) / 5;
         //console.log('scale = ' + vars.scale);
 
         this.renderer.setSize(this.cw * 2, this.ch * 2);
@@ -274,13 +274,13 @@ const DICE = (function() {
         var vectors = [];
         for (var i in notation.set) {
             var vec = make_random_vector(vector);
+            // Start up to five dice in distinct cells, inside the barriers.
+            var index = Number(i);
             var pos = {
-                x: this.w * (vec.x > 0 ? -1 : 1) * 0.9,
-                y: this.h * (vec.y > 0 ? -1 : 1) * 0.9,
-                z: rnd() * 200 + 200
+                x: (index % 3 - 1) * this.w * 0.65,
+                y: (Math.floor(index / 3) - 0.5) * this.h * 0.9,
+                z: rnd() * 50 + 200
             };
-            var projector = Math.abs(vec.x / vec.y);
-            if (projector > 1.0) pos.y /= projector; else pos.x *= projector;
             var velvec = make_random_vector(vector);
             var velocity = { x: velvec.x * boost, y: velvec.y * boost, z: -10 };
             var inertia = CONSTS.dice_inertia[notation.set[i]];
@@ -313,35 +313,27 @@ const DICE = (function() {
     }
 
     that.dice_box.prototype.check_if_throw_finished = function() {
-        var res = true;
-        var e = 6;
-        if (this.iteration < 10 / vars.frame_rate) {
-            for (var i = 0; i < this.dices.length; ++i) {
-                var dice = this.dices[i];
-                if (dice.dice_stopped === true) continue;
-                var a = dice.body.angularVelocity, v = dice.body.velocity;
-                if (Math.abs(a.x) < e && Math.abs(a.y) < e && Math.abs(a.z) < e &&
-                        Math.abs(v.x) < e && Math.abs(v.y) < e && Math.abs(v.z) < e) {
-                    if (dice.dice_stopped) {
-                        if (this.iteration - dice.dice_stopped > 3) {
-                            dice.dice_stopped = true;
-                            continue;
-                        }
-                    }
-                    else dice.dice_stopped = this.iteration;
-                    res = false;
-                }
-                else {
-                    dice.dice_stopped = undefined;
-                    res = false;
-                }
+        var settled = true;
+        for (var i = 0; i < this.dices.length; ++i) {
+            var dice = this.dices[i];
+            var a = dice.body.angularVelocity, v = dice.body.velocity;
+            var still = Math.abs(a.x) < 0.15 && Math.abs(a.y) < 0.15 && Math.abs(a.z) < 0.15 &&
+                Math.abs(v.x) < 6 && Math.abs(v.y) < 6 && Math.abs(v.z) < 6;
+            if (!still) {
+                dice.dice_stopped = undefined;
+                settled = false;
+            } else if (dice.dice_stopped === undefined) {
+                dice.dice_stopped = this.iteration;
+                settled = false;
+            } else if (this.iteration - dice.dice_stopped < 30) {
+                settled = false;
             }
         }
-        return res;
+        return settled;
     }
 
     that.dice_box.prototype.emulate_throw = function() {
-        while (!this.check_if_throw_finished()) {
+        while (this.iteration < 1200 && !this.check_if_throw_finished()) {
             ++this.iteration;
             this.world.step(vars.frame_rate);
         }

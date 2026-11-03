@@ -129,7 +129,7 @@ void main() {
     await tester.tap(find.text('Roll dice'));
     await tester.pumpAndSettle();
 
-    expect(find.text('2 + 3 = 5'), findsOneWidget);
+    expect(find.text('2 + 3 = 5'), findsNothing);
     expect(service.requests, [(2, 1, 20)]);
   });
 

@@ -26,6 +26,7 @@ class RitualScreenFrame extends StatelessWidget {
     required this.body,
     this.stage,
     this.stageFlexes = false,
+    this.stageFillsPane = false,
     this.framePadding = const EdgeInsets.fromLTRB(22, 20, 22, 18),
     this.stageSpacing = 24,
     this.stageSpacingAfter,
@@ -46,6 +47,9 @@ class RitualScreenFrame extends StatelessWidget {
   /// size. True for the coin, whose arena fills the screen and does not scroll;
   /// false for screens that scroll.
   final bool stageFlexes;
+
+  /// Give a flexible stage the available width on medium and wide screens.
+  final bool stageFillsPane;
 
   /// Padding around the arrangement in [RitualBand.compact] and
   /// [RitualBand.medium] alike.
@@ -111,8 +115,10 @@ class RitualScreenFrame extends StatelessWidget {
       case RitualBand.medium:
         final content = Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: kRitualMediumMaxWidth,
+            constraints: BoxConstraints(
+              maxWidth: stageFillsPane
+                  ? double.infinity
+                  : kRitualMediumMaxWidth,
             ),
             child: _stacked(scrollPadding: framePadding),
           ),
@@ -181,12 +187,16 @@ class RitualScreenFrame extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          width: kRitualStagePaneWidth,
-          child: Center(child: stage),
-        ),
+        if (stageFillsPane)
+          Expanded(flex: 3, child: stage!)
+        else
+          SizedBox(
+            width: kRitualStagePaneWidth,
+            child: Center(child: stage),
+          ),
         const SizedBox(width: kRitualPaneGutter),
         Expanded(
+          flex: stageFillsPane ? 2 : 1,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

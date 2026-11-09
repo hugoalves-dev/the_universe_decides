@@ -7,6 +7,9 @@ final diceRollProvider = NotifierProvider<DiceRollController, DiceRollState>(
   DiceRollController.new,
 );
 
+/// RANDOM.ORG's public integer endpoint accepts at most 10,000 values per call.
+const maxDiceCount = 10000;
+
 const _unset = Object();
 
 class DiceRollState {
@@ -75,6 +78,7 @@ class DiceRollController extends Notifier<DiceRollState> {
   }
 
   void setDiceCount(int value) {
+    if (value < 1 || value > maxDiceCount) return;
     state = state.copyWith(diceCount: value);
   }
 

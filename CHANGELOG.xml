@@ -1,44 +1,35 @@
 <en-US>
-- Improved the dice rolling area and wait for the dice to settle before showing the result.
-- Improved and centered the dice result display.
+- Enter the number of dice to roll, up to RANDOM.ORG's 10,000 integer per request limit.
 </en-US>
 
 <pt-BR>
-- Melhorada a área de rolagem dos dados; o resultado aparece após os dados se estabilizarem.
-- Melhorada e centralizada a exibição do resultado dos dados.
+- Informe quantos dados deseja rolar, até o limite de 10.000 números por solicitação do RANDOM.ORG.
 </pt-BR>
 
 <es-ES>
-- Se mejoró el área de lanzamiento y el resultado aparece cuando los dados se estabilizan.
-- Se mejoró y centró la presentación del resultado de los dados.
+- Indica cuántos dados quieres lanzar, hasta el límite de 10.000 números por solicitud de RANDOM.ORG.
 </es-ES>
 
 <de>
-- Die Würfelfläche wurde verbessert; das Ergebnis erscheint nach dem Stillstand der Würfel.
-- Die Anzeige des Würfelergebnisses wurde verbessert und zentriert.
+- Lege die Anzahl der Würfel fest, bis zum RANDOM.ORG-Limit von 10.000 Zahlen pro Anfrage.
 </de>
 
 <fr-FR>
-- La zone de lancer a été améliorée et le résultat apparaît après l’arrêt des dés.
-- Affichage du résultat des dés amélioré et centré.
+- Saisissez le nombre de dés à lancer, jusqu’à la limite de 10 000 nombres par requête de RANDOM.ORG.
 </fr-FR>
 
 <hi>
-- पासा फेंकने का क्षेत्र बेहतर किया गया है और परिणाम पासों के रुकने पर दिखता है।
-- पासों के परिणाम का प्रदर्शन बेहतर और केंद्रित किया गया।
+- फेंके जाने वाले पासों की संख्या दर्ज करें; RANDOM.ORG की प्रति अनुरोध 10,000 संख्याओं की सीमा तक।
 </hi>
 
 <it>
-- Migliorata l’area di lancio: il risultato appare quando i dadi si fermano.
-- Migliorata e centrata la visualizzazione del risultato dei dadi.
+- Inserisci il numero di dadi da lanciare, fino al limite di 10.000 numeri per richiesta di RANDOM.ORG.
 </it>
 
 <tr>
-- Zar atma alanı iyileştirildi; sonuç zarlar durduğunda gösterilir.
-- Zar sonucu gösterimi iyileştirildi ve ortalandı.
+- Atılacak zar sayısını girin; RANDOM.ORG'un istek başına 10.000 sayı sınırına kadar.
 </tr>
 
 <uk>
-- Покращено область кидання кубиків; результат з’являється після їх зупинки.
-- Покращено та відцентровано відображення результату кубиків.
+- Вкажіть кількість кубиків для кидка — до ліміту RANDOM.ORG у 10 000 чисел на запит.
 </uk>

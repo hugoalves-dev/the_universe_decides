@@ -124,7 +124,7 @@ void main() {
     );
     await tester.tap(find.text('Dice'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('2'));
+    await tester.enterText(find.byKey(const Key('dice-count-input')), '2');
     await tester.pumpAndSettle();
     await tester.tap(find.text('Roll dice'));
     await tester.pumpAndSettle();

@@ -181,11 +181,12 @@ Future<void> _pumpDiceScreen(WidgetTester tester, ProviderContainer container) {
 }
 
 void _expectControlsDisabled(WidgetTester tester) {
-  for (final key in const [
-    Key('dice-count-1'),
-    Key('dice-side-20'),
-    Key('dice-roll-button'),
-  ]) {
+  expect(
+    tester.widget<TextField>(find.byKey(const Key('dice-count-input'))).enabled,
+    isFalse,
+    reason: 'dice count should be disabled while busy',
+  );
+  for (final key in const [Key('dice-side-20'), Key('dice-roll-button')]) {
     expect(
       tester
           .widget<InkWell>(

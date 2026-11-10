@@ -55,14 +55,26 @@ jobs:
         with:
           ref: ${{ inputs.source_ref }}
 
-      - name: Validate persisted release version
+      - name: Validate release version inputs
         shell: bash
         run: |
-          EXPECTED_VERSION="${{ inputs.version_name }}+${{ inputs.version_code }}"
-          ACTUAL_VERSION=$(sed -nE 's/^version:[[:space:]]*//p' pubspec.yaml | head -n 1)
+          VERSION_DECLARATION=$(sed -nE 's/^version:[[:space:]]*//p' pubspec.yaml | head -n 1)
+          SOURCE_VERSION_NAME="${VERSION_DECLARATION%%+*}"
+          SOURCE_VERSION_CODE="${VERSION_DECLARATION##*+}"
+          REQUESTED_VERSION_CODE="${{ inputs.version_code }}"
 
-          if [[ "$ACTUAL_VERSION" != "$EXPECTED_VERSION" ]]; then
-            echo "Expected pubspec version '$EXPECTED_VERSION', found '$ACTUAL_VERSION'." >&2
+          if [[ "$SOURCE_VERSION_NAME" != "${{ inputs.version_name }}" ]]; then
+            echo "Expected versionName '${{ inputs.version_name }}', found '$SOURCE_VERSION_NAME'." >&2
+            exit 1
+          fi
+
+          if [[ ! "$REQUESTED_VERSION_CODE" =~ ^[0-9]+$ ]]; then
+            echo "Invalid Android versionCode: '$REQUESTED_VERSION_CODE'." >&2
+            exit 1
+          fi
+
+          if [[ "$SOURCE_VERSION_CODE" =~ ^[0-9]+$ ]] && (( REQUESTED_VERSION_CODE < SOURCE_VERSION_CODE )); then
+            echo "Requested versionCode '$REQUESTED_VERSION_CODE' is lower than the source versionCode '$SOURCE_VERSION_CODE'." >&2
             exit 1
           fi
 

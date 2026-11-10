@@ -9,9 +9,9 @@ This repository publishes the Android Flutter app to the Google Play open-testin
 - A release is created only when the push changes application inputs under `lib/**`, `android/**`, `assets/**`, `pubspec.yaml`, `pubspec.lock`, or `l10n.yaml`.
 - Changes limited to tests, analysis configuration, documentation, or workflow files do not publish a GitHub Release, F-Droid tag, or Google Play build.
 - `.github/workflows/build-signed-apk.yml` resolves one version name and build number for the entire release.
-- After validation succeeds, the workflow writes the resolved version back to `pubspec.yaml`, commits it to `master`, and creates the release tag on that exact commit.
+- After validation succeeds, the workflow calculates the Android build number, passes it to the builds and deploy, and creates the release tag on the validated source commit.
 - `.github/workflows/android-play-deploy.yml` is a reusable workflow called by `CI/CD` after the GitHub Release is published. It also supports manual `workflow_dispatch` execution.
-- The Play workflow checks out the persisted release commit and verifies that `pubspec.yaml` matches the supplied `versionName+versionCode` before building.
+- The Play workflow checks out the validated source commit and verifies the semantic version name and generated build number before building.
 - The signed AAB is built with explicit `--build-name` and `--build-number` arguments and uploaded to the `beta` track.
 - Metadata, images, screenshots, and Google Play changelogs are intentionally skipped. The workflow uploads only the binary; Play Store "What's new" text remains sourced from `CHANGELOG.md`.
 
@@ -29,13 +29,13 @@ Before a semantic release, update only `2.6.0`. The CI/CD workflow calculates th
 2. the current `pubspec.yaml` build number plus one;
 3. the latest stable release tag build number plus one.
 
-This keeps the Android `versionCode` monotonic even if the workflow run counter or the persisted file falls behind. The same base build number is used by GitHub Release, Google Play, and the F-Droid release tag. F-Droid derives ABI-specific codes from that base through its upstream `VercodeOperation` metadata.
+This keeps the Android `versionCode` monotonic even if the workflow run counter falls behind the source file. The same base build number is used by GitHub Release, Google Play, and the F-Droid release tag. F-Droid derives ABI-specific codes from that base through its upstream `VercodeOperation` metadata.
 
-## Persisted version commit
+## Version handling without a branch write
 
-The release workflow commits the calculated version to `pubspec.yaml` only after analyze, tests, and Android builds pass. The commit is pushed using the repository `GITHUB_TOKEN`, which prevents the write-back from recursively starting another push workflow.
+The release workflow calculates the build number after analyze, tests, and Android builds pass. It does not write the generated number back to `pubspec.yaml` or push a commit to `master`, so it works with a ruleset that requires changes to arrive through pull requests.
 
-The release tag is created on the persisted version commit, not on the original source commit. The reusable Play workflow receives that exact commit SHA and refuses to deploy when the checked-out `pubspec.yaml` version differs from the supplied release version.
+The release tag points to the exact source commit used for the validated builds. The reusable Play workflow checks that the source semantic version matches the requested `versionName` and that the generated `versionCode` is numeric and not lower than the source build number.
 
 ## GitHub Release changelog
 
@@ -58,10 +58,10 @@ Production deployment remains intentionally separate and requires an explicit fu
 `android-play-deploy.yml` can be manually dispatched with:
 
 - `version_name`: semantic version name, such as `2.6.0`;
-- `version_code`: persisted Android build number, such as `100130`;
-- `source_ref`: branch, tag, or commit containing exactly `version: 2.6.0+100130` in `pubspec.yaml`.
+- `version_code`: generated Android build number, such as `100130`;
+- `source_ref`: the validated branch, tag, or commit whose semantic version name matches `version_name`.
 
-The workflow fails before building when the source reference does not contain the expected persisted version.
+The workflow fails before building when the source reference has a different semantic version name or the requested build number is invalid or lower than the source build number.
 
 ## Required GitHub Actions secrets
 

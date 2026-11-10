@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev]
     paths:
       - ".github/workflows/build-signed-apk.yml"
       - ".github/workflows/deploy-web.yml"
@@ -301,6 +301,73 @@ jobs:
           path: ${{ matrix.artifact_path }}
           if-no-files-found: error
 
+  alpha-release:
+    name: Publish rolling GitHub Alpha release
+    needs: [version, build-android]
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dev' &&
+      needs.version.outputs.android_relevant == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout validated dev commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Download Play APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: the-universe-decides-apk
+          path: dist
+
+      - name: Rename alpha APK
+        shell: bash
+        run: mv dist/app-play-release.apk "dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk"
+
+      - name: Replace rolling Alpha release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION_NAME: ${{ needs.version.outputs.version_name }}
+          VERSION_CODE: ${{ needs.version.outputs.version_code }}
+          APK: dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk
+        run: |
+          NOTES="Automated alpha build from dev commit ${GITHUB_SHA}.
+
+          Includes the Play APK for version ${VERSION_NAME}+${VERSION_CODE}.
+          This rolling alpha release is replaced by the next validated dev build."
+
+          if gh release view alpha --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            gh release delete alpha --yes --cleanup-tag --repo "${GITHUB_REPOSITORY}"
+          fi
+
+          gh release create alpha "${APK}" \
+            --target "${GITHUB_SHA}" \
+            --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" \
+            --notes "${NOTES}" \
+            --prerelease \
+            --latest=false \
+            --repo "${GITHUB_REPOSITORY}"
+
+  deploy-play-beta:
+    name: Deploy dev build to Google Play open testing
+    needs: [version, build-android]
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dev' &&
+      needs.version.outputs.android_relevant == 'true'
+    uses: ./.github/workflows/android-play-deploy.yml
+    with:
+      version_name: ${{ needs.version.outputs.version_name }}
+      version_code: ${{ needs.version.outputs.version_code }}
+      source_ref: ${{ github.sha }}
+      track: beta
+    secrets: inherit
+
   release:
     name: Publish GitHub Release
     needs: [version, build-android]
@@ -407,8 +474,8 @@ jobs:
               --repo "$GITHUB_REPOSITORY"
           fi
 
-  deploy-play:
-    name: Deploy Google Play open testing
+  deploy-play-production:
+    name: Publish master build to Google Play production
     needs: [version, release]
     if: needs.version.outputs.should_release == 'true'
     uses: ./.github/workflows/android-play-deploy.yml
@@ -416,4 +483,5 @@ jobs:
       version_name: ${{ needs.version.outputs.version_name }}
       version_code: ${{ needs.version.outputs.version_code }}
       source_ref: ${{ needs.release.outputs.release_commit }}
+      track: production
     secrets: inherit

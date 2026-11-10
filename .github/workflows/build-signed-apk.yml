@@ -302,7 +302,7 @@ jobs:
           if-no-files-found: error
 
   release:
-    name: Persist version and publish GitHub Release
+    name: Publish GitHub Release
     needs: [version, build-android]
     if: >-
       github.event_name == 'push' &&
@@ -312,7 +312,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      release_commit: ${{ steps.persist_version.outputs.sha }}
+      release_commit: ${{ steps.publish_source.outputs.sha }}
     steps:
       - name: Checkout source commit
         uses: actions/checkout@v4
@@ -359,61 +359,17 @@ jobs:
 
           echo "notes_file=$NOTES_FILE" >> "$GITHUB_OUTPUT"
 
-      - name: Persist release version in pubspec.yaml
-        id: persist_version
+      - name: Record validated source commit
+        id: publish_source
         shell: bash
-        env:
-          VERSION_NAME: ${{ needs.version.outputs.version_name }}
-          VERSION_CODE: ${{ needs.version.outputs.version_code }}
-        run: |
-          EXPECTED_VERSION="${VERSION_NAME}+${VERSION_CODE}"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin master --tags
-
-          REMOTE_SHA=$(git rev-parse origin/master)
-
-          if [[ "$REMOTE_SHA" != "$GITHUB_SHA" ]]; then
-            REMOTE_VERSION=$(git show origin/master:pubspec.yaml | sed -nE 's/^version:[[:space:]]*//p' | head -n 1)
-            REMOTE_PARENT=$(git rev-parse origin/master^ 2>/dev/null || true)
-
-            if [[ "$REMOTE_VERSION" == "$EXPECTED_VERSION" && "$REMOTE_PARENT" == "$GITHUB_SHA" ]]; then
-              echo "Release version commit already exists at $REMOTE_SHA."
-              echo "sha=$REMOTE_SHA" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            echo "master moved from $GITHUB_SHA to $REMOTE_SHA while the release was running." >&2
-            echo "Refusing to tag or overwrite a newer commit." >&2
-            exit 1
-          fi
-
-          sed -i -E "s/^version:.*/version: ${EXPECTED_VERSION}/" pubspec.yaml
-
-          ACTUAL_VERSION=$(sed -nE 's/^version:[[:space:]]*//p' pubspec.yaml | head -n 1)
-          if [[ "$ACTUAL_VERSION" != "$EXPECTED_VERSION" ]]; then
-            echo "Failed to persist release version '$EXPECTED_VERSION'." >&2
-            exit 1
-          fi
-
-          if git diff --quiet -- pubspec.yaml; then
-            RELEASE_SHA=$(git rev-parse HEAD)
-          else
-            git add pubspec.yaml
-            git commit -m "chore(release): persist ${EXPECTED_VERSION}"
-            git push origin HEAD:master
-            RELEASE_SHA=$(git rev-parse HEAD)
-          fi
-
-          echo "sha=$RELEASE_SHA" >> "$GITHUB_OUTPUT"
+        run: echo "sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Publish GitHub Release
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ needs.version.outputs.tag }}
-          RELEASE_COMMIT: ${{ steps.persist_version.outputs.sha }}
+          RELEASE_COMMIT: ${{ steps.publish_source.outputs.sha }}
           NOTES_FILE: ${{ steps.changelog.outputs.notes_file }}
         run: |
           PLAY_APK="dist/the-universe-decides-${TAG}-play.apk"

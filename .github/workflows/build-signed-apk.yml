@@ -301,6 +301,49 @@ jobs:
           path: ${{ matrix.artifact_path }}
           if-no-files-found: error
 
+  alpha-release:
+    name: Publish rolling GitHub Alpha release
+    needs: [version, build-android]
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout validated dev commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Download Play APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: the-universe-decides-apk
+          path: dist
+
+      - name: Rename alpha APK
+        shell: bash
+        run: mv dist/app-play-release.apk "dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk"
+
+      - name: Create or update rolling Alpha release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: alpha
+          VERSION_NAME: ${{ needs.version.outputs.version_name }}
+          VERSION_CODE: ${{ needs.version.outputs.version_code }}
+          APK: dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk
+        run: |
+          NOTES="Automated alpha build from dev commit ${GITHUB_SHA}.\\n\\nIncludes the Play APK for version ${VERSION_NAME}+${VERSION_CODE}.\\nThis rolling alpha release is replaced by the next validated dev build."
+          gh release upload "$TAG" "$APK" --clobber --repo "$GITHUB_REPOSITORY" 2>/dev/null || true
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" --notes "$NOTES" --prerelease --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" --notes "$NOTES" --prerelease --repo "$GITHUB_REPOSITORY"
+          fi
+
   release:
     name: Publish GitHub Release
     needs: [version, build-android]

@@ -18,7 +18,7 @@ on:
       - "l10n.yaml"
       - "flutter_native_splash.yaml"
   pull_request:
-    branches: [master]
+    branches: [master, dev]
     paths:
       - ".github/workflows/build-signed-apk.yml"
       - ".github/workflows/deploy-web.yml"

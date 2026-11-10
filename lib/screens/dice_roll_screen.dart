@@ -36,6 +36,7 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
   Timer? _animationTimer;
   Size? _lockedLayoutSize;
   Size? _lockedMediaSize;
+  final TextEditingController _diceCountController = TextEditingController(text: '1');
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _animationTimer?.cancel();
+    _diceCountController.dispose();
     super.dispose();
   }
 
@@ -182,23 +184,26 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
                   const SizedBox(height: 16),
                   _SectionLabel(l10n.diceCountLabel),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      for (var n = 1; n <= 5; n++) ...[
-                        if (n > 1) const SizedBox(width: 8),
-                        Expanded(
-                          child: _PillButton(
-                            key: Key('dice-count-$n'),
-                            label: '$n',
-                            selected: state.diceCount == n,
-                            height: 40,
-                            onTap: isBusy
-                                ? null
-                                : () => controller.setDiceCount(n),
-                          ),
-                        ),
-                      ],
-                    ],
+                  TextField(
+                    key: const Key('dice-count-input'),
+                    controller: _diceCountController,
+                    enabled: !isBusy,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      hintText: '1–$maxDiceCount',
+                      suffixText: '/ $maxDiceCount',
+                      filled: true,
+                      fillColor: AppColors.blackMuted,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    onChanged: (value) {
+                      final count = int.tryParse(value);
+                      if (count != null && count >= 1 && count <= maxDiceCount) {
+                        controller.setDiceCount(count);
+                      }
+                    },
                   ),
                   const SizedBox(height: 14),
                   _SectionLabel(l10n.diceSidesLabel),

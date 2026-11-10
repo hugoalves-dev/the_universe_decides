@@ -196,12 +196,9 @@ Before a release, change only the `major.minor.patch` portion when required. The
 
 After analyze, tests, and Android builds succeed, the workflow:
 
-1. writes the resolved `versionName+versionCode` back to `pubspec.yaml`;
-2. commits that version to `master` using `GITHUB_TOKEN`;
-3. creates the GitHub Release and tag on that exact commit;
-4. calls the reusable Google Play deployment workflow with the same version name and code.
-
-The automatic version commit does not recursively trigger another workflow run because it is pushed with the repository `GITHUB_TOKEN`.
+1. calculates a monotonically increasing `versionCode` from the workflow run number, `pubspec.yaml`, and the latest stable release tag;
+2. passes that build number directly to the APK/AAB builds and Play deployment without modifying `pubspec.yaml`;
+3. creates the GitHub Release and stable tag on the validated source commit.
 
 Each successful release publishes:
 
@@ -209,7 +206,7 @@ Each successful release publishes:
 - `the-universe-decides-v<version>+<versionCode>-fdroid.apk`
 - `the-universe-decides-v<version>+<versionCode>.aab`
 
-`.github/workflows/android-play-deploy.yml` is both reusable by `CI/CD` and manually dispatchable. It checks out the persisted release commit, verifies that `pubspec.yaml` matches the supplied version, builds a signed Play AAB, and uploads it to the Google Play open-testing `beta` track.
+`.github/workflows/android-play-deploy.yml` is both reusable by `CI/CD` and manually dispatchable. It checks out the validated source commit, verifies the semantic version name and generated build number, builds a signed Play AAB, and uploads it to the Google Play open-testing `beta` track.
 
 See [`docs/google-play-cicd.md`](docs/google-play-cicd.md) for setup details and required secrets.
 
@@ -221,7 +218,7 @@ Release procedure:
 
 1. Update the semantic version name before `+` in `pubspec.yaml` when the release requires a new version name, and update `CHANGELOG.xml`.
 2. Merge or push the application change to `master`.
-3. Wait for the `CI/CD` workflow to pass. It calculates and persists the Android build number, then creates a tag such as `v2.6.0+100130` on the version commit.
+3. Wait for the `CI/CD` workflow to pass. It calculates the Android build number without changing `pubspec.yaml`, then creates a tag such as `v2.6.0+100130` on the validated source commit.
 4. F-Droid detects the new matching tag during its update cycle and builds the `fdroid` flavor from source. It does not install or redistribute the APK attached to the GitHub Release.
 5. Check the upstream F-Droid build status after its next update cycle.
 

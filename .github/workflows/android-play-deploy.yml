@@ -12,7 +12,11 @@ on:
         required: true
         type: string
       source_ref:
-        description: Commit containing the persisted release version
+        description: Commit containing the release version
+        required: true
+        type: string
+      track:
+        description: Google Play track to publish to
         required: true
         type: string
   workflow_dispatch:
@@ -30,6 +34,11 @@ on:
         required: true
         default: master
         type: string
+      track:
+        description: Google Play track to publish to
+        required: true
+        default: beta
+        type: string
 
 permissions:
   contents: read
@@ -42,7 +51,7 @@ env:
   FLUTTER_VERSION: "3.44.7"
   RUBY_VERSION: "3.3"
   ANDROID_PACKAGE_NAME: "com.hugo.theuniversedecides"
-  PLAY_TRACK: "beta"
+  PLAY_TRACK: ${{ inputs.track }}
 
 jobs:
   deploy-google-play:
@@ -249,6 +258,14 @@ jobs:
 
       - name: Upload AAB and changelogs to Google Play open testing
         run: |
+          case "$PLAY_TRACK" in
+            beta|production) ;;
+            *)
+              echo "Unsupported Google Play track: $PLAY_TRACK" >&2
+              exit 1
+              ;;
+          esac
+
           fastlane supply \
             --aab build/app/outputs/bundle/playRelease/app-play-release.aab \
             --track "$PLAY_TRACK" \

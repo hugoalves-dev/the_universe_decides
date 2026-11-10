@@ -108,7 +108,7 @@ When `android/key.properties` is present, release builds use that keystore autom
 
 The repository includes `.github/workflows/build-signed-apk.yml`, named `CI/CD`, to run Flutter analyze, tests, the GitHub Pages web deploy, Android release APK/AAB builds, release versioning, and GitHub Release publishing.
 
-The workflow runs only when a pull request or push to `master` changes a CI-relevant path:
+The workflow runs when a pull request targeting `master` or `dev`, or a push to `master`, changes a CI-relevant path:
 
 - `.github/workflows/build-signed-apk.yml`
 - `.github/workflows/deploy-web.yml`

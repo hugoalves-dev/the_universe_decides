@@ -73,13 +73,10 @@ The `CI/CD` workflow is the single source of the Android build number. It choose
 
 After analyze, tests, and Android builds pass for an application change on `master`, CI must:
 
-1. persist the resolved version in `pubspec.yaml`;
-2. commit it to `master` using `GITHUB_TOKEN`;
-3. create the release tag on that exact version commit;
-4. publish GitHub Release artifacts;
-5. call `.github/workflows/android-play-deploy.yml` with the same version name, build number, and release commit.
-
-The automatic version commit must use `GITHUB_TOKEN` so it does not recursively trigger another workflow run.
+1. keep the semantic version name from `pubspec.yaml`;
+2. calculate a monotonically increasing Android build number from the run number, source build number, and latest stable release tag;
+3. pass that build number directly to Android builds and Play deployment without editing or committing `pubspec.yaml`;
+4. create the release tag and GitHub Release on the validated source commit.
 
 ## Release and F-Droid procedure
 
@@ -94,7 +91,7 @@ For a new application release:
 1. Increment the semantic version name in `pubspec.yaml` according to the rules above and add release notes to `CHANGELOG.xml`.
 2. Merge or push the application change to `master`.
 3. Wait for the `CI/CD` workflow to pass.
-4. The workflow assigns and persists the Android build number, then creates the matching GitHub release tag automatically. Do not create a duplicate manual tag.
+4. The workflow calculates the Android build number for that run without changing the source branch, then creates the matching GitHub release tag on the validated source commit. Do not create a duplicate manual tag.
 5. F-Droid detects that tag during its update cycle and builds the `fdroid` flavor from source. It does not consume the APK attached to the GitHub Release.
 6. Check the upstream F-Droid build status after the next update cycle.
 

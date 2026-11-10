@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:theuniversedecides/dice/dice_roll_request.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
 
+const maxDiceCount = 100;
+
 final diceRollProvider = NotifierProvider<DiceRollController, DiceRollState>(
   DiceRollController.new,
 );
@@ -13,6 +15,7 @@ class DiceRollState {
   const DiceRollState({
     this.diceCount = 1,
     this.selectedSides = 20,
+    this.selectedDiceSides = const {20},
     this.isFetching = false,
     this.isRolling = false,
     this.activeRequestId,
@@ -23,6 +26,7 @@ class DiceRollState {
 
   final int diceCount;
   final int selectedSides;
+  final Set<int> selectedDiceSides;
   final bool isFetching;
   final bool isRolling;
   final String? activeRequestId;
@@ -38,6 +42,7 @@ class DiceRollState {
   DiceRollState copyWith({
     int? diceCount,
     int? selectedSides,
+    Set<int>? selectedDiceSides,
     bool? isFetching,
     bool? isRolling,
     Object? activeRequestId = _unset,
@@ -48,6 +53,7 @@ class DiceRollState {
     return DiceRollState(
       diceCount: diceCount ?? this.diceCount,
       selectedSides: selectedSides ?? this.selectedSides,
+      selectedDiceSides: selectedDiceSides ?? this.selectedDiceSides,
       isFetching: isFetching ?? this.isFetching,
       isRolling: isRolling ?? this.isRolling,
       activeRequestId: identical(activeRequestId, _unset)
@@ -75,11 +81,28 @@ class DiceRollController extends Notifier<DiceRollState> {
   }
 
   void setDiceCount(int value) {
-    state = state.copyWith(diceCount: value);
+    state = state.copyWith(
+      diceCount: value.clamp(1, maxDiceCount).toInt(),
+    );
   }
 
   void setSelectedSides(int value) {
-    state = state.copyWith(selectedSides: value);
+    state = state.copyWith(
+      selectedSides: value,
+      selectedDiceSides: {value},
+    );
+  }
+
+  void toggleSelectedSides(int value) {
+    final selected = {...state.selectedDiceSides};
+    if (!selected.add(value)) {
+      if (selected.length == 1) return;
+      selected.remove(value);
+    }
+    state = state.copyWith(
+      selectedSides: selected.contains(value) ? value : selected.first,
+      selectedDiceSides: selected,
+    );
   }
 
   /// Fetches values once and creates the request the dice renderer must animate.
@@ -89,19 +112,27 @@ class DiceRollController extends Notifier<DiceRollState> {
     }
 
     final diceCount = state.diceCount;
-    final selectedSides = state.selectedSides;
+    final selectedSides = state.selectedDiceSides.toList()..sort();
     state = state.copyWith(isFetching: true, animationError: null);
 
     try {
-      final results = await _randomOrgService.fetchIntegers(
-        count: diceCount,
-        min: 1,
-        max: selectedSides,
+      final resultsBySides = await Future.wait(
+        selectedSides.map(
+          (sides) => _randomOrgService.fetchIntegers(
+            count: diceCount,
+            min: 1,
+            max: sides,
+          ),
+        ),
       );
+      final results = resultsBySides.expand((values) => values).toList();
+      final notation = selectedSides
+          .map((sides) => '${diceCount}d$sides')
+          .join('+');
       final requestId = _nextRequestId();
       final request = DiceRollRequest(
         requestId: requestId,
-        notation: '${diceCount}d$selectedSides',
+        notation: notation,
         results: results,
       );
       state = state.copyWith(

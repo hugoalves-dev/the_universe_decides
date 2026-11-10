@@ -12,12 +12,24 @@
         typeof roll.notation !== 'string' || !Array.isArray(roll.results)) {
       return false;
     }
-    var match = /^([1-9]\d*)d(4|6|8|10|12|20|100)$/.exec(roll.notation);
-    if (!match || Number(match[1]) !== roll.results.length) return false;
-    var sides = Number(match[2]);
-    return roll.results.every(function (result) {
-      return Number.isInteger(result) && result >= 1 && result <= sides;
-    });
+    var termPattern = /([1-9]\d{0,2})d(4|6|8|10|12|20|100)/g;
+    var terms = [];
+    var match;
+    while ((match = termPattern.exec(roll.notation)) !== null) {
+      terms.push({ count: Number(match[1]), sides: Number(match[2]) });
+    }
+    if (!terms.length || terms.map(function (term) {
+      return term.count + 'd' + term.sides;
+    }).join('+') !== roll.notation) return false;
+    var resultIndex = 0;
+    return terms.every(function (term) {
+      if (term.count > 100 || resultIndex + term.count > roll.results.length) return false;
+      for (var i = 0; i < term.count; i++, resultIndex++) {
+        var result = roll.results[resultIndex];
+        if (!Number.isInteger(result) || result < 1 || result > term.sides) return false;
+      }
+      return true;
+    }) && resultIndex === roll.results.length;
   }
 
   var diceBox = new DICE.dice_box(document.body);

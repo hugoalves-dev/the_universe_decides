@@ -30,9 +30,12 @@ class DiceRollScreen extends ConsumerStatefulWidget {
 class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
     with WidgetsBindingObserver {
   static const _availableSides = [4, 6, 8, 10, 12, 20, 100];
+  static const _commonDiceCounts = [1, 2, 3, 4, 5];
+  static const _maxDiceCount = 100;
   static const _animationTimeout = Duration(seconds: 12);
 
   late final DiceWebViewController _diceWebViewController;
+  late final TextEditingController _customCountController;
   Timer? _animationTimer;
   Size? _lockedLayoutSize;
   Size? _lockedMediaSize;
@@ -41,6 +44,7 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _customCountController = TextEditingController();
     _diceWebViewController = DiceWebViewController(
       onRollCompleted: _completeDiceAnimation,
     );
@@ -50,6 +54,7 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _animationTimer?.cancel();
+    _customCountController.dispose();
     super.dispose();
   }
 
@@ -182,23 +187,103 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
                   const SizedBox(height: 16),
                   _SectionLabel(l10n.diceCountLabel),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      for (var n = 1; n <= 5; n++) ...[
-                        if (n > 1) const SizedBox(width: 8),
-                        Expanded(
-                          child: _PillButton(
-                            key: Key('dice-count-$n'),
-                            label: '$n',
-                            selected: state.diceCount == n,
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      const spacing = 8.0;
+                      const customWidth = 76.0;
+                      final presetWidth =
+                          (constraints.maxWidth - customWidth - spacing * 5) /
+                          _commonDiceCounts.length;
+                      final customSelected =
+                          !_commonDiceCounts.contains(state.diceCount);
+                      return Row(
+                        children: [
+                          for (final n in _commonDiceCounts) ...[
+                            SizedBox(
+                              width: presetWidth,
+                              child: _PillButton(
+                                key: Key('dice-count-$n'),
+                                label: '$n',
+                                selected: state.diceCount == n,
+                                height: 40,
+                                onTap: isBusy
+                                    ? null
+                                    : () {
+                                        _customCountController.clear();
+                                        controller.setDiceCount(n);
+                                      },
+                              ),
+                            ),
+                            if (n != _commonDiceCounts.last)
+                              const SizedBox(width: spacing),
+                          ],
+                          const SizedBox(width: spacing),
+                          SizedBox(
+                            width: customWidth,
                             height: 40,
-                            onTap: isBusy
-                                ? null
-                                : () => controller.setDiceCount(n),
+                            child: TextField(
+                              key: const Key('dice-count-custom'),
+                              controller: _customCountController,
+                              enabled: !isBusy,
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                TextInputFormatter.withFunction((
+                                  oldValue,
+                                  newValue,
+                                ) {
+                                  if (newValue.text.isEmpty) return newValue;
+                                  final value = int.tryParse(newValue.text);
+                                  return value != null &&
+                                          value <= _maxDiceCount
+                                      ? newValue
+                                      : oldValue;
+                                }),
+                              ],
+                              onChanged: (text) {
+                                final value = int.tryParse(text);
+                                if (value != null && value >= 1) {
+                                  controller.setDiceCount(value);
+                                }
+                              },
+                              decoration: InputDecoration(
+                                hintText: '…',
+                                hintStyle: const TextStyle(
+                                  color: AppColors.whiteMuted,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                contentPadding: EdgeInsets.zero,
+                                filled: true,
+                                fillColor: customSelected
+                                    ? AppColors.gold1.withValues(alpha: 0.18)
+                                    : const Color(0x0DFFFFFF),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                    color: customSelected
+                                        ? AppColors.gold1
+                                        : const Color(0x24FFFFFF),
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: const BorderSide(
+                                    color: AppColors.gold1,
+                                  ),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: const BorderSide(
+                                    color: Color(0x24FFFFFF),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ],
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(height: 14),
                   _SectionLabel(l10n.diceSidesLabel),
@@ -213,11 +298,11 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
                           child: _PillButton(
                             key: Key('dice-side-$sides'),
                             label: 'd$sides',
-                            selected: state.selectedSides == sides,
+                            selected: state.selectedDiceSides.contains(sides),
                             height: 40,
                             onTap: isBusy
                                 ? null
-                                : () => controller.setSelectedSides(sides),
+                                : () => controller.toggleSelectedSides(sides),
                           ),
                         ),
                     ],

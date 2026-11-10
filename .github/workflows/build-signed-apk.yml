@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [master]
+    branches: [master, dev]
     paths:
       - ".github/workflows/build-signed-apk.yml"
       - ".github/workflows/deploy-web.yml"
@@ -306,7 +306,8 @@ jobs:
     needs: [version, build-android]
     if: >-
       github.event_name == 'push' &&
-      github.ref == 'refs/heads/dev'
+      github.ref == 'refs/heads/dev' &&
+      needs.version.outputs.android_relevant == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -327,22 +328,45 @@ jobs:
         shell: bash
         run: mv dist/app-play-release.apk "dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk"
 
-      - name: Create or update rolling Alpha release
+      - name: Replace rolling Alpha release
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: alpha
           VERSION_NAME: ${{ needs.version.outputs.version_name }}
           VERSION_CODE: ${{ needs.version.outputs.version_code }}
           APK: dist/the-universe-decides-alpha-${{ needs.version.outputs.version_name }}+${{ needs.version.outputs.version_code }}.apk
         run: |
-          NOTES="Automated alpha build from dev commit ${GITHUB_SHA}.\\n\\nIncludes the Play APK for version ${VERSION_NAME}+${VERSION_CODE}.\\nThis rolling alpha release is replaced by the next validated dev build."
-          gh release upload "$TAG" "$APK" --clobber --repo "$GITHUB_REPOSITORY" 2>/dev/null || true
-          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release edit "$TAG" --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" --notes "$NOTES" --prerelease --repo "$GITHUB_REPOSITORY"
-          else
-            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" --notes "$NOTES" --prerelease --repo "$GITHUB_REPOSITORY"
+          NOTES="Automated alpha build from dev commit ${GITHUB_SHA}.
+
+          Includes the Play APK for version ${VERSION_NAME}+${VERSION_CODE}.
+          This rolling alpha release is replaced by the next validated dev build."
+
+          if gh release view alpha --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            gh release delete alpha --yes --cleanup-tag --repo "${GITHUB_REPOSITORY}"
           fi
+
+          gh release create alpha "${APK}" \
+            --target "${GITHUB_SHA}" \
+            --title "Alpha (${VERSION_NAME}+${VERSION_CODE})" \
+            --notes "${NOTES}" \
+            --prerelease \
+            --latest=false \
+            --repo "${GITHUB_REPOSITORY}"
+
+  deploy-play-beta:
+    name: Deploy dev build to Google Play open testing
+    needs: [version, build-android]
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/dev' &&
+      needs.version.outputs.android_relevant == 'true'
+    uses: ./.github/workflows/android-play-deploy.yml
+    with:
+      version_name: ${{ needs.version.outputs.version_name }}
+      version_code: ${{ needs.version.outputs.version_code }}
+      source_ref: ${{ github.sha }}
+      track: beta
+    secrets: inherit
 
   release:
     name: Publish GitHub Release
@@ -450,8 +474,8 @@ jobs:
               --repo "$GITHUB_REPOSITORY"
           fi
 
-  deploy-play:
-    name: Deploy Google Play open testing
+  deploy-play-production:
+    name: Publish master build to Google Play production
     needs: [version, release]
     if: needs.version.outputs.should_release == 'true'
     uses: ./.github/workflows/android-play-deploy.yml
@@ -459,4 +483,5 @@ jobs:
       version_name: ${{ needs.version.outputs.version_name }}
       version_code: ${{ needs.version.outputs.version_code }}
       source_ref: ${{ needs.release.outputs.release_commit }}
+      track: production
     secrets: inherit

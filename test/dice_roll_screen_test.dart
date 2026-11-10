@@ -182,7 +182,7 @@ Future<void> _pumpDiceScreen(WidgetTester tester, ProviderContainer container) {
 
 void _expectControlsDisabled(WidgetTester tester) {
   expect(
-    tester.widget<TextField>(find.byKey(const Key('dice-count-input'))).enabled,
+    tester.widget<TextField>(find.byKey(const Key('dice-count-custom'))).enabled,
     isFalse,
     reason: 'dice count should be disabled while busy',
   );

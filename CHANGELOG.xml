@@ -1,35 +1,35 @@
 <en-US>
-- Enter the number of dice to roll, up to RANDOM.ORG's 10,000 integer per request limit.
+- Fixed custom dice count input losing focus when the Android keyboard opens.
 </en-US>
 
 <pt-BR>
-- Informe quantos dados deseja rolar, até o limite de 10.000 números por solicitação do RANDOM.ORG.
+- Corrigido o campo de quantidade personalizada de dados, que perdia o foco ao abrir o teclado do Android.
 </pt-BR>
 
 <es-ES>
-- Indica cuántos dados quieres lanzar, hasta el límite de 10.000 números por solicitud de RANDOM.ORG.
+- Se corrigió el campo de cantidad personalizada de dados, que perdía el foco al abrir el teclado de Android.
 </es-ES>
 
 <de>
-- Lege die Anzahl der Würfel fest, bis zum RANDOM.ORG-Limit von 10.000 Zahlen pro Anfrage.
+- Die Eingabe für eine benutzerdefinierte Würfelanzahl verliert beim Öffnen der Android-Tastatur nicht mehr den Fokus.
 </de>
 
 <fr-FR>
-- Saisissez le nombre de dés à lancer, jusqu’à la limite de 10 000 nombres par requête de RANDOM.ORG.
+- Le champ de saisie du nombre de dés personnalisé ne perd plus le focus à l’ouverture du clavier Android.
 </fr-FR>
 
 <hi>
-- फेंके जाने वाले पासों की संख्या दर्ज करें; RANDOM.ORG की प्रति अनुरोध 10,000 संख्याओं की सीमा तक।
+- Android कीबोर्ड खुलने पर कस्टम पासा संख्या का इनपुट अब फ़ोकस नहीं खोता।
 </hi>
 
 <it>
-- Inserisci il numero di dadi da lanciare, fino al limite di 10.000 numeri per richiesta di RANDOM.ORG.
+- Il campo per il numero personalizzato di dadi non perde più il focus all’apertura della tastiera Android.
 </it>
 
 <tr>
-- Atılacak zar sayısını girin; RANDOM.ORG'un istek başına 10.000 sayı sınırına kadar.
+- Android klavyesi açıldığında özel zar sayısı alanı artık odağını kaybetmiyor.
 </tr>
 
 <uk>
-- Вкажіть кількість кубиків для кидка — до ліміту RANDOM.ORG у 10 000 чисел на запит.
+- Поле введення користувацької кількості кубиків більше не втрачає фокус під час відкриття клавіатури Android.
 </uk>

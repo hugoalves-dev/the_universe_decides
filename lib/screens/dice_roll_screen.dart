@@ -162,7 +162,11 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
         }
         final layoutSize = _lockedLayoutSize ?? constraints.biggest;
         final media = MediaQuery.of(context);
-        final fillsHeight = layoutSize.height >= 650;
+        final view = View.of(context);
+        // Scaffold removes keyboard insets from the body's MediaQuery. Read
+        // them from the view so opening the IME does not switch the stage tree.
+        final keyboardInset = view.viewInsets.bottom / view.devicePixelRatio;
+        final fillsHeight = layoutSize.height + keyboardInset >= 650;
         return OverflowBox(
           alignment: Alignment.topLeft,
           minWidth: layoutSize.width,

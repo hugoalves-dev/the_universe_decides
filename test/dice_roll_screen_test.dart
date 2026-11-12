@@ -11,6 +11,61 @@ import 'package:theuniversedecides/screens/dice_roll_screen.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
 
 void main() {
+  testWidgets('custom dice count retains focus across keyboard resize', (
+    tester,
+  ) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(400, 900);
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+      tester.view.resetViewInsets();
+    });
+    final client = _PendingClient();
+    final container = _containerFor(client);
+    addTearDown(container.dispose);
+
+    await _pumpDiceScreen(tester, container);
+
+    final field = find.byKey(const Key('dice-count-custom'));
+    await tester.tap(field);
+    await tester.pump();
+    expect(
+      tester.widget<EditableText>(find.byType(EditableText)).focusNode.hasFocus,
+      isTrue,
+    );
+    final focusedFieldElement = tester.element(field);
+
+    tester.view.viewInsets = const FakeViewPadding(bottom: 320);
+    await tester.pump();
+
+    expect(
+      tester.element(field),
+      same(focusedFieldElement),
+      reason:
+          'the keyboard inset must not replace the focused TextField subtree',
+    );
+    expect(
+      tester.widget<EditableText>(find.byType(EditableText)).focusNode.hasFocus,
+      isTrue,
+    );
+    expect(tester.testTextInput.isVisible, isTrue);
+    expect(tester.takeException(), isNull);
+
+    await tester.enterText(field, '6');
+    await tester.pump();
+    expect(container.read(diceRollProvider).diceCount, 6);
+
+    final roll = container.read(diceRollProvider.notifier).startRoll();
+    await tester.pump();
+    client.complete('1 2 3 4 5 6');
+    await roll;
+
+    final request = container.read(diceRollProvider).rollRequest;
+    expect(request?.notation, '6d20');
+    expect(request?.results, [1, 2, 3, 4, 5, 6]);
+  });
+
   testWidgets('disables dice controls while fetching and animating', (
     tester,
   ) async {

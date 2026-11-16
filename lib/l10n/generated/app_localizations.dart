@@ -250,6 +250,36 @@ abstract class AppLocalizations {
   /// **'Total: {total}'**
   String diceTotal(int total);
 
+  /// No description provided for @diceDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Roll details'**
+  String get diceDetailsTitle;
+
+  /// No description provided for @diceDetailsSumLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'SUM'**
+  String get diceDetailsSumLabel;
+
+  /// No description provided for @diceDetailsClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get diceDetailsClose;
+
+  /// No description provided for @diceDetailsDie.
+  ///
+  /// In en, this message translates to:
+  /// **'Die {index}: {value}'**
+  String diceDetailsDie(int index, int value);
+
+  /// No description provided for @diceFetching.
+  ///
+  /// In en, this message translates to:
+  /// **'Consulting the universe…'**
+  String get diceFetching;
+
   /// No description provided for @cardEyebrow.
   ///
   /// In en, this message translates to:

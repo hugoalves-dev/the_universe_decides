@@ -82,6 +82,23 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get diceDetailsTitle => 'रोल का विवरण';
+
+  @override
+  String get diceDetailsSumLabel => 'योग';
+
+  @override
+  String get diceDetailsClose => 'बंद करें';
+
+  @override
+  String diceDetailsDie(int index, int value) {
+    return 'पासा $index: $value';
+  }
+
+  @override
+  String get diceFetching => 'ब्रह्मांड से पूछा जा रहा है…';
+
+  @override
   String get cardEyebrow => 'कार्ड अनुष्ठान';
 
   @override

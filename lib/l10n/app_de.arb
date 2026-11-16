@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Wurfdetails",
+  "diceDetailsSumLabel": "SUMME",
+  "diceDetailsClose": "Schließen",
+  "diceDetailsDie": "Würfel {index}: {value}",
+  "diceFetching": "Das Universum wird befragt…",
   "cardEyebrow": "Kartenritual",
   "cardTitle": "Volles Deck",
   "cardSubtitle": "52 Karten. Ein Schicksal pro Tippen.",

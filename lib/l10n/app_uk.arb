@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Деталі кидка",
+  "diceDetailsSumLabel": "СУМА",
+  "diceDetailsClose": "Закрити",
+  "diceDetailsDie": "Кубик {index}: {value}",
+  "diceFetching": "Звертаємося до всесвіту…",
   "cardEyebrow": "Ритуал Карт",
   "cardTitle": "Повна Колода",
   "cardSubtitle": "52 карти. Одна доля на дотик.",

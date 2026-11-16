@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Detalles de la tirada",
+  "diceDetailsSumLabel": "SUMA",
+  "diceDetailsClose": "Cerrar",
+  "diceDetailsDie": "Dado {index}: {value}",
+  "diceFetching": "Consultando al universo…",
   "cardEyebrow": "Ritual de las Cartas",
   "cardTitle": "Baraja Completa",
   "cardSubtitle": "52 cartas. Un destino por toque.",

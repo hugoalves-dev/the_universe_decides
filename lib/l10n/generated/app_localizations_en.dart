@@ -81,6 +81,23 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get diceDetailsTitle => 'Roll details';
+
+  @override
+  String get diceDetailsSumLabel => 'SUM';
+
+  @override
+  String get diceDetailsClose => 'Close';
+
+  @override
+  String diceDetailsDie(int index, int value) {
+    return 'Die $index: $value';
+  }
+
+  @override
+  String get diceFetching => 'Consulting the universe…';
+
+  @override
   String get cardEyebrow => 'Card Ritual';
 
   @override

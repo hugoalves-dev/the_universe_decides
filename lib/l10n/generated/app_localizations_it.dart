@@ -83,6 +83,23 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get diceDetailsTitle => 'Dettagli del lancio';
+
+  @override
+  String get diceDetailsSumLabel => 'SOMMA';
+
+  @override
+  String get diceDetailsClose => 'Chiudi';
+
+  @override
+  String diceDetailsDie(int index, int value) {
+    return 'Dado $index: $value';
+  }
+
+  @override
+  String get diceFetching => 'Consultando l’universo…';
+
+  @override
   String get cardEyebrow => 'Rituale delle Carte';
 
   @override

@@ -1,35 +1,53 @@
 <en-US>
-- Fixed custom dice count input losing focus when the Android keyboard opens.
+- Large dice rolls no longer cut off the sum: the total always stays visible.
+- New roll details button shows every die, the full sum and the total in a scrollable dialog.
+- A progress indicator now appears while the dice values are being fetched.
 </en-US>
 
 <pt-BR>
-- Corrigido o campo de quantidade personalizada de dados, que perdia o foco ao abrir o teclado do Android.
+- Rolagens com muitos dados não cortam mais a soma: o total fica sempre visível.
+- Novo botão de detalhes da rolagem mostra cada dado, a soma completa e o total em uma janela rolável.
+- Um indicador de progresso agora aparece enquanto os valores dos dados são obtidos.
 </pt-BR>
 
 <es-ES>
-- Se corrigió el campo de cantidad personalizada de dados, que perdía el foco al abrir el teclado de Android.
+- Las tiradas con muchos dados ya no cortan la suma: el total siempre queda visible.
+- El nuevo botón de detalles de la tirada muestra cada dado, la suma completa y el total en un diálogo desplazable.
+- Ahora aparece un indicador de progreso mientras se obtienen los valores de los dados.
 </es-ES>
 
 <de>
-- Die Eingabe für eine benutzerdefinierte Würfelanzahl verliert beim Öffnen der Android-Tastatur nicht mehr den Fokus.
+- Große Würfelwürfe schneiden die Summe nicht mehr ab: Die Gesamtsumme bleibt immer sichtbar.
+- Die neue Schaltfläche für Wurfdetails zeigt jeden Würfel, die vollständige Summe und das Ergebnis in einem scrollbaren Dialog.
+- Während die Würfelwerte abgerufen werden, erscheint jetzt eine Fortschrittsanzeige.
 </de>
 
 <fr-FR>
-- Le champ de saisie du nombre de dés personnalisé ne perd plus le focus à l’ouverture du clavier Android.
+- Les lancers avec beaucoup de dés ne coupent plus la somme : le total reste toujours visible.
+- Le nouveau bouton de détails du lancer affiche chaque dé, la somme complète et le total dans une fenêtre défilante.
+- Un indicateur de progression s’affiche désormais pendant la récupération des valeurs des dés.
 </fr-FR>
 
 <hi>
-- Android कीबोर्ड खुलने पर कस्टम पासा संख्या का इनपुट अब फ़ोकस नहीं खोता।
+- बहुत सारे पासों वाले रोल में अब योग कटता नहीं है: कुल हमेशा दिखाई देता है।
+- नया रोल विवरण बटन हर पासा, पूरा योग और कुल एक स्क्रॉल करने योग्य डायलॉग में दिखाता है।
+- पासों के मान प्राप्त होने के दौरान अब एक प्रगति संकेतक दिखाई देता है।
 </hi>
 
 <it>
-- Il campo per il numero personalizzato di dadi non perde più il focus all’apertura della tastiera Android.
+- I lanci con molti dadi non tagliano più la somma: il totale resta sempre visibile.
+- Il nuovo pulsante dei dettagli del lancio mostra ogni dado, la somma completa e il totale in una finestra scorrevole.
+- Ora appare un indicatore di avanzamento mentre vengono ottenuti i valori dei dadi.
 </it>
 
 <tr>
-- Android klavyesi açıldığında özel zar sayısı alanı artık odağını kaybetmiyor.
+- Çok sayıda zarla yapılan atışlarda toplam artık kesilmiyor: sonuç her zaman görünür kalıyor.
+- Yeni atış ayrıntıları düğmesi her zarı, tam toplamı ve sonucu kaydırılabilir bir pencerede gösteriyor.
+- Zar değerleri alınırken artık bir ilerleme göstergesi görünüyor.
 </tr>
 
 <uk>
-- Поле введення користувацької кількості кубиків більше не втрачає фокус під час відкриття клавіатури Android.
+- Кидки з великою кількістю кубиків більше не обрізають суму: підсумок завжди видно.
+- Нова кнопка деталей кидка показує кожен кубик, повну суму й підсумок у прокручуваному вікні.
+- Під час отримання значень кубиків тепер з’являється індикатор виконання.
 </uk>

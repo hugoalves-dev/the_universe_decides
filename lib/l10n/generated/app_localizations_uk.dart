@@ -83,6 +83,23 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
+  String get diceDetailsTitle => 'Деталі кидка';
+
+  @override
+  String get diceDetailsSumLabel => 'СУМА';
+
+  @override
+  String get diceDetailsClose => 'Закрити';
+
+  @override
+  String diceDetailsDie(int index, int value) {
+    return 'Кубик $index: $value';
+  }
+
+  @override
+  String get diceFetching => 'Звертаємося до всесвіту…';
+
+  @override
   String get cardEyebrow => 'Ритуал Карт';
 
   @override

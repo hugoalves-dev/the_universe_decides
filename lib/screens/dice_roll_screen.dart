@@ -13,6 +13,7 @@ import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/layout/ritual_screen_frame.dart';
 import 'package:theuniversedecides/services/results_history_service.dart';
 import 'package:theuniversedecides/theme/app_colors.dart';
+import 'package:theuniversedecides/widgets/dice_roll_details_dialog.dart';
 import 'package:theuniversedecides/widgets/ritual_button.dart';
 import 'package:theuniversedecides/widgets/ritual_header.dart';
 
@@ -107,9 +108,7 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
   /// Records a finished roll using the same notation and total shown in the
   /// result caption below the dice, e.g. "2d6: 3 + 5 = 8" or "1d20: Total: 14".
   void _recordHistory(AppLocalizations l10n, DiceRollState state) {
-    final notation =
-        state.rollRequest?.notation ??
-        '${state.diceCount}d${state.selectedSides}';
+    final notation = _notationOf(state);
     final resultsText = state.results.length > 1
         ? '${state.results.join(' + ')} = ${state.total}'
         : l10n.diceTotal(state.total);
@@ -123,12 +122,26 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
     );
   }
 
+  void _showDetails(DiceRollState state) {
+    showDiceRollDetailsDialog(
+      context,
+      notation: _notationOf(state),
+      results: state.results,
+    );
+  }
+
+  static String _notationOf(DiceRollState state) =>
+      state.rollRequest?.notation ??
+      '${state.diceCount}d${state.selectedSides}';
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(diceRollProvider);
     final controller = ref.read(diceRollProvider.notifier);
     final isBusy = state.isBusy;
+    final hasSettledResult =
+        !isBusy && state.animationError == null && state.results.isNotEmpty;
 
     ref.listen<DiceRollState>(diceRollProvider, (previous, next) {
       final previousRequestId = previous?.rollRequest?.requestId;
@@ -312,10 +325,29 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
                     ],
                   ),
                   const SizedBox(height: 18),
-                  RitualButton(
-                    key: const Key('dice-roll-button'),
-                    label: l10n.diceRollButton,
-                    onPressed: isBusy ? null : _startRoll,
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 384),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: RitualButton(
+                              key: const Key('dice-roll-button'),
+                              label: l10n.diceRollButton,
+                              onPressed: isBusy ? null : _startRoll,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          _DetailsButton(
+                            key: const Key('dice-details-button'),
+                            tooltip: l10n.diceDetailsTitle,
+                            onPressed: hasSettledResult
+                                ? () => _showDetails(state)
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -346,22 +378,22 @@ class _DiceRollScreenState extends ConsumerState<DiceRollScreen>
                   SizedBox(
                     height: 82,
                     child: Center(
-                      child:
-                          !state.isRolling &&
-                              state.animationError == null &&
-                              state.results.isNotEmpty
-                          ? Text(
-                              state.results.length > 1
-                                  ? '${state.results.join(' + ')} = ${state.total}'
-                                  : l10n.diceTotal(state.total),
-                              key: const Key('dice-total'),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 0.4,
-                                color: AppColors.gold1,
+                      child: state.isFetching
+                          ? Semantics(
+                              key: const Key('dice-fetching'),
+                              label: l10n.diceFetching,
+                              child: const SizedBox.square(
+                                dimension: 28,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                  color: AppColors.gold1,
+                                ),
                               ),
+                            )
+                          : hasSettledResult
+                          ? _ResultSummary(
+                              results: state.results,
+                              totalLabel: l10n.diceTotal(state.total),
                             )
                           : const SizedBox.shrink(),
                     ),
@@ -406,6 +438,92 @@ class _SectionLabel extends StatelessWidget {
         fontWeight: FontWeight.w700,
         letterSpacing: 0.6,
         color: AppColors.textCaption,
+      ),
+    );
+  }
+}
+
+/// One-line summary under the arena. Large rolls keep the expression to a
+/// single ellipsized line so the total is never clipped; the full breakdown
+/// lives in the roll details dialog.
+class _ResultSummary extends StatelessWidget {
+  const _ResultSummary({required this.results, required this.totalLabel});
+
+  final List<int> results;
+  final String totalLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (results.length > 1)
+          Text(
+            results.join(' + '),
+            key: const Key('dice-expression'),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textSoft,
+            ),
+          ),
+        Text(
+          totalLabel,
+          key: const Key('dice-total'),
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.4,
+            color: AppColors.gold1,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Secondary action beside "Roll dice" that opens the roll details dialog.
+class _DetailsButton extends StatelessWidget {
+  const _DetailsButton({
+    super.key,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final String tooltip;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: Opacity(
+        opacity: onPressed == null ? 0.5 : 1,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: onPressed,
+            child: Ink(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                color: const Color(0x0DFFFFFF),
+                border: Border.all(color: AppColors.gold1),
+              ),
+              child: const Icon(
+                Icons.format_list_numbered,
+                color: AppColors.gold1,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

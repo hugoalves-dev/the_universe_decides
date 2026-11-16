@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Atış ayrıntıları",
+  "diceDetailsSumLabel": "TOPLAM",
+  "diceDetailsClose": "Kapat",
+  "diceDetailsDie": "Zar {index}: {value}",
+  "diceFetching": "Evrene danışılıyor…",
   "cardEyebrow": "Kart Ritüeli",
   "cardTitle": "Tam Deste",
   "cardSubtitle": "52 kart. Her dokunuşta bir kader.",

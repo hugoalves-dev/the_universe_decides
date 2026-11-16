@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Dettagli del lancio",
+  "diceDetailsSumLabel": "SOMMA",
+  "diceDetailsClose": "Chiudi",
+  "diceDetailsDie": "Dado {index}: {value}",
+  "diceFetching": "Consultando l’universo…",
   "cardEyebrow": "Rituale delle Carte",
   "cardTitle": "Mazzo Completo",
   "cardSubtitle": "52 carte. Un destino per tocco.",

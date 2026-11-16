@@ -30,6 +30,21 @@
       }
     }
   },
+  "diceDetailsTitle": "Roll details",
+  "diceDetailsSumLabel": "SUM",
+  "diceDetailsClose": "Close",
+  "diceDetailsDie": "Die {index}: {value}",
+  "@diceDetailsDie": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "diceFetching": "Consulting the universe…",
   "cardEyebrow": "Card Ritual",
   "cardTitle": "Full Deck",
   "cardSubtitle": "52 cards. One fate per tap.",

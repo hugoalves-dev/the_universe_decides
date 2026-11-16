@@ -212,6 +212,202 @@ void main() {
       isNotNull,
     );
   });
+
+  group('large rolls (#103)', () {
+    const values = [
+      13, 4, 12, 5, 15, 1, 20, 3, 4, 19, 7, 19, 3, //
+      19, 3, 9, 11, 12, 6, 13, 9, 5, 19, 14, 11,
+    ];
+    final total = values.reduce((a, b) => a + b);
+
+    Future<ProviderContainer> rollTwentyFive(WidgetTester tester) async {
+      tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = const Size(360, 640);
+      tester.view.padding = const FakeViewPadding(bottom: 48);
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+        tester.view.resetPadding();
+      });
+      final client = _PendingClient();
+      final container = _containerFor(client);
+      addTearDown(container.dispose);
+      await _pumpDiceScreen(tester, container);
+      final controller = container.read(diceRollProvider.notifier)
+        ..setDiceCount(25);
+      final roll = controller.startRoll();
+      client.complete(values.join('\n'));
+      await roll;
+      await tester.pump();
+      controller.completeAnimation(
+        container.read(diceRollProvider).activeRequestId!,
+      );
+      await tester.pump();
+      return container;
+    }
+
+    testWidgets('the main screen shows the total without overflowing', (
+      tester,
+    ) async {
+      await rollTwentyFive(tester);
+
+      expect(tester.takeException(), isNull);
+      expect(find.text('Total: $total'), findsOneWidget);
+      final expression = tester.widget<Text>(
+        find.byKey(const Key('dice-expression')),
+      );
+      expect(expression.maxLines, 1);
+      expect(expression.overflow, TextOverflow.ellipsis);
+    });
+
+    testWidgets('the details dialog lists every die, the sum and the total', (
+      tester,
+    ) async {
+      await rollTwentyFive(tester);
+
+      await tester.tap(find.byKey(const Key('dice-details-button')));
+      await tester.pumpAndSettle();
+
+      final dialog = find.byKey(const Key('dice-details-dialog'));
+      expect(dialog, findsOneWidget);
+      expect(tester.takeException(), isNull);
+      expect(
+        find.descendant(of: dialog, matching: find.text('25d20')),
+        findsOneWidget,
+      );
+      final firstChip = tester.getRect(
+        find.byKey(const Key('dice-details-value-0')),
+      );
+      final secondChip = tester.getRect(
+        find.byKey(const Key('dice-details-value-1')),
+      );
+      expect(
+        secondChip.top,
+        firstChip.top,
+        reason: 'die values must share a row instead of one per line',
+      );
+      for (var i = 0; i < values.length; i++) {
+        final value = find.byKey(Key('dice-details-value-$i'));
+        await tester.scrollUntilVisible(
+          value,
+          40,
+          scrollable: find
+              .descendant(of: dialog, matching: find.byType(Scrollable))
+              .first,
+        );
+        expect(
+          find.descendant(of: value, matching: find.text('${values[i]}')),
+          findsOneWidget,
+        );
+      }
+      final sum = find.byKey(const Key('dice-details-sum'));
+      await tester.scrollUntilVisible(
+        sum,
+        40,
+        scrollable: find
+            .descendant(of: dialog, matching: find.byType(Scrollable))
+            .first,
+      );
+      expect(
+        tester.widget<SelectableText>(sum).data,
+        '${values.join(' + ')} = $total',
+      );
+      expect(
+        find.descendant(
+          of: dialog,
+          matching: find.byKey(const Key('dice-details-total')),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        tester.getRect(find.byKey(const Key('dice-details-total'))).bottom,
+        lessThanOrEqualTo(640 - 48),
+        reason: 'the total must stay above the system navigation inset',
+      );
+
+      await tester.tap(find.byKey(const Key('dice-details-close')));
+      await tester.pumpAndSettle();
+      expect(dialog, findsNothing);
+    });
+
+    testWidgets('details stay unavailable until a roll has settled', (
+      tester,
+    ) async {
+      final client = _PendingClient();
+      final container = _containerFor(client);
+      addTearDown(container.dispose);
+      await _pumpDiceScreen(tester, container);
+
+      InkWell detailsButton() => tester.widget<InkWell>(
+        find.descendant(
+          of: find.byKey(const Key('dice-details-button')),
+          matching: find.byType(InkWell),
+        ),
+      );
+
+      expect(detailsButton().onTap, isNull);
+      final roll = container.read(diceRollProvider.notifier).startRoll();
+      await tester.pump();
+      expect(detailsButton().onTap, isNull);
+      client.complete('3');
+      await roll;
+      await tester.pump();
+      expect(detailsButton().onTap, isNull);
+      container
+          .read(diceRollProvider.notifier)
+          .completeAnimation(container.read(diceRollProvider).activeRequestId!);
+      await tester.pump();
+      expect(detailsButton().onTap, isNotNull);
+    });
+
+    testWidgets('fetching shows progress instead of the previous result', (
+      tester,
+    ) async {
+      final first = _PendingClient();
+      final second = _PendingClient();
+      final clients = [first, second];
+      final container = ProviderContainer(
+        overrides: [
+          randomOrgServiceProvider.overrideWithValue(
+            RandomOrgService(client: _SequenceClient(clients)),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      await _pumpDiceScreen(tester, container);
+      final controller = container.read(diceRollProvider.notifier);
+
+      final roll = controller.startRoll();
+      first.complete('3');
+      await roll;
+      controller.completeAnimation(
+        container.read(diceRollProvider).activeRequestId!,
+      );
+      await tester.pump();
+      expect(find.byKey(const Key('dice-total')), findsOneWidget);
+
+      final next = controller.startRoll();
+      await tester.pump();
+      expect(find.byKey(const Key('dice-fetching')), findsOneWidget);
+      expect(find.byKey(const Key('dice-total')), findsNothing);
+
+      second.complete('7');
+      await next;
+      await tester.pump();
+      expect(find.byKey(const Key('dice-fetching')), findsNothing);
+    });
+  });
+}
+
+class _SequenceClient extends http.BaseClient {
+  _SequenceClient(this._clients);
+
+  final List<_PendingClient> _clients;
+  var _index = 0;
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) =>
+      _clients[_index++].send(request);
 }
 
 Future<void> _pumpDiceScreen(WidgetTester tester, ProviderContainer container) {

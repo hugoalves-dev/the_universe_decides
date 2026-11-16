@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Détails du lancer",
+  "diceDetailsSumLabel": "SOMME",
+  "diceDetailsClose": "Fermer",
+  "diceDetailsDie": "Dé {index} : {value}",
+  "diceFetching": "Consultation de l’univers…",
   "cardEyebrow": "Rituel des Cartes",
   "cardTitle": "Jeu Complet",
   "cardSubtitle": "52 cartes. Un destin par tapotement.",

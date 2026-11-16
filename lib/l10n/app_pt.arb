@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "Detalhes da rolagem",
+  "diceDetailsSumLabel": "SOMA",
+  "diceDetailsClose": "Fechar",
+  "diceDetailsDie": "Dado {index}: {value}",
+  "diceFetching": "Consultando o universo…",
   "cardEyebrow": "Ritual das Cartas",
   "cardTitle": "Baralho Completo",
   "cardSubtitle": "52 cartas. Um destino por toque.",

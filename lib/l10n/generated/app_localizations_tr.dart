@@ -82,6 +82,23 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get diceDetailsTitle => 'Atış ayrıntıları';
+
+  @override
+  String get diceDetailsSumLabel => 'TOPLAM';
+
+  @override
+  String get diceDetailsClose => 'Kapat';
+
+  @override
+  String diceDetailsDie(int index, int value) {
+    return 'Zar $index: $value';
+  }
+
+  @override
+  String get diceFetching => 'Evrene danışılıyor…';
+
+  @override
   String get cardEyebrow => 'Kart Ritüeli';
 
   @override

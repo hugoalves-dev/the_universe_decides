@@ -30,6 +30,11 @@
       }
     }
   },
+  "diceDetailsTitle": "रोल का विवरण",
+  "diceDetailsSumLabel": "योग",
+  "diceDetailsClose": "बंद करें",
+  "diceDetailsDie": "पासा {index}: {value}",
+  "diceFetching": "ब्रह्मांड से पूछा जा रहा है…",
   "cardEyebrow": "कार्ड अनुष्ठान",
   "cardTitle": "पूरा डेक",
   "cardSubtitle": "52 कार्ड। एक टैप, एक नियति।",

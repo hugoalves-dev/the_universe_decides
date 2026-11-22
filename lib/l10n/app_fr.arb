@@ -53,6 +53,9 @@
   "listWheelHint": "Ajoute au moins deux options, puis lance la roue.",
   "listWheelSpinAgainHint": "Touche tourner pour réessayer.",
   "listDuplicateItem": "Cet élément existe déjà dans la liste.",
+  "listWeightIncrease": "Augmenter le poids",
+  "listWeightDecrease": "Diminuer le poids",
+  "listWeightValue": "Poids {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{1 élément en double a été ignoré.} other{{count} éléments en double ont été ignorés.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

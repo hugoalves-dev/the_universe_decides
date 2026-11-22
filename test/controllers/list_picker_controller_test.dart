@@ -210,6 +210,89 @@ void main() {
       await pick;
     });
   });
+
+  group('ListPickerController weights', () {
+    late ProviderContainer container;
+    late ListPickerController controller;
+
+    setUp(() {
+      container = ProviderContainer();
+      addTearDown(container.dispose);
+      controller = container.read(listPickerProvider.notifier);
+    });
+
+    test('new items start with a weight of 1', () {
+      controller.addItem('A, B');
+      controller.addItem('C');
+
+      expect(container.read(listPickerProvider).weights, [1, 1, 1]);
+    });
+
+    test('setWeight updates only the targeted item', () {
+      controller.addItem('A, B, C');
+
+      controller.setWeight(1, 3);
+
+      expect(container.read(listPickerProvider).weights, [1, 3, 1]);
+    });
+
+    test('setWeight clamps to the allowed range', () {
+      controller.addItem('A, B');
+
+      controller.setWeight(0, 0);
+      controller.setWeight(1, listMaxItemWeight + 50);
+
+      expect(container.read(listPickerProvider).weights, [
+        listMinItemWeight,
+        listMaxItemWeight,
+      ]);
+    });
+
+    test('removing an item removes its weight', () {
+      controller.addItem('A, B, C');
+      controller.setWeight(0, 2);
+      controller.setWeight(2, 5);
+
+      controller.removeItem(1);
+
+      expect(container.read(listPickerProvider).weights, [2, 5]);
+    });
+  });
+
+  group('ListPickerController weighted draws', () {
+    test('spinWheel draws a ticket over the total weight', () async {
+      final client = _PendingClient();
+      final container = _containerFor(client);
+      addTearDown(container.dispose);
+      final controller = container.read(listPickerProvider.notifier);
+      controller.addItem('A, B');
+      controller.setWeight(0, 2);
+
+      final spin = controller.spinWheel();
+      client.complete('1');
+      final winner = await spin;
+
+      expect(client.lastUrl!.queryParameters['min'], '0');
+      expect(client.lastUrl!.queryParameters['max'], '2');
+      expect(winner, 0, reason: 'tickets 0 and 1 belong to A (weight 2)');
+    });
+
+    test('pickItem maps the drawn ticket to the weighted item', () async {
+      final client = _PendingClient();
+      final container = _containerFor(client);
+      addTearDown(container.dispose);
+      final controller = container.read(listPickerProvider.notifier);
+      controller.addItem('A, B, C');
+      controller.setWeight(1, 3);
+
+      final pick = controller.pickItem(reduceMotion: true);
+      client.complete('4');
+      await pick;
+
+      expect(client.lastUrl!.queryParameters['max'], '4');
+      expect(container.read(listPickerProvider).selectedIndex, 2);
+    });
+  });
 }
 
 ProviderContainer _containerFor(http.Client client) {
@@ -222,10 +305,12 @@ ProviderContainer _containerFor(http.Client client) {
 class _PendingClient extends http.BaseClient {
   final _response = Completer<http.Response>();
   var requestCount = 0;
+  Uri? lastUrl;
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     requestCount++;
+    lastUrl = request.url;
     final response = await _response.future;
     return http.StreamedResponse(
       Stream.value(response.bodyBytes),

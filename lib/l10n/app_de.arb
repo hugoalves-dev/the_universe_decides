@@ -53,6 +53,9 @@
   "listWheelHint": "Füge mindestens zwei Optionen hinzu und dreh los.",
   "listWheelSpinAgainHint": "Tippe auf Drehen, um es erneut zu versuchen.",
   "listDuplicateItem": "Dieser Eintrag ist bereits in der Liste.",
+  "listWeightIncrease": "Gewichtung erhöhen",
+  "listWeightDecrease": "Gewichtung verringern",
+  "listWeightValue": "Gewichtung {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{1 doppelter Eintrag wurde übersprungen.} other{{count} doppelte Einträge wurden übersprungen.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

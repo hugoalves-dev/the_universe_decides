@@ -154,6 +154,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get listDuplicateItem => 'यह आइटम पहले से सूची में मौजूद है।';
 
   @override
+  String get listWeightIncrease => 'भार बढ़ाएँ';
+
+  @override
+  String get listWeightDecrease => 'भार घटाएँ';
+
+  @override
+  String listWeightValue(int weight) {
+    return 'भार $weight';
+  }
+
+  @override
   String listDuplicateItemsDiscarded(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

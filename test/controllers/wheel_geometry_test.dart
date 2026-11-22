@@ -209,6 +209,52 @@ void main() {
     });
   });
 
+  group('wheelSegments', () {
+    test('gives equal slices to equal weights', () {
+      final segments = wheelSegments([1, 1, 1, 1]);
+
+      for (var i = 0; i < 4; i++) {
+        expect(segments[i].start, closeTo(i * math.pi / 2, 1e-9));
+        expect(segments[i].sweep, closeTo(math.pi / 2, 1e-9));
+      }
+    });
+
+    test('sizes slices proportionally to their weights', () {
+      final segments = wheelSegments([2, 1, 1]);
+
+      expect(segments[0].sweep, closeTo(math.pi, 1e-9));
+      expect(segments[1].start, closeTo(math.pi, 1e-9));
+      expect(segments[1].sweep, closeTo(math.pi / 2, 1e-9));
+      expect(segments[2].start, closeTo(3 * math.pi / 2, 1e-9));
+      expect(segments[2].center, closeTo(7 * math.pi / 4, 1e-9));
+    });
+
+    test('returns no slices for an empty or weightless list', () {
+      expect(wheelSegments([]), isEmpty);
+      expect(wheelSegments([0, 0]), isEmpty);
+    });
+  });
+
+  group('computeWheelTargetRotation with weights', () {
+    test('lands on the weighted segment center', () {
+      const weights = [3, 1, 2];
+      final segments = wheelSegments(weights);
+      for (var winner = 0; winner < weights.length; winner++) {
+        final rotation = computeWheelTargetRotation(
+          winnerIndex: winner,
+          itemCount: weights.length,
+          currentRotation: 1.1,
+          weights: weights,
+        );
+
+        expect(
+          normalizeAngle(segments[winner].center + rotation),
+          closeTo(wheelPointerAngle, 1e-6),
+        );
+      }
+    });
+  });
+
   group('isValidWheelSelection', () {
     test('rejects fewer than two items', () {
       expect(isValidWheelSelection([]), isFalse);

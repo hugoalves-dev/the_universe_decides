@@ -53,6 +53,9 @@
   "listWheelHint": "En az iki seçenek ekle, sonra çevir.",
   "listWheelSpinAgainHint": "Tekrar denemek için çevire dokun.",
   "listDuplicateItem": "Bu öğe listede zaten var.",
+  "listWeightIncrease": "Ağırlığı artır",
+  "listWeightDecrease": "Ağırlığı azalt",
+  "listWeightValue": "Ağırlık {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{1 yinelenen öğe atlandı.} other{{count} yinelenen öğe atlandı.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:theuniversedecides/controllers/list_picker_controller.dart';
+import 'package:theuniversedecides/controllers/wheel_geometry.dart';
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/screens/list_picker_wheel_view.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
@@ -281,6 +282,31 @@ void main() {
     expect(
       find.text(winnerIndex == 0 ? 'Heads' : 'Tails'),
       findsOneWidget,
+    );
+  });
+
+  testWidgets('lands on the weighted slice of the winner', (tester) async {
+    final client = _PendingClient();
+    final container = _containerFor(client);
+    addTearDown(container.dispose);
+    final controller = container.read(listPickerProvider.notifier);
+    controller.addItem('A, B');
+    controller.setWeight(0, 3);
+    await _pumpWheel(tester, container, reduceMotion: true);
+
+    await tester.tap(find.text('Spin the wheel'));
+    await tester.pump();
+    client.complete('3');
+    await tester.pumpAndSettle();
+
+    final disc = tester.widget<Transform>(
+      find.byKey(const ValueKey('list-wheel-disc')),
+    );
+    final rotation = math.atan2(disc.transform[1], disc.transform[0]);
+    final winnerCenter = wheelSegments([3, 1])[1].center;
+    expect(
+      normalizeAngle(winnerCenter + rotation),
+      closeTo(wheelPointerAngle, 1e-6),
     );
   });
 }

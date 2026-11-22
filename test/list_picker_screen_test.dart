@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:theuniversedecides/controllers/list_picker_controller.dart';
 import 'package:theuniversedecides/l10n/generated/app_localizations.dart';
 import 'package:theuniversedecides/screens/list_picker_screen.dart';
 import 'package:theuniversedecides/services/random_org_service.dart';
@@ -136,6 +137,50 @@ void main() {
       expect(find.text('2 duplicate items were skipped.'), findsOneWidget);
     },
   );
+
+  testWidgets('each option has a weight control that adjusts its weight', (
+    tester,
+  ) async {
+    final container = _container();
+    addTearDown(container.dispose);
+
+    await _pumpListScreen(tester, container);
+
+    await tester.enterText(find.byType(TextField), 'Pizza, Sushi');
+    await tester.tap(find.text('+'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('×1'), findsNWidgets(2));
+
+    await tester.tap(find.byTooltip('Increase weight').first);
+    await tester.pump();
+    await tester.tap(find.byTooltip('Increase weight').first);
+    await tester.pump();
+
+    expect(container.read(listPickerProvider).weights, [3, 1]);
+    expect(find.text('×3'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Decrease weight').first);
+    await tester.pump();
+
+    expect(container.read(listPickerProvider).weights, [2, 1]);
+  });
+
+  testWidgets('a weight cannot be decreased below one', (tester) async {
+    final container = _container();
+    addTearDown(container.dispose);
+
+    await _pumpListScreen(tester, container);
+
+    await tester.enterText(find.byType(TextField), 'Pizza, Sushi');
+    await tester.tap(find.text('+'));
+    await tester.pumpAndSettle();
+
+    final decrease = tester.widget<IconButton>(
+      find.widgetWithIcon(IconButton, Icons.remove).first,
+    );
+    expect(decrease.onPressed, isNull);
+  });
 }
 
 ProviderContainer _container() {

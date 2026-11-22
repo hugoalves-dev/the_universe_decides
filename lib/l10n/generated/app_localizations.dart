@@ -388,6 +388,24 @@ abstract class AppLocalizations {
   /// **'This item already exists in the list.'**
   String get listDuplicateItem;
 
+  /// No description provided for @listWeightIncrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase weight'**
+  String get listWeightIncrease;
+
+  /// No description provided for @listWeightDecrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease weight'**
+  String get listWeightDecrease;
+
+  /// No description provided for @listWeightValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight {weight}'**
+  String listWeightValue(int weight);
+
   /// No description provided for @listDuplicateItemsDiscarded.
   ///
   /// In en, this message translates to:

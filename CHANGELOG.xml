@@ -1,53 +1,44 @@
 <en-US>
-- Large dice rolls no longer cut off the sum: the total always stays visible.
-- New roll details button shows every die, the full sum and the total in a scrollable dialog.
-- A progress indicator now appears while the dice values are being fetched.
+- Each List Draw option now has a weight: an option set to ×2 is twice as likely to be chosen as one set to ×1.
+- The wheel draws each slice proportional to its weight, so no more duplicating options to change the odds.
 </en-US>
 
 <pt-BR>
-- Rolagens com muitos dados não cortam mais a soma: o total fica sempre visível.
-- Novo botão de detalhes da rolagem mostra cada dado, a soma completa e o total em uma janela rolável.
-- Um indicador de progresso agora aparece enquanto os valores dos dados são obtidos.
+- Cada opção do Sorteio de Lista agora tem um peso: uma opção com ×2 tem o dobro de chance de ser escolhida que uma com ×1.
+- A roleta desenha cada fatia proporcional ao seu peso, sem precisar duplicar opções para mudar as chances.
 </pt-BR>
 
 <es-ES>
-- Las tiradas con muchos dados ya no cortan la suma: el total siempre queda visible.
-- El nuevo botón de detalles de la tirada muestra cada dado, la suma completa y el total en un diálogo desplazable.
-- Ahora aparece un indicador de progreso mientras se obtienen los valores de los dados.
+- Cada opción del Sorteo de Lista ahora tiene un peso: una opción con ×2 tiene el doble de probabilidad de salir que una con ×1.
+- La ruleta dibuja cada porción proporcional a su peso, sin duplicar opciones para cambiar las probabilidades.
 </es-ES>
 
 <de>
-- Große Würfelwürfe schneiden die Summe nicht mehr ab: Die Gesamtsumme bleibt immer sichtbar.
-- Die neue Schaltfläche für Wurfdetails zeigt jeden Würfel, die vollständige Summe und das Ergebnis in einem scrollbaren Dialog.
-- Während die Würfelwerte abgerufen werden, erscheint jetzt eine Fortschrittsanzeige.
+- Jede Option der Listenauslosung hat jetzt eine Gewichtung: Eine Option mit ×2 wird doppelt so oft gewählt wie eine mit ×1.
+- Das Rad zeichnet jedes Segment proportional zu seiner Gewichtung – Optionen müssen nicht mehr dupliziert werden.
 </de>
 
 <fr-FR>
-- Les lancers avec beaucoup de dés ne coupent plus la somme : le total reste toujours visible.
-- Le nouveau bouton de détails du lancer affiche chaque dé, la somme complète et le total dans une fenêtre défilante.
-- Un indicateur de progression s’affiche désormais pendant la récupération des valeurs des dés.
+- Chaque option du Tirage de liste a désormais un poids : une option à ×2 a deux fois plus de chances d’être choisie qu’une option à ×1.
+- La roue dessine chaque part proportionnellement à son poids, plus besoin de dupliquer des options pour changer les chances.
 </fr-FR>
 
 <hi>
-- बहुत सारे पासों वाले रोल में अब योग कटता नहीं है: कुल हमेशा दिखाई देता है।
-- नया रोल विवरण बटन हर पासा, पूरा योग और कुल एक स्क्रॉल करने योग्य डायलॉग में दिखाता है।
-- पासों के मान प्राप्त होने के दौरान अब एक प्रगति संकेतक दिखाई देता है।
+- सूची ड्रॉ के हर विकल्प का अब एक भार है: ×2 वाला विकल्प ×1 वाले की तुलना में दोगुनी बार चुना जाता है।
+- चक्र हर हिस्से को उसके भार के अनुपात में बनाता है, अब संभावना बदलने के लिए विकल्प दोहराने की ज़रूरत नहीं।
 </hi>
 
 <it>
-- I lanci con molti dadi non tagliano più la somma: il totale resta sempre visibile.
-- Il nuovo pulsante dei dettagli del lancio mostra ogni dado, la somma completa e il totale in una finestra scorrevole.
-- Ora appare un indicatore di avanzamento mentre vengono ottenuti i valori dei dadi.
+- Ogni opzione dell’Estrazione da lista ora ha un peso: un’opzione con ×2 ha il doppio delle probabilità di una con ×1.
+- La ruota disegna ogni spicchio in proporzione al suo peso, senza più duplicare le opzioni per cambiare le probabilità.
 </it>
 
 <tr>
-- Çok sayıda zarla yapılan atışlarda toplam artık kesilmiyor: sonuç her zaman görünür kalıyor.
-- Yeni atış ayrıntıları düğmesi her zarı, tam toplamı ve sonucu kaydırılabilir bir pencerede gösteriyor.
-- Zar değerleri alınırken artık bir ilerleme göstergesi görünüyor.
+- Liste çekilişindeki her seçeneğin artık bir ağırlığı var: ×2 olan bir seçenek, ×1 olana göre iki kat daha sık seçilir.
+- Çark her dilimi ağırlığıyla orantılı çizer; olasılıkları değiştirmek için seçenekleri çoğaltmaya gerek yok.
 </tr>
 
 <uk>
-- Кидки з великою кількістю кубиків більше не обрізають суму: підсумок завжди видно.
-- Нова кнопка деталей кидка показує кожен кубик, повну суму й підсумок у прокручуваному вікні.
-- Під час отримання значень кубиків тепер з’являється індикатор виконання.
+- Кожен варіант жеребкування зі списку тепер має вагу: варіант із ×2 обирається вдвічі частіше, ніж із ×1.
+- Колесо малює кожен сектор пропорційно до його ваги, тож більше не треба дублювати варіанти, щоб змінити шанси.
 </uk>

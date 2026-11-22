@@ -4,8 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:theuniversedecides/services/random_org_service.dart';
 import 'package:theuniversedecides/utils/list_item_dedup.dart';
+import 'package:theuniversedecides/utils/weighted_pick.dart';
 
 const _unset = Object();
+
+/// Allowed range for an item's draw weight. New items start at the minimum.
+const int listMinItemWeight = 1;
+const int listMaxItemWeight = 99;
 
 final listPickerProvider =
     NotifierProvider<ListPickerController, ListPickerState>(
@@ -15,6 +20,7 @@ final listPickerProvider =
 class ListPickerState {
   const ListPickerState({
     this.items = const [],
+    this.weights = const [],
     this.isLoading = false,
     this.isScanning = false,
     this.scanIndex,
@@ -22,6 +28,10 @@ class ListPickerState {
   });
 
   final List<String> items;
+
+  /// Draw weight of each item, parallel to [items]. An item with weight 2 is
+  /// twice as likely to be chosen as an item with weight 1.
+  final List<int> weights;
   final bool isLoading;
   final bool isScanning;
   final int? scanIndex;
@@ -29,6 +39,7 @@ class ListPickerState {
 
   ListPickerState copyWith({
     List<String>? items,
+    List<int>? weights,
     bool? isLoading,
     bool? isScanning,
     Object? scanIndex = _unset,
@@ -36,6 +47,7 @@ class ListPickerState {
   }) {
     return ListPickerState(
       items: items ?? this.items,
+      weights: weights ?? this.weights,
       isLoading: isLoading ?? this.isLoading,
       isScanning: isScanning ?? this.isScanning,
       scanIndex: identical(scanIndex, _unset)
@@ -123,6 +135,10 @@ class ListPickerController extends Notifier<ListPickerState> {
     if (deduped.items.isNotEmpty) {
       state = state.copyWith(
         items: [...state.items, ...deduped.items],
+        weights: [
+          ...state.weights,
+          for (var i = 0; i < deduped.items.length; i++) listMinItemWeight,
+        ],
         selectedIndex: null,
       );
     }
@@ -139,6 +155,7 @@ class ListPickerController extends Notifier<ListPickerState> {
       return;
     }
     final updatedItems = [...state.items]..removeAt(index);
+    final updatedWeights = [...state.weights]..removeAt(index);
     int? selectedIndex = state.selectedIndex;
 
     if (selectedIndex == index) {
@@ -147,7 +164,34 @@ class ListPickerController extends Notifier<ListPickerState> {
       selectedIndex = selectedIndex - 1;
     }
 
-    state = state.copyWith(items: updatedItems, selectedIndex: selectedIndex);
+    state = state.copyWith(
+      items: updatedItems,
+      weights: updatedWeights,
+      selectedIndex: selectedIndex,
+    );
+  }
+
+  /// Sets the draw weight of the item at [index], clamped to
+  /// [listMinItemWeight]..[listMaxItemWeight].
+  void setWeight(int index, int weight) {
+    if (state.isLoading || index < 0 || index >= state.weights.length) {
+      return;
+    }
+    final updatedWeights = [...state.weights];
+    updatedWeights[index] = weight.clamp(listMinItemWeight, listMaxItemWeight);
+    state = state.copyWith(weights: updatedWeights);
+  }
+
+  /// Draws one weighted ticket through the randomness service and maps it
+  /// to the winning item index.
+  Future<int> _drawWeightedIndex() async {
+    final weights = state.weights;
+    final values = await _randomOrgService.fetchIntegers(
+      count: 1,
+      min: 0,
+      max: totalWeight(weights) - 1,
+    );
+    return weightedIndexForTicket(weights, values.isEmpty ? 0 : values.first);
   }
 
   /// Fetches the real result, then reveals it through a roulette-style scan
@@ -167,11 +211,7 @@ class ListPickerController extends Notifier<ListPickerState> {
       selectedIndex: null,
     );
 
-    final fetchFuture = _randomOrgService.fetchIntegers(
-      count: 1,
-      min: 0,
-      max: itemCount - 1,
-    );
+    final fetchFuture = _drawWeightedIndex();
 
     if (!reduceMotion) {
       final totalSteps = itemCount * 2 + _extraScanSteps;
@@ -185,17 +225,17 @@ class ListPickerController extends Notifier<ListPickerState> {
       }
     }
 
-    final values = await fetchFuture;
+    final winner = await fetchFuture;
     state = state.copyWith(
       isLoading: false,
       isScanning: false,
       scanIndex: null,
-      selectedIndex: values.isEmpty ? 0 : values.first,
+      selectedIndex: winner,
     );
   }
 
-  /// Fetches a winner through the exact same randomness service and rule as
-  /// [pickItem] (a single integer in `[0, itemCount)`), for the wheel mode's
+  /// Fetches a winner through the exact same randomness service and weighted
+  /// rule as [pickItem] (a single ticket in `[0, totalWeight)`), for the wheel mode's
   /// reveal. Unlike [pickItem], this does not drive a fake highlight scan —
   /// the wheel widget owns its own purely-visual spin animation and reads
   /// [ListPickerState.selectedIndex] once this resolves. Returns the winning
@@ -206,7 +246,6 @@ class ListPickerController extends Notifier<ListPickerState> {
       return null;
     }
 
-    final itemCount = state.items.length;
     state = state.copyWith(
       isLoading: true,
       isScanning: false,
@@ -214,12 +253,7 @@ class ListPickerController extends Notifier<ListPickerState> {
       selectedIndex: null,
     );
 
-    final values = await _randomOrgService.fetchIntegers(
-      count: 1,
-      min: 0,
-      max: itemCount - 1,
-    );
-    final winner = values.isEmpty ? 0 : values.first;
+    final winner = await _drawWeightedIndex();
 
     state = state.copyWith(isLoading: false, selectedIndex: winner);
     return winner;

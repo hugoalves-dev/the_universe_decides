@@ -63,6 +63,16 @@
   "listWheelHint": "Add at least two options, then give it a spin.",
   "listWheelSpinAgainHint": "Tap spin to try again.",
   "listDuplicateItem": "This item already exists in the list.",
+  "listWeightIncrease": "Increase weight",
+  "listWeightDecrease": "Decrease weight",
+  "listWeightValue": "Weight {weight}",
+  "@listWeightValue": {
+    "placeholders": {
+      "weight": {
+        "type": "int"
+      }
+    }
+  },
   "listDuplicateItemsDiscarded": "{count, plural, one{1 duplicate item was skipped.} other{{count} duplicate items were skipped.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

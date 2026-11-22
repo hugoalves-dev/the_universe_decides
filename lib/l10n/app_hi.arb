@@ -53,6 +53,9 @@
   "listWheelHint": "कम से कम दो विकल्प जोड़ें, फिर घुमाएं।",
   "listWheelSpinAgainHint": "फिर से आज़माने के लिए घुमाएं दबाएं।",
   "listDuplicateItem": "यह आइटम पहले से सूची में मौजूद है।",
+  "listWeightIncrease": "भार बढ़ाएँ",
+  "listWeightDecrease": "भार घटाएँ",
+  "listWeightValue": "भार {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{1 डुप्लिकेट आइटम छोड़ दिया गया।} other{{count} डुप्लिकेट आइटम छोड़ दिए गए।}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

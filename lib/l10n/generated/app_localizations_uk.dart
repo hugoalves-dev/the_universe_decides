@@ -157,6 +157,17 @@ class AppLocalizationsUk extends AppLocalizations {
   String get listDuplicateItem => 'Цей елемент вже є у списку.';
 
   @override
+  String get listWeightIncrease => 'Збільшити вагу';
+
+  @override
+  String get listWeightDecrease => 'Зменшити вагу';
+
+  @override
+  String listWeightValue(int weight) {
+    return 'Вага $weight';
+  }
+
+  @override
   String listDuplicateItemsDiscarded(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

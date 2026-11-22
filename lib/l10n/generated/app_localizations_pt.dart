@@ -153,6 +153,17 @@ class AppLocalizationsPt extends AppLocalizations {
   String get listDuplicateItem => 'Este item já existe na lista.';
 
   @override
+  String get listWeightIncrease => 'Aumentar peso';
+
+  @override
+  String get listWeightDecrease => 'Diminuir peso';
+
+  @override
+  String listWeightValue(int weight) {
+    return 'Peso $weight';
+  }
+
+  @override
   String listDuplicateItemsDiscarded(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

@@ -53,6 +53,9 @@
   "listWheelHint": "Додайте щонайменше два варіанти, а тоді крутіть.",
   "listWheelSpinAgainHint": "Натисніть «крутити», щоб спробувати ще раз.",
   "listDuplicateItem": "Цей елемент вже є у списку.",
+  "listWeightIncrease": "Збільшити вагу",
+  "listWeightDecrease": "Зменшити вагу",
+  "listWeightValue": "Вага {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{Пропущено 1 дубльований елемент.} few{Пропущено {count} дубльовані елементи.} many{Пропущено {count} дубльованих елементів.} other{Пропущено {count} дубльованого елемента.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {

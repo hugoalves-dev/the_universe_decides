@@ -284,8 +284,12 @@ class _ListPickerScreenState extends ConsumerState<ListPickerScreen> {
             _ItemRow(
               index: i,
               label: state.items[i],
+              weight: state.weights[i],
               selected: state.selectedIndex == i,
               scanning: state.isScanning && state.scanIndex == i,
+              onWeightChanged: state.isLoading
+                  ? null
+                  : (weight) => controller.setWeight(i, weight),
               onRemove: state.isLoading ? null : () => controller.removeItem(i),
             ),
           ],
@@ -308,8 +312,12 @@ class _ListPickerScreenState extends ConsumerState<ListPickerScreen> {
           _ItemRow(
             index: i,
             label: state.items[i],
+            weight: state.weights[i],
             selected: false,
             scanning: false,
+            onWeightChanged: state.isLoading
+                ? null
+                : (weight) => controller.setWeight(i, weight),
             onRemove: state.isLoading ? null : () => controller.removeItem(i),
           ),
         ],
@@ -516,15 +524,19 @@ class _ItemRow extends StatelessWidget {
   const _ItemRow({
     required this.index,
     required this.label,
+    required this.weight,
     required this.selected,
     required this.scanning,
+    required this.onWeightChanged,
     required this.onRemove,
   });
 
   final int index;
   final String label;
+  final int weight;
   final bool selected;
   final bool scanning;
+  final ValueChanged<int>? onWeightChanged;
   final VoidCallback? onRemove;
 
   @override
@@ -585,6 +597,9 @@ class _ItemRow extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(width: 6),
+          _WeightStepper(weight: weight, onChanged: onWeightChanged),
+          const SizedBox(width: 4),
           InkWell(
             onTap: onRemove,
             borderRadius: BorderRadius.circular(13),
@@ -601,6 +616,83 @@ class _ItemRow extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Compact `− ×N +` control that sets how often an option is drawn
+/// relative to the others (an option with ×2 is twice as likely as ×1).
+class _WeightStepper extends StatelessWidget {
+  const _WeightStepper({required this.weight, required this.onChanged});
+
+  final int weight;
+  final ValueChanged<int>? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final onChanged = this.onChanged;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _WeightButton(
+          icon: Icons.remove,
+          tooltip: l10n.listWeightDecrease,
+          onPressed: onChanged == null || weight <= listMinItemWeight
+              ? null
+              : () => onChanged(weight - 1),
+        ),
+        Semantics(
+          label: l10n.listWeightValue(weight),
+          excludeSemantics: true,
+          child: SizedBox(
+            width: 30,
+            child: Text(
+              '×$weight',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textSoft,
+              ),
+            ),
+          ),
+        ),
+        _WeightButton(
+          icon: Icons.add,
+          tooltip: l10n.listWeightIncrease,
+          onPressed: onChanged == null || weight >= listMaxItemWeight
+              ? null
+              : () => onChanged(weight + 1),
+        ),
+      ],
+    );
+  }
+}
+
+class _WeightButton extends StatelessWidget {
+  const _WeightButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(icon),
+      iconSize: 16,
+      tooltip: tooltip,
+      onPressed: onPressed,
+      color: AppColors.textDim,
+      disabledColor: AppColors.textDim.withValues(alpha: 0.3),
+      visualDensity: VisualDensity.compact,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints.tightFor(width: 28, height: 28),
     );
   }
 }

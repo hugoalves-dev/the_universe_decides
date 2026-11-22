@@ -155,6 +155,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get listDuplicateItem => 'Bu öğe listede zaten var.';
 
   @override
+  String get listWeightIncrease => 'Ağırlığı artır';
+
+  @override
+  String get listWeightDecrease => 'Ağırlığı azalt';
+
+  @override
+  String listWeightValue(int weight) {
+    return 'Ağırlık $weight';
+  }
+
+  @override
   String listDuplicateItemsDiscarded(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

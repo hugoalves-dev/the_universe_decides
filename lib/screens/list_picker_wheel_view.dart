@@ -104,13 +104,14 @@ class _ListPickerWheelViewState extends ConsumerState<ListPickerWheelView>
       return;
     }
 
-    final itemCount = ref.read(listPickerProvider).items.length;
+    final weights = ref.read(listPickerProvider).weights;
 
     if (reduceMotion) {
       setState(() {
         _rotation = computeWheelTargetRotation(
           winnerIndex: winner,
-          itemCount: itemCount,
+          itemCount: weights.length,
+          weights: weights,
           currentRotation: _rotation,
           extraSpins: 0,
           direction: flick?.direction ?? 1,
@@ -127,7 +128,8 @@ class _ListPickerWheelViewState extends ConsumerState<ListPickerWheelView>
     _animateFrom = _rotation;
     _animateTo = computeWheelTargetRotation(
       winnerIndex: winner,
-      itemCount: itemCount,
+      itemCount: weights.length,
+      weights: weights,
       currentRotation: _rotation,
       extraSpins: flick?.extraSpins ?? wheelDefaultExtraSpins,
       direction: flick?.direction ?? 1,
@@ -266,7 +268,11 @@ class _ListPickerWheelViewState extends ConsumerState<ListPickerWheelView>
           onPanUpdate: canSpin ? _onPanUpdate : null,
           onPanEnd: canSpin ? _onPanEnd : null,
           onPanCancel: canSpin ? _onPanCancel : null,
-          child: _WheelDial(items: state.items, rotation: _rotation),
+          child: _WheelDial(
+            items: state.items,
+            weights: state.weights,
+            rotation: _rotation,
+          ),
         ),
         const SizedBox(height: 20),
         RitualButton(
@@ -373,9 +379,14 @@ class _WheelResultBanner extends StatelessWidget {
 
 /// The static pointer, spinning wheel disc, and center hub.
 class _WheelDial extends StatelessWidget {
-  const _WheelDial({required this.items, required this.rotation});
+  const _WheelDial({
+    required this.items,
+    required this.weights,
+    required this.rotation,
+  });
 
   final List<String> items;
+  final List<int> weights;
   final double rotation;
 
   static const double _diameter = 240;
@@ -397,7 +408,7 @@ class _WheelDial extends StatelessWidget {
               angle: rotation,
               child: CustomPaint(
                 size: const Size(_diameter, _diameter),
-                painter: _WheelPainter(items: items),
+                painter: _WheelPainter(items: items, weights: weights),
               ),
             ),
           ),
@@ -461,9 +472,12 @@ const _segmentPalette = <Color>[
 ];
 
 class _WheelPainter extends CustomPainter {
-  _WheelPainter({required this.items});
+  _WheelPainter({required this.items, required this.weights});
 
   final List<String> items;
+
+  /// Slice sizes are proportional to these weights (one per item).
+  final List<int> weights;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -483,25 +497,25 @@ class _WheelPainter extends CustomPainter {
       return;
     }
 
-    final segment = wheelSegmentAngle(itemCount);
+    final segments = wheelSegments(weights);
     final showLabels = wheelShouldShowLabels(itemCount);
     final fontSize = wheelLabelFontSize(itemCount);
 
-    for (var i = 0; i < itemCount; i++) {
-      final startAngle = i * segment;
+    for (var i = 0; i < segments.length; i++) {
+      final segment = segments[i];
       final color = _segmentPalette[i % _segmentPalette.length];
 
       canvas.drawArc(
         rect,
-        startAngle,
-        segment,
+        segment.start,
+        segment.sweep,
         true,
         Paint()..color = color,
       );
       canvas.drawArc(
         rect,
-        startAngle,
-        segment,
+        segment.start,
+        segment.sweep,
         true,
         Paint()
           ..color = const Color(0x33000000)
@@ -514,7 +528,7 @@ class _WheelPainter extends CustomPainter {
           canvas,
           center: center,
           radius: radius,
-          midAngle: startAngle + segment / 2,
+          midAngle: segment.center,
           text: items[i],
           fontSize: fontSize,
         );
@@ -570,5 +584,5 @@ class _WheelPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _WheelPainter oldDelegate) =>
-      oldDelegate.items != items;
+      oldDelegate.items != items || oldDelegate.weights != weights;
 }

@@ -40,6 +40,33 @@ double wheelSegmentAngle(int itemCount) {
   return (2 * math.pi) / itemCount;
 }
 
+/// One slice of the wheel, in canvas radians.
+class WheelSegment {
+  const WheelSegment({required this.start, required this.sweep});
+
+  final double start;
+  final double sweep;
+
+  double get center => start + sweep / 2;
+}
+
+/// Slices for a wheel whose items have the given [weights]: each slice's
+/// sweep is proportional to its weight, laid out clockwise from angle 0.
+/// Returns an empty list when there is nothing to draw.
+List<WheelSegment> wheelSegments(List<int> weights) {
+  final total = weights.fold<int>(0, (sum, weight) => sum + weight);
+  if (total <= 0) return const [];
+
+  final segments = <WheelSegment>[];
+  var start = 0.0;
+  for (final weight in weights) {
+    final sweep = 2 * math.pi * weight / total;
+    segments.add(WheelSegment(start: start, sweep: sweep));
+    start += sweep;
+  }
+  return segments;
+}
+
 /// Normalizes [angle] into the range `[0, 2π)`.
 double normalizeAngle(double angle) {
   const twoPi = 2 * math.pi;
@@ -140,6 +167,9 @@ WheelFlickProfile? computeWheelFlickProfile({
 /// clockwise, `-1` for counter-clockwise) and layers on [extraSpins] full
 /// revolutions so short hops still feel like a spin.
 ///
+/// Pass [weights] (one per item) when slices are sized by weight; without
+/// them every slice is the same size.
+///
 /// The winner is decided entirely by the caller (via the randomness
 /// service) *before* this is invoked — this function is a one-way, visual
 /// mapping only, it never influences which index "wins".
@@ -149,6 +179,7 @@ double computeWheelTargetRotation({
   required double currentRotation,
   int extraSpins = wheelDefaultExtraSpins,
   int direction = 1,
+  List<int>? weights,
 }) {
   assert(itemCount > 0, 'itemCount must be positive');
   assert(
@@ -156,9 +187,14 @@ double computeWheelTargetRotation({
     'winnerIndex out of range',
   );
   assert(direction == 1 || direction == -1, 'direction must be 1 or -1');
+  assert(
+    weights == null || weights.length == itemCount,
+    'weights must have one entry per item',
+  );
 
-  final segment = wheelSegmentAngle(itemCount);
-  final segmentCenter = segment * winnerIndex + segment / 2;
+  final segmentCenter = weights != null
+      ? wheelSegments(weights)[winnerIndex].center
+      : wheelSegmentAngle(itemCount) * (winnerIndex + 0.5);
   final desiredMod = normalizeAngle(wheelPointerAngle - segmentCenter);
   final currentMod = normalizeAngle(currentRotation);
 

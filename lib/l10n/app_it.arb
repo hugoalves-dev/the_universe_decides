@@ -53,6 +53,9 @@
   "listWheelHint": "Aggiungi almeno due opzioni, poi girala.",
   "listWheelSpinAgainHint": "Tocca gira per riprovare.",
   "listDuplicateItem": "Questo elemento è già presente nella lista.",
+  "listWeightIncrease": "Aumenta peso",
+  "listWeightDecrease": "Diminuisci peso",
+  "listWeightValue": "Peso {weight}",
   "listDuplicateItemsDiscarded": "{count, plural, one{È stato ignorato 1 elemento duplicato.} other{Sono stati ignorati {count} elementi duplicati.}}",
   "@listDuplicateItemsDiscarded": {
     "placeholders": {
